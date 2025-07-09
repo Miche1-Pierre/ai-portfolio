@@ -77,9 +77,9 @@ export default function NavigationMenu() {
         style={{
           width: 800,
           height: 400,
-          background: "rgba(0, 200, 255, 0.2)",
+          background: "rgba(0, 200, 255, 0.15)",
           filter: "blur(80px)",
-          boxShadow: "0 0 500px 200px rgba(0, 200, 255, 0.2)",
+          boxShadow: "0 0 500px 200px rgba(0, 200, 255, 0.15)",
           top: "0",
           left: "100%",
           transform: "translateX(-30%)",
