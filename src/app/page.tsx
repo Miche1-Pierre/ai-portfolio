@@ -59,7 +59,7 @@ export default function Home() {
         <section className="max-w-3xl">
           <Badge>Home</Badge>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mt-4 leading-tight">
-            I craft <span className="text-[#45d8ac]">modern</span> web
+            I build <span className="text-[#45d8ac]">modern</span> web
             experiences that are
             <span className="text-[#45d8ac]"> fast</span>,{" "}
             <span className="text-[#45d8ac]">elegant</span> and{" "}
