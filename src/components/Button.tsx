@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import classNames from "classnames";
 
@@ -15,16 +17,56 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const baseStyles =
-    "rounded-[6px] font-semibold focus:outline-none transition-transform transform cursor-pointer active:scale-95";
+  const baseStyles = `
+    rounded-full 
+    backdrop-blur-sm 
+    border 
+    px-2 py-1 
+    text-sm font-medium 
+    transition-colors duration-300 
+    shadow-sm 
+    focus:outline-none 
+    active:scale-95 
+    cursor-pointer
+  `;
 
   const variantStyles = {
-    primary: "bg-[#45d8ac] text-white hover:bg-[#3ac196] focus:ring-[#38b89f]",
-    secondary:
-      "bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400",
-    outline:
-      "bg-transparent border border-gray-300 text-white hover:border-[#45d8ac] hover:text-[#45d8ac] hover:bg-[rgba(69,216,172,0.1)] focus:ring-[#38b89f]",
-    danger: "bg-red-500 text-white hover:bg-red-600 focus:ring-red-400",
+    primary: `
+      bg-[#45d8ac] 
+      text-white 
+      border-transparent 
+      hover:bg-[#3ac196] 
+      dark:bg-[#45d8ac] 
+      dark:hover:bg-[#3ac196]
+    `,
+    secondary: `
+      bg-white/80 
+      text-zinc-900 
+      dark:bg-zinc-900/80 
+      dark:text-white 
+      border-zinc-300 
+      dark:border-white/10 
+      hover:bg-[#45d8ac]/10 
+      hover:border-[#45d8ac] 
+      hover:text-[#45d8ac] 
+      dark:hover:bg-[#45d8ac]/10
+    `,
+    outline: `
+      bg-transparent 
+      text-zinc-900 
+      dark:text-white 
+      border-gray-300 
+      hover:border-[#45d8ac] 
+      hover:text-[#45d8ac] 
+      hover:bg-[#45d8ac]/10 
+      dark:hover:bg-[#45d8ac]/10
+    `,
+    danger: `
+      bg-red-500 
+      text-white 
+      border-transparent 
+      hover:bg-red-600
+    `,
   };
 
   const sizeStyles = {
