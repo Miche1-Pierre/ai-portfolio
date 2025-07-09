@@ -53,7 +53,7 @@ export default function Home() {
         <NavigationMenu />
       </header>
 
-      <main className="flex-grow px-6 sm:px-20 py-10 flex flex-col gap-28 items-center text-left">
+      <main className="flex-grow px-6 sm:px-20 py-10 flex flex-col gap-28 items-center text-left mt-20">
         {/* Hero */}
         <section className="max-w-3xl">
           <Badge>Home</Badge>
