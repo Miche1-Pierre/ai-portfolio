@@ -31,7 +31,7 @@ export default function NotFound() {
       </Text>
       <Button
         className="mt-7"
-        variant="outline"
+        variant="secondary"
         onClick={() => router.push("/")}
       >
         Home
