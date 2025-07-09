@@ -113,7 +113,7 @@ export default function FloatingBadgeCloud() {
 
   return (
     <div
-      className="relative mx-auto"
+      className="relative mx-auto z-1"
       style={{ width: 800, height: 400 }}
       ref={containerRef}
     >
