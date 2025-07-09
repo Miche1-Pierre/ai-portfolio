@@ -17,7 +17,7 @@ const techs: { name: string; color: BadgeColor }[] = [
 ];
 
 const MIN_DISTANCE = 90;
-const RADIUS = 180;
+const RADIUS = 250;
 const MAX_TRIES = 100;
 
 function getRandomPosition(radius: number) {
@@ -106,7 +106,7 @@ export default function FloatingBadgeCloud() {
       <div
         ref={containerRef}
         className="relative mx-auto"
-        style={{ width: 600, height: 400 }}
+        style={{ width: 800, height: 400 }}
       />
     );
   }
@@ -114,56 +114,9 @@ export default function FloatingBadgeCloud() {
   return (
     <div
       className="relative mx-auto"
-      style={{ width: 600, height: 400 }}
+      style={{ width: 800, height: 400 }}
       ref={containerRef}
     >
-      {/* Spot light blanc */}
-      <div
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          width: 600,
-          height: 200,
-          background: "rgba(255, 255, 255, 0.1)",
-          filter: "blur(70px)",
-          boxShadow: "0 0 120px 80px rgba(255, 255, 255, 0.1)",
-          top: "20%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 0,
-        }}
-      />
-
-      {/* Spot light orange rétro */}
-      <div
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          width: 500,
-          height: 400,
-          background: "rgba(255, 140, 0, 0.1)",
-          filter: "blur(70px)",
-          boxShadow: "0 0 100px 70px rgba(255, 140, 0, 0.1)",
-          top: "80%",
-          left: "0%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 0,
-        }}
-      />
-
-      {/* Spot light cyan */}
-      <div
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          width: 500,
-          height: 400,
-          background: "rgba(0, 200, 255, 0.1)",
-          filter: "blur(70px)",
-          boxShadow: "0 0 110px 75px rgba(0, 200, 255, 0.1)",
-          top: "80%",
-          left: "100%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 0,
-        }}
-      />
 
       {/* Lignes entre les badges */}
       <svg
