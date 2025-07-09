@@ -144,10 +144,10 @@ const colorClasses: Record<BadgeColor, string> = {
     hover:bg-[#000000]/20
   `,
   django: `
-    bg-[#092e20]/10
-    text-[#092e20]
+    bg-[#20aa76]/10
+    text-[#20aa76]
     border border-zinc-300 dark:border-white/10
-    hover:bg-[#092e20]/20
+    hover:bg-[#20aa76]/20
   `,
   MySQL: `
     bg-[#f49f2f]/10 
@@ -192,10 +192,10 @@ const colorClasses: Record<BadgeColor, string> = {
     hover:bg-[#f0f6fc]/20
   `,
   postman: `
-    bg-[#ff6c37]/10
-    text-[#ff6c37]
+    bg-[#e76f00]/10
+    text-[#e76f00]
     border border-zinc-300 dark:border-white/10
-    hover:bg-[#ff6c37]/20
+    hover:bg-[#e76f00]/20
   `,
   virtualbox: `
     bg-[#183a9e]/10
@@ -204,10 +204,10 @@ const colorClasses: Record<BadgeColor, string> = {
     hover:bg-[#183a9e]/20
   `,
   teams: `
-    bg-[#6264a7]/10
-    text-[#6264a7]
+    bg-[#7b84ea]/10
+    text-[#7b84ea]
     border border-zinc-300 dark:border-white/10
-    hover:bg-[#6264a7]/20
+    hover:bg-[#7b84ea]/20
   `,
   microsoft365: `
     bg-[#0078d4]/10
