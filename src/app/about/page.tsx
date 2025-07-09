@@ -5,28 +5,51 @@ import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import Profile from "@/components/about/Profile";
 import WorkExperienceItem from "@/components/about/Experience";
+import EducationItem from "@/components/about/Education";
+import SkillSection from "@/components/about/Skills";
 
 import { useEffect, useState } from "react";
 import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
 
 const experiences = [
   {
-    company: "Awesome Startup",
+    company: "SynapsIA",
     role: "Fullstack Developer",
-    startDate: "Jan 2023",
-    endDate: "Present",
+    startDate: "Apr 2025",
+    endDate: "June 2025",
     description:
-      "Developed new features and maintained core web applications using React and Node.js.",
-    imageSrc: "/images/awesome-startup.png",
+      "Complete development of an internal application for reporting, project management and team management, with customized statistics and a modern environment.",
+    imageSrc: "",
+    technologies: [
+      "php",
+      "html",
+      "css",
+      "js",
+      "mysql",
+      "docker",
+      "wampserver",
+      "trello",
+      "github",
+    ],
   },
   {
-    company: "Tech Corp",
-    role: "Frontend Engineer",
-    startDate: "Jun 2021",
-    endDate: "Dec 2022",
+    company: "LORIA",
+    role: "Fullstack Developer",
+    startDate: "May 2024",
+    endDate: "July 2024",
     description:
-      "Implemented UI components with React and improved performance by 30%.",
-    imageSrc: "/images/tech-corp.png",
+      "Development of a Letter of Recommendation management application for LORIA applications",
+    imageSrc: "",
+    technologies: ["python", "html", "css", "js", "sqlite", "docker", "gitlab"],
+  },
+];
+
+const educations = [
+  {
+    institution: "Metz Numeric School",
+    fieldOfStudy: "Master of Computer Engineering Development",
+    startDate: "2023",
+    endDate: "Present",
   },
 ];
 
@@ -55,7 +78,7 @@ export default function About() {
 
       <main className="flex-grow px-6 sm:px-20 py-10 mt-20">
         <div className="relative max-w-7xl mx-auto px-6 flex gap-10">
-          {/* Colonne gauche fixe/sticky */}
+          {/* Colonne gauche */}
           <aside className="sticky top-20 w-60 self-start">
             <Profile />
           </aside>
@@ -63,7 +86,7 @@ export default function About() {
           {/* Colonne centrale */}
           <section className="flex-1 max-w-3xl mx-auto flex flex-col gap-28">
             <div className="sm:w-2/3 flex flex-col">
-              <h1 className="text-4xl font-bold">Pierre MICHEL</h1>
+              <h1 className="text-6xl font-bold">Pierre MICHEL</h1>
               <p className="text-xl text-[#45d8ac] font-semibold mt-2">
                 Fullstack Developer
               </p>
@@ -119,10 +142,30 @@ export default function About() {
                     description={exp.description}
                     imageSrc={exp.imageSrc}
                     imageAlt={`${exp.company} logo`}
+                    technologies={exp.technologies}
                   />
                 ))}
               </div>
             </section>
+
+            {/* Education Section */}
+            <section className="w-full">
+              <h2 className="text-3xl font-bold mb-8">Education</h2>
+              <div className="space-y-6">
+                {educations.map((edu, index) => (
+                  <EducationItem
+                    key={index}
+                    institution={edu.institution}
+                    fieldOfStudy={edu.fieldOfStudy}
+                    startDate={edu.startDate}
+                    endDate={edu.endDate}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* Skills Section */}
+            <SkillSection />
           </section>
         </div>
       </main>
