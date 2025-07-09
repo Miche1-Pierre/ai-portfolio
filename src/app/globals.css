@@ -26,3 +26,17 @@ body {
   color: var(--foreground);
   font-family: "Space Mono", monospace;
 }
+
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
