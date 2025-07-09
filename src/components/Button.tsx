@@ -28,6 +28,7 @@ export default function Button({
     focus:outline-none 
     active:scale-95 
     cursor-pointer
+    z-1
   `;
 
   const variantStyles = {
