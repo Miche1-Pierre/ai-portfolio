@@ -67,8 +67,8 @@ const getBadgeColor = (tech: string): BadgeColor => {
 
     case "java":
       return "java";
-    case "spring boot":
-      return "java";
+    case "spring-boot":
+      return "springboot";
     case "php":
       return "php";
     case "next.js":
@@ -84,17 +84,17 @@ const getBadgeColor = (tech: string): BadgeColor => {
     case "docker":
       return "Docker";
     case "postman":
-      return "secondary";
+      return "postman";
     case "wampserver":
       return "WampServer";
     case "virtualbox":
-      return "secondary";
+      return "default";
     case "teams":
-      return "secondary";
+      return "teams";
     case "microsoft365":
-      return "secondary";
+      return "microsoft365";
     case "github":
-      return "secondary";
+      return "github";
 
     case "curious":
       return "curious";
