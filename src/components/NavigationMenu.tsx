@@ -3,13 +3,22 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { Home, User, LayoutGrid, FileText, Sun, Moon } from "lucide-react";
+import {
+  Home,
+  User,
+  LayoutGrid,
+  FileText,
+  Sun,
+  Moon,
+  Phone,
+} from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home", icon: <Home size={16} /> },
   { href: "/about", label: "About", icon: <User size={16} /> },
   { href: "/work", label: "Work", icon: <LayoutGrid size={16} /> },
   { href: "/blog", label: "Blog", icon: <FileText size={16} /> },
+  { href: "#contact", label: "Contact", icon: <Phone size={16} /> },
 ];
 
 export default function NavigationMenu() {
@@ -26,12 +35,12 @@ export default function NavigationMenu() {
 
   return (
     <div
-      className="flex items-center 
+      className="fixed flex items-center 
       bg-white/80 text-zinc-900 
       dark:bg-zinc-900/80 dark:text-white
-      rounded-full px-2 py-1 shadow-sm backdrop-blur-sm 
+      rounded-full px-2 py-1 shadow-lg shadow-zinc-400/30 dark:shadow-black/30 backdrop-blur-sm 
       border border-zinc-300 dark:border-white/10 
-      transition-colors duration-300"
+      transition-colors duration-300 z-50"
     >
       {navItems.map((item) => (
         <Link
@@ -61,6 +70,22 @@ export default function NavigationMenu() {
           )
         ) : null}
       </button>
+
+      {/* Spotlight cyan */}
+      <div
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: 800,
+          height: 400,
+          background: "rgba(0, 200, 255, 0.2)",
+          filter: "blur(80px)",
+          boxShadow: "0 0 500px 200px rgba(0, 200, 255, 0.2)",
+          top: "0",
+          left: "100%",
+          transform: "translateX(-30%)",
+          zIndex: 0,
+        }}
+      />
     </div>
   );
 }
