@@ -17,7 +17,6 @@ const techs: { name: string; color: BadgeColor }[] = [
 ];
 
 const MIN_DISTANCE = 90;
-const RADIUS = 250;
 const MAX_TRIES = 100;
 
 function getRandomPosition(radius: number) {
@@ -33,7 +32,7 @@ function distance(a: { x: number; y: number }, b: { x: number; y: number }) {
   return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
 }
 
-function generatePositions(): { x: number; y: number }[] | null {
+function generatePositions(radius: number): { x: number; y: number }[] | null {
   const placedPositions: { x: number; y: number }[] = [];
 
   for (let i = 0; i < techs.length; i++) {
@@ -41,7 +40,7 @@ function generatePositions(): { x: number; y: number }[] | null {
     let tries = 0;
 
     while (tries < MAX_TRIES) {
-      const candidate = getRandomPosition(RADIUS);
+      const candidate = getRandomPosition(radius);
       const tooClose = placedPositions.some(
         (p) => distance(p, candidate) < MIN_DISTANCE
       );
@@ -53,9 +52,7 @@ function generatePositions(): { x: number; y: number }[] | null {
       tries++;
     }
 
-    if (pos === null) {
-      return null;
-    }
+    if (pos === null) return null;
     placedPositions.push(pos);
   }
 
@@ -68,17 +65,22 @@ export default function FloatingBadgeCloud() {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
+    if (containerSize.width === 0) return;
+
+    const dynamicRadius = containerSize.width * 0.28;
+
     let attempts = 0;
     let newPositions = null;
 
+
     while (attempts < 10) {
-      newPositions = generatePositions();
+      newPositions = generatePositions(dynamicRadius);
       if (newPositions) break;
       attempts++;
     }
 
     if (newPositions) setPositions(newPositions);
-  }, []);
+  }, [containerSize.width]);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -113,11 +115,14 @@ export default function FloatingBadgeCloud() {
 
   return (
     <div
-      className="relative mx-auto z-1"
-      style={{ width: 800, height: 400 }}
+      className="relative mx-auto"
       ref={containerRef}
+      style={{
+        width: "100%",
+        maxWidth: "800px",
+        aspectRatio: "2 / 1",
+      }}
     >
-
       {/* Lignes entre les badges */}
       <svg
         className="absolute inset-0 pointer-events-none"
