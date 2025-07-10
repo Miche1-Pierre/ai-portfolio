@@ -82,7 +82,7 @@ export default function ProjectCard({
               className="text-zinc-700 dark:text-zinc-300 hover:text-[#45d8ac] flex items-center gap-1 border border-zinc-300 dark:border-zinc-600 hover:border-[#45d8ac] rounded-full px-2 py-1 hover:bg-zinc-800 dark:hover:bg-zinc-800 transition-colors"
             >
               <Github size={18} />
-              Voir le code
+              See Code
             </a>
           )}
         </div>
