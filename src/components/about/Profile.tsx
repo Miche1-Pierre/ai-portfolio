@@ -8,13 +8,15 @@ export default function Profile() {
   return (
     <section className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-12 items-start">
       <div className="flex flex-col items-center sm:items-start gap-4 text-center sm:text-left">
-        <Image
-          src="/images/profile.png"
-          alt="Pierre Michel"
-          width={150}
-          height={150}
-          className="rounded-full border-2 border-white shadow-lg"
-        />
+        <div className="w-[150px] h-[150px] rounded-full overflow-hidden shadow-[0_0_30px_5px_rgba(69,216,172,0.2)]">
+          <Image
+            src="/images/profile.png"
+            alt="Pierre Michel"
+            width={150}
+            height={150}
+            className="object-cover w-full h-full"
+          />
+        </div>
 
         <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 mt-4">
           <Globe size={18} />
