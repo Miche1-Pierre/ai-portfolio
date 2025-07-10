@@ -21,13 +21,8 @@ const quickLinks = [
   },
   {
     title: "My Work",
-    description: "Check out projects I’ve built and contributed to.",
+    description: "Check out projects I've built and contributed to.",
     href: "/work",
-  },
-  {
-    title: "Blog",
-    description: "Read articles on web development, tips and more.",
-    href: "/blog",
   },
 ];
 
@@ -124,7 +119,7 @@ export default function Home() {
             }}
           />
 
-          <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-8 mt-8 z-10">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 z-10">
             {quickLinks.map(({ title, description, href }) => (
               <Link key={href} href={href} className="block">
                 <Card className="p-6 cursor-pointer bg-white dark:bg-zinc-800 transform transition-transform duration-300 hover:scale-105 hover:bg-[#45d8ac]/10 hover:shadow-lg hover:-translate-y-1 w-full h-48">
