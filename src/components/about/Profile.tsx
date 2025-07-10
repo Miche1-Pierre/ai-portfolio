@@ -6,8 +6,8 @@ import { Globe } from "lucide-react";
 
 export default function Profile() {
   return (
-    <section className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-12 items-start">
-      <div className="flex flex-col items-center sm:items-start gap-4 text-center sm:text-left">
+    <section className="flex flex-col sm:flex-row gap-12 items-center lg:items-start">
+      <div className="flex flex-col items-center lg:items-start gap-4 text-center sm:text-left">
         <div className="w-[150px] h-[150px] rounded-full overflow-hidden shadow-[0_0_30px_5px_rgba(69,216,172,0.2)]">
           <Image
             src="/images/profile.png"
