@@ -20,6 +20,7 @@ const experiences = [
     description:
       "Complete development of an internal application for reporting, project management and team management, with customized statistics and a modern environment.",
     imageSrc: "",
+    linkWork: "/work",
     technologies: [
       "php",
       "html",
@@ -142,6 +143,7 @@ export default function About() {
                     description={exp.description}
                     imageSrc={exp.imageSrc}
                     imageAlt={`${exp.company} logo`}
+                    linkWork={exp.linkWork}
                     technologies={exp.technologies}
                   />
                 ))}
