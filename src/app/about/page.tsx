@@ -10,49 +10,7 @@ import SkillSection from "@/components/about/Skills";
 
 import { useEffect, useState } from "react";
 import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
-
-const experiences = [
-  {
-    company: "SynapsIA",
-    role: "Fullstack Developer",
-    startDate: "Apr 2025",
-    endDate: "June 2025",
-    description:
-      "Complete development of an internal application for reporting, project management and team management, with customized statistics and a modern environment.",
-    imageSrc: "",
-    linkWork: "/work",
-    technologies: [
-      "php",
-      "html",
-      "css",
-      "js",
-      "mysql",
-      "docker",
-      "wampserver",
-      "trello",
-      "github",
-    ],
-  },
-  {
-    company: "LORIA",
-    role: "Fullstack Developer",
-    startDate: "May 2024",
-    endDate: "July 2024",
-    description:
-      "Development of a Letter of Recommendation management application for LORIA applications",
-    imageSrc: "",
-    technologies: ["python", "html", "css", "js", "sqlite", "docker", "gitlab"],
-  },
-];
-
-const educations = [
-  {
-    institution: "Metz Numeric School",
-    fieldOfStudy: "Master of Computer Engineering Development",
-    startDate: "2023",
-    endDate: "Present",
-  },
-];
+import { experiences, educations } from "@/app/const";
 
 export default function About() {
   const [showBackToTop, setShowBackToTop] = useState(false);
