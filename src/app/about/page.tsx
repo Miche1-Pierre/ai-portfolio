@@ -35,10 +35,10 @@ export default function About() {
         <NavigationMenu />
       </header>
 
-      <main className="flex-grow px-6 sm:px-20 py-10 mt-20">
-        <div className="relative max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-10">
+      <main className="flex-grow px-2 md:px-8 lg:px-10 md:py-10 lg:py-10 py-3 mt-20">
+        <div className="relative max-w-7xl mx-auto px-2 flex flex-col lg:flex-row gap-10">
           {/* Colonne gauche */}
-          <aside className="w-full lg:w-60 lg:sticky lg:top-20 self-start">
+          <aside className="w-full lg:w-60 lg:sticky lg:top-20 md:self-start lg:self-start mx-auto">
             <Profile />
           </aside>
 
