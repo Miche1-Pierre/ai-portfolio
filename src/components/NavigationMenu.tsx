@@ -7,8 +7,6 @@ import {
   Home,
   User,
   LayoutGrid,
-  Sun,
-  Moon,
   Phone,
 } from "lucide-react";
 
@@ -34,7 +32,7 @@ export default function NavigationMenu() {
   return (
     <div
       className="fixed flex items-center 
-      bg-white/80 text-zinc-900 
+      light:bg-white/80 text-zinc-900 
       dark:bg-zinc-900/80 dark:text-white
       rounded-full px-2 py-1 shadow-lg shadow-zinc-400/30 dark:shadow-black/30 backdrop-blur-sm 
       border border-zinc-300 dark:border-white/10 
@@ -52,22 +50,6 @@ export default function NavigationMenu() {
           {item.label}
         </Link>
       ))}
-
-      <div className="mx-2 w-px h-5 bg-zinc-300 dark:bg-white/20" />
-
-      <button
-        onClick={toggleTheme}
-        className="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700/60 transition-colors"
-        aria-label="Toggle theme"
-      >
-        {mounted ? (
-          theme === "dark" ? (
-            <Sun size={16} />
-          ) : (
-            <Moon size={16} />
-          )
-        ) : null}
-      </button>
 
       {/* Spotlight cyan */}
       <div
