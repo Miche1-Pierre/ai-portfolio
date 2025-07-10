@@ -31,7 +31,7 @@ export default function Work() {
         <NavigationMenu />
       </header>
 
-      <main className="flex-grow px-6 sm:px-20 py-10 mt-20 space-y-10">
+      <main className="flex-grow px-6 sm:px-20 py-10 mt-10 md:mt-10 lg:mt-20 space-y-10">
         {/* Work Section */}
         <section className="max-w-4xl mx-auto space-y-6">
           <h1 className="text-3xl sm:text-4xl font-bold mb-8">My Projects</h1>

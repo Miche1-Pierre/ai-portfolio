@@ -37,7 +37,7 @@ export default function Home() {
         <NavigationMenu />
       </header>
 
-      <main className="flex-grow px-6 sm:px-20 py-10 flex flex-col gap-28 items-center text-left mt-20">
+      <main className="flex-grow px-6 sm:px-20 py-10 flex flex-col gap-28 items-center text-left mt-10 md:mt-10 lg:mt-20">
         {/* Hero */}
         <section className="max-w-3xl">
           <Badge>Home</Badge>
@@ -49,12 +49,14 @@ export default function Home() {
             <span className="text-[#45d8ac]">meaningful</span>.
           </h1>
           <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-400">
-            I&apos;m a junior web developer focused on creating clean and functional digital experiences while continuously learning and improving.
+            I&apos;m a junior web developer focused on creating clean and
+            functional digital experiences while continuously learning and
+            improving.
           </p>
         </section>
 
         {/* Tech Stack */}
-        <section className="w-3xl">
+        <section className="w-full max-w-4xl px-4 sm:px-6 mx-auto lg:mt-12">
           <Badge className="mb-8">Tech Stack</Badge>
           <FloatingBadgeCloud />
         </section>
@@ -124,13 +126,20 @@ export default function Home() {
         </section>
 
         {/* Contact / Call to action */}
-        <section className="w-3xl" id="contact">
+        <section
+          className="w-full max-w-3xl px-4 sm:px-6 mx-auto mt-12"
+          id="contact"
+        >
           <Badge>Contact Me</Badge>
-          <Card className="p-6 sm:p-8 text-center sm:text-left mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Start a project</h2>
+
+          <Card className="p-5 sm:p-8 text-center sm:text-left mt-8">
+            <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
+              Start a project
+            </h2>
             <p className="text-base mb-6 text-zinc-600 dark:text-zinc-400">
-              Got an idea or need a dev ? Let&apos;s bring your vision to life.
+              Got an idea or need a dev? Let&apos;s bring your vision to life.
             </p>
+
             <form className="flex flex-col gap-4">
               <Input type="text" placeholder="Your Name" required />
               <Input type="email" placeholder="Your Email" required />
@@ -140,7 +149,7 @@ export default function Home() {
                 required
               />
               <Button className="mt-4" type="submit" variant="outline">
-                Start Working Together !
+                Start Working Together!
               </Button>
             </form>
           </Card>

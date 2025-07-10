@@ -36,9 +36,9 @@ export default function About() {
       </header>
 
       <main className="flex-grow px-6 sm:px-20 py-10 mt-20">
-        <div className="relative max-w-7xl mx-auto px-6 flex gap-10">
+        <div className="relative max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-10">
           {/* Colonne gauche */}
-          <aside className="sticky top-20 w-60 self-start">
+          <aside className="w-full lg:w-60 lg:sticky lg:top-20 self-start">
             <Profile />
           </aside>
 
