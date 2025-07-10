@@ -136,7 +136,7 @@ export default function FloatingBadgeCloud() {
                 y1={containerSize.height / 2 + from.y}
                 x2={containerSize.width / 2 + to.x}
                 y2={containerSize.height / 2 + to.y}
-                stroke="rgba(255, 255, 255, 0.05)"
+                stroke="rgba(150, 150, 150, 0.1)"
                 strokeWidth={1}
               />
             ))

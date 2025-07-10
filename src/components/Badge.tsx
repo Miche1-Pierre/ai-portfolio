@@ -187,9 +187,10 @@ const colorClasses: Record<BadgeColor, string> = {
   `,
   github: `
     bg-[#f0f6fc]/10
-    text-[#f0f6fc]
+    dark:text-[#f0f6fc]
     border border-zinc-300 dark:border-white/10
     hover:bg-[#f0f6fc]/20
+    text-zinc-800
   `,
   postman: `
     bg-[#e76f00]/10

@@ -50,7 +50,7 @@ export default function About() {
                 Fullstack Developer
               </p>
 
-              <div className="flex gap-6 text-white mt-4">
+              <div className="flex gap-6 text-black dark:text-white mt-4">
                 <a
                   href="https://github.com/Miche1-Pierre"
                   aria-label="GitHub"
