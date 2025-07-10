@@ -1,5 +1,6 @@
 import Badge, { BadgeColor } from "@/components/Badge";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 type WorkExperienceItemProps = {
   company?: string;
@@ -9,6 +10,7 @@ type WorkExperienceItemProps = {
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
+  linkWork?: string;
   technologies?: string[];
 };
 
@@ -20,6 +22,7 @@ export default function WorkExperienceItem({
   description,
   imageSrc,
   imageAlt,
+  linkWork,
   technologies,
 }: WorkExperienceItemProps) {
   const getBadgeColor = (tech: string): BadgeColor => {
@@ -103,6 +106,15 @@ export default function WorkExperienceItem({
               </Badge>
             ))}
           </div>
+        )}
+
+        {linkWork && (
+          <a
+            href={linkWork}
+            className="mt-4 inline-block text-sm text-[#45d8ac] font-medium hover:underline"
+          >
+            Voir le projet <ArrowRight size={18} className="inline-block ml-1" />
+          </a>
         )}
       </div>
     </div>
