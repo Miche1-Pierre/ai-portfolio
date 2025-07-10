@@ -7,7 +7,6 @@ import {
   Home,
   User,
   LayoutGrid,
-  FileText,
   Sun,
   Moon,
   Phone,
@@ -17,7 +16,6 @@ const navItems = [
   { href: "/", label: "Home", icon: <Home size={16} /> },
   { href: "/about", label: "About", icon: <User size={16} /> },
   { href: "/work", label: "Work", icon: <LayoutGrid size={16} /> },
-  { href: "/blog", label: "Blog", icon: <FileText size={16} /> },
   { href: "/#contact", label: "Contact", icon: <Phone size={16} /> },
 ];
 

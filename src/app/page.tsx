@@ -66,8 +66,7 @@ export default function Home() {
             <span className="text-[#45d8ac]">meaningful</span>.
           </h1>
           <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-400">
-            I&apos;m a web developer specialized in building web apps
-            using modern technologies like React, TypeScript, and Next.js.
+            I&apos;m a junior web developer focused on creating clean and functional digital experiences while continuously learning and improving.
           </p>
         </section>
 
