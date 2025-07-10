@@ -12,19 +12,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
-
-const quickLinks = [
-  {
-    title: "About Me",
-    description: "Learn more about who I am and my journey.",
-    href: "/about",
-  },
-  {
-    title: "My Work",
-    description: "Check out projects I've built and contributed to.",
-    href: "/work",
-  },
-];
+import { quickLinks } from "@/app/const";
 
 export default function Home() {
   const [showBackToTop, setShowBackToTop] = useState(false);
