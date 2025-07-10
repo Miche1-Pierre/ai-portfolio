@@ -89,7 +89,7 @@ export default function About() {
 
             {/* Work Experience Section */}
             <section className="w-full">
-              <h2 className="text-3xl font-bold mb-8">Work Experience</h2>
+              <h2 className="text-3xl font-bold mb-8">Work Experiences</h2>
               <div className="space-y-8">
                 {experiences.map((exp, index) => (
                   <WorkExperienceItem
