@@ -2,12 +2,11 @@
 
 import NavigationMenu from "@/components/NavigationMenu";
 import Card from "@/components/Card";
-import Input from "@/components/Input";
 import Badge from "@/components/Badge";
 import FloatingBadgeCloud from "@/components/FloatingBadgeCloud";
-import Textarea from "@/components/Textarea";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
+import ContactForm from "@/components/ContactForm";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -140,32 +139,7 @@ export default function Home() {
               Got an idea or need a dev? Let&apos;s bring your vision to life.
             </p>
 
-            <form className="flex flex-col gap-4">
-              <label htmlFor="name" className="sr-only">
-                Name
-              </label>
-              <Input id="name" type="text" placeholder="Your Name" required />
-              <label htmlFor="email" className="sr-only">
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Your Email"
-                required
-              />
-              <label htmlFor="message" className="sr-only">
-                Message
-              </label>
-              <Textarea
-                rows={4}
-                placeholder="Describe your project..."
-                required
-              />
-              <Button className="mt-4" type="submit" variant="outline">
-                Start Working Together!
-              </Button>
-            </form>
+            <ContactForm />
           </Card>
         </section>
       </main>
