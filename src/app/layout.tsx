@@ -15,6 +15,23 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Pierre MICHEL - Fullstack Developer",
   description: "Personal portfolio of Pierre MICHEL, a Fullstack Developer.",
+  metadataBase: new URL("https://ai-portfolio-pierre-michel.vercel.app"),
+  openGraph: {
+    title: "Pierre MICHEL - Fullstack Developer",
+    description: "Explore my portfolio as a Fullstack developer.",
+    url: "https://ai-portfolio-pierre-michel.vercel.app",
+    siteName: "Pierre MICHEL Portfolio",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Pierre MICHEL - Fullstack Developer",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
