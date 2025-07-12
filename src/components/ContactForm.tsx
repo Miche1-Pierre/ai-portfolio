@@ -14,6 +14,7 @@ export default function ContactForm() {
     setStatus("sending");
 
     const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
 
     try {
       const res = await fetch("https://formspree.io/f/xanjrryq", {
@@ -24,13 +25,17 @@ export default function ContactForm() {
         body: formData,
       });
 
-      if (res.ok) {
+      const json = await res.json();
+      console.log("RESPONSE:", res.status, json);
+
+      if (json.ok) {
         setStatus("success");
-        e.currentTarget.reset();
+        form.reset();
       } else {
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("Submission error:", err);
       setStatus("error");
     }
   };
