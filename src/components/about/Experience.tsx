@@ -113,7 +113,7 @@ export default function WorkExperienceItem({
             href={linkWork}
             className="mt-4 inline-block text-sm text-[#45d8ac] font-medium hover:underline"
           >
-            Voir le projet <ArrowRight size={18} className="inline-block ml-1" />
+            See project <ArrowRight size={18} className="inline-block ml-1" />
           </a>
         )}
       </div>
