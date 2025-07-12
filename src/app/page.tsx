@@ -141,8 +141,22 @@ export default function Home() {
             </p>
 
             <form className="flex flex-col gap-4">
-              <Input type="text" placeholder="Your Name" required />
-              <Input type="email" placeholder="Your Email" required />
+              <label htmlFor="name" className="sr-only">
+                Name
+              </label>
+              <Input id="name" type="text" placeholder="Your Name" required />
+              <label htmlFor="email" className="sr-only">
+                Email
+              </label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="Your Email"
+                required
+              />
+              <label htmlFor="message" className="sr-only">
+                Message
+              </label>
               <Textarea
                 rows={4}
                 placeholder="Describe your project..."
