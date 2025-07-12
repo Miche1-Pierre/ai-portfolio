@@ -10,7 +10,8 @@ export default function Footer() {
         <Link
           href="https://github.com/Miche1-Pierre"
           target="_blank"
-          aria-label="GitHub"
+          rel="noopener noreferrer"
+          aria-label="Visit my GitHub profile"
           className="hover:text-[#45d8ac] transition-colors p-2 border rounded-full"
         >
           <Github
@@ -21,7 +22,8 @@ export default function Footer() {
         <Link
           href="https://www.linkedin.com/in/pierre-michel-6424a8240/"
           target="_blank"
-          aria-label="LinkedIn"
+          rel="noopener noreferrer"
+          aria-label="Visit my LinkedIn profile"
           className="hover:text-[#45d8ac] transition-colors p-2 border rounded-full"
         >
           <Linkedin
@@ -31,7 +33,9 @@ export default function Footer() {
         </Link>
         <Link
           href="mailto:pierre.michel.work@gmail.com"
-          aria-label="Email"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Send me an email"
           className="hover:text-[#45d8ac] transition-colors p-2 border rounded-full"
         >
           <Mail className="hover:text-[#45d8ac] transition-colors" size={18} />
