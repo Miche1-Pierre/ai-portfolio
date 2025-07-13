@@ -42,6 +42,16 @@ export const quickLinks = [
 {
   /* About */
 }
+export const profile = {
+  name: "Pierre MICHEL",
+  location: "Metz, France",
+  languages: ["FR", "EN"],
+  imageSrc: "/images/profile.png",
+  imageAlt: "Pierre Michel",
+  jobTitle: "Fullstack Developer",
+  description: "Passionate about web development and always ready to take on new challenges, I create high-performance, elegant applications.",
+}
+
 export const experiences = [
   {
     company: "SynapsIA",

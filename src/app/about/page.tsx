@@ -10,7 +10,7 @@ import SkillSection from "@/components/about/Skills";
 
 import { useEffect, useState } from "react";
 import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
-import { experiences, educations } from "@/app/const";
+import { experiences, educations, profile } from "@/app/const";
 
 export default function About() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -45,9 +45,9 @@ export default function About() {
           {/* Colonne centrale */}
           <section className="flex-1 max-w-3xl mx-auto flex flex-col gap-28">
             <div className="sm:w-2/3 flex flex-col">
-              <h1 className="text-6xl font-bold">Pierre MICHEL</h1>
+              <h1 className="text-6xl font-bold">{profile.name}</h1>
               <p className="text-xl text-[#45d8ac] font-semibold mt-2">
-                Fullstack Developer
+                {profile.jobTitle}
               </p>
 
               <div className="flex gap-6 text-black dark:text-white mt-4">
@@ -82,8 +82,7 @@ export default function About() {
               </div>
 
               <p className="mt-6 max-w-xl text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                Passionate about web development and always ready to take on new
-                challenges, I create high-performance, elegant applications.
+                {profile.description}
               </p>
             </div>
 
