@@ -1,19 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import {
-  Home,
-  User,
-  LayoutGrid,
-  Phone,
-} from "lucide-react";
-
-const navItems = [
-  { href: "/", label: "Home", icon: <Home size={16} /> },
-  { href: "/about", label: "About", icon: <User size={16} /> },
-  { href: "/work", label: "Work", icon: <LayoutGrid size={16} /> },
-  { href: "/#contact", label: "Contact", icon: <Phone size={16} /> },
-];
+import { navItems } from "@/app/const";
 
 export default function NavigationMenu() {
   return (

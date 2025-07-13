@@ -1,6 +1,7 @@
 import Input from "@/components/Input";
 import Textarea from "@/components/Textarea";
 import Button from "@/components/Button";
+import { contactFormText } from "@/app/const";
 
 import { useState } from "react";
 
@@ -46,35 +47,37 @@ export default function ContactForm() {
         id="name"
         name="name"
         type="text"
-        placeholder="Your Name"
+        placeholder={contactFormText.placeholders.name}
         required
       />
       <Input
         id="email"
         name="email"
         type="email"
-        placeholder="Your Email"
+        placeholder={contactFormText.placeholders.email}
         required
       />
       <Textarea
         name="message"
         rows={4}
-        placeholder="Describe your project..."
+        placeholder={contactFormText.placeholders.message}
         required
       />
       <Button type="submit" variant="outline" disabled={status === "sending"}>
-        {status === "sending" ? "Sending..." : "Start Working Together!"}
+        {status === "sending"
+          ? contactFormText.button.sending
+          : contactFormText.button.idle}
       </Button>
 
       {status === "success" && (
         <div className="mt-4 p-4 bg-green-100 text-green-800 rounded">
-          🎉 Message sent successfully! I will get back to you soon.
+          {contactFormText.status.success}
         </div>
       )}
 
       {status === "error" && (
         <div className="mt-4 p-4 bg-red-100 text-red-800 rounded">
-          ⚠️ Oops, something went wrong. Please try again.
+          {contactFormText.status.error}
         </div>
       )}
     </form>
