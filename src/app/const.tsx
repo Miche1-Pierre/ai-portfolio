@@ -1,4 +1,31 @@
-{/* App */}
+{
+  /* Menu */
+}
+import { Home, User, LayoutGrid, Phone } from "lucide-react";
+export const navItems = [
+  { href: "/", label: "Home", icon: <Home size={16} /> },
+  { href: "/about", label: "About", icon: <User size={16} /> },
+  { href: "/work", label: "Work", icon: <LayoutGrid size={16} /> },
+  { href: "/#contact", label: "Contact", icon: <Phone size={16} /> },
+];
+
+{
+  /* App */
+}
+import { BadgeColor } from "@/components/Badge";
+export const techs: { name: string; color: BadgeColor }[] = [
+  { name: "Java", color: "java" },
+  { name: "PHP", color: "php" },
+  { name: "HTML", color: "html" },
+  { name: "CSS", color: "css" },
+  { name: "JavaScript", color: "js" },
+  { name: "TypeScript", color: "ts" },
+  { name: "React", color: "react" },
+  { name: "Next.js", color: "next" },
+  { name: "Tailwind", color: "tailwind" },
+  { name: "Node.js", color: "node" },
+];
+
 export const quickLinks = [
   {
     title: "About Me",
@@ -12,8 +39,19 @@ export const quickLinks = [
   },
 ];
 
+{
+  /* About */
+}
+export const profile = {
+  name: "Pierre MICHEL",
+  location: "Metz, France",
+  languages: ["FR", "EN"],
+  imageSrc: "/images/profile.png",
+  imageAlt: "Pierre Michel",
+  jobTitle: "Fullstack Developer",
+  description: "Passionate about web development and always ready to take on new challenges, I create high-performance, elegant applications.",
+}
 
-{/* About */}
 export const experiences = [
   {
     company: "SynapsIA",
@@ -57,7 +95,42 @@ export const educations = [
   },
 ];
 
-{/* Work */}
+export const skills = {
+  Frontend: ["html", "css", "js", "react", "tailwind"],
+  Backend: [
+    "java",
+    "spring-boot",
+    "php",
+    "next.js",
+    "express",
+    "django",
+    "docker",
+  ],
+  Utils: [
+    "trello",
+    "docker",
+    "postman",
+    "wampserver",
+    "virtualbox",
+    "teams",
+    "microsoft365",
+    "github",
+  ],
+  "Personal Qualities": [
+    "curious",
+    "leadership",
+    "teamwork",
+    "problem solving",
+    "creativity",
+    "communication",
+    "empathy",
+    "adaptability",
+  ],
+};
+
+{
+  /* Work */
+}
 export const projects = [
   {
     title: "Personal Portfolio",
@@ -143,12 +216,56 @@ export const projects = [
     github: "https://github.com/Miche1-Pierre/admin-mns",
     demo: "",
     images: [
-        "/images/projects/adminmns/adminmns_1.png",
-        "/images/projects/adminmns/adminmns_2.png",
-        "/images/projects/adminmns/adminmns_3.png",
-        "/images/projects/adminmns/adminmns_4.png",
-        "/images/projects/adminmns/adminmns_5.png",
-        "/images/projects/adminmns/adminmns_6.png",
+      "/images/projects/adminmns/adminmns_1.png",
+      "/images/projects/adminmns/adminmns_2.png",
+      "/images/projects/adminmns/adminmns_3.png",
+      "/images/projects/adminmns/adminmns_4.png",
+      "/images/projects/adminmns/adminmns_5.png",
+      "/images/projects/adminmns/adminmns_6.png",
     ],
   },
 ];
+
+{
+  /* Contact Form */
+}
+export const contactFormText = {
+  placeholders: {
+    name: "Your Name",
+    email: "Your Email",
+    message: "Describe your project...",
+  },
+  button: {
+    idle: "Start Working Together!",
+    sending: "Sending...",
+  },
+  status: {
+    success: "🎉 Message sent successfully! I will get back to you soon.",
+    error: "⚠️ Oops, something went wrong. Please try again.",
+  },
+};
+
+{
+  /* Footer */
+}
+export const siteMetadata = {
+  author: "Pierre MICHEL",
+  email: "pierre.michel.work@gmail.com",
+  year: new Date().getFullYear(),
+  copyright: (name: string, year: number) =>
+    `© ${year} ${name}. All rights reserved.`,
+  socials: {
+    github: {
+      href: "https://github.com/Miche1-Pierre",
+      label: "Visit my GitHub profile",
+    },
+    linkedin: {
+      href: "https://www.linkedin.com/in/pierre-michel-6424a8240/",
+      label: "Visit my LinkedIn profile",
+    },
+    mail: {
+      href: "mailto:pierre.michel.work@gmail.com",
+      label: "Send me an email",
+    },
+  },
+};

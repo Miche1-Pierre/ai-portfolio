@@ -1,48 +1,45 @@
 import React from "react";
 import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
+import { siteMetadata } from "@/app/const";
 
 export default function Footer() {
+  const { author, year, socials } = siteMetadata;
   return (
     <footer className="relative mt-10 px-6 sm:px-20 py-10 border-t border-zinc-300 dark:border-white/10 text-sm text-zinc-600 dark:text-zinc-400 flex flex-col sm:flex-row justify-between items-center gap-4 overflow-hidden z-1">
-      <p>© {new Date().getFullYear()} Pierre MICHEL. All rights reserved.</p>
+      <p>{siteMetadata.copyright(author, year)}</p>
+
       <div className="flex gap-4">
         <Link
-          href="https://github.com/Miche1-Pierre"
+          href={socials.github.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Visit my GitHub profile"
+          aria-label={socials.github.label}
           className="hover:text-[#45d8ac] transition-colors p-2 border rounded-full"
         >
-          <Github
-            className="hover:text-[#45d8ac] transition-colors"
-            size={18}
-          />
+          <Github size={18} />
         </Link>
         <Link
-          href="https://www.linkedin.com/in/pierre-michel-6424a8240/"
+          href={socials.linkedin.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Visit my LinkedIn profile"
+          aria-label={socials.linkedin.label}
           className="hover:text-[#45d8ac] transition-colors p-2 border rounded-full"
         >
-          <Linkedin
-            className="hover:text-[#45d8ac] transition-colors"
-            size={18}
-          />
+          <Linkedin size={18} />
         </Link>
         <Link
-          href="mailto:pierre.michel.work@gmail.com"
+          href={socials.mail.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Send me an email"
+          aria-label={socials.mail.label}
           className="hover:text-[#45d8ac] transition-colors p-2 border rounded-full"
         >
-          <Mail className="hover:text-[#45d8ac] transition-colors" size={18} />
+          <Mail size={18} />
         </Link>
       </div>
 
-      {/* Spotlight orange */}
+      {/* Spotlights */}
       <div
         className="absolute rounded-full pointer-events-none"
         style={{
@@ -57,8 +54,6 @@ export default function Footer() {
           zIndex: 0,
         }}
       />
-
-      {/* Spotlight cyan */}
       <div
         className="absolute rounded-full pointer-events-none"
         style={{

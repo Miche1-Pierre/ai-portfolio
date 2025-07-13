@@ -1,29 +1,5 @@
 import Badge from "@/components/Badge";
-
-const skills = {
-  Frontend: ["html", "css", "js", "react", "tailwind"],
-  Backend: ["java", "spring-boot", "php", "next.js", "express", "django","docker"],
-  Utils: [
-    "trello",
-    "docker",
-    "postman",
-    "wampserver",
-    "virtualbox",
-    "teams",
-    "microsoft365",
-    "github",
-  ],
-  "Personal Qualities": [
-    "curious",
-    "leadership",
-    "teamwork",
-    "problem solving",
-    "creativity",
-    "communication",
-    "empathy",
-    "adaptability",
-  ],
-};
+import { skills } from "@/app/const";
 
 export default function SkillSection() {
   return (
