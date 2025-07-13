@@ -56,7 +56,7 @@ export default function Home() {
 
         {/* Tech Stack */}
         <section className="w-full max-w-4xl px-4 sm:px-6 mx-auto lg:mt-12">
-          <Badge className="mb-8">Tech Stack</Badge>
+          <Badge className="mb-20">Tech Stack</Badge>
           <FloatingBadgeCloud />
         </section>
 
@@ -126,7 +126,7 @@ export default function Home() {
 
         {/* Contact / Call to action */}
         <section
-          className="w-full max-w-3xl px-4 sm:px-6 mx-auto mt-12"
+          className="w-full max-w-3xl px-4 sm:px-6 mx-auto mt-5"
           id="contact"
         >
           <Badge>Contact Me</Badge>
