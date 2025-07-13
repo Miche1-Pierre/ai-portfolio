@@ -7,6 +7,7 @@ import FloatingBadgeCloud from "@/components/FloatingBadgeCloud";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import ChatBot from "@/components/ChatBot";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -54,8 +55,13 @@ export default function Home() {
           </p>
         </section>
 
+        {/* ChatBot */}
+        <section className="w-full max-w-4xl px-4 sm:px-6 mx-auto">
+          <ChatBot />
+        </section>
+
         {/* Tech Stack */}
-        <section className="w-full max-w-4xl px-4 sm:px-6 mx-auto lg:mt-12">
+        <section className="w-full max-w-4xl px-4 sm:px-6 mx-auto lg:mt-8">
           <Badge className="mb-20">Tech Stack</Badge>
           <FloatingBadgeCloud />
         </section>
