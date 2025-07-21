@@ -1,5 +1,7 @@
 "use client";
 
+import ReactMarkdown from "react-markdown";
+
 import { useState, useEffect } from "react";
 import Textarea from "@/components/Textarea";
 import Card from "@/components/Card";
@@ -78,24 +80,30 @@ export default function AIChat() {
 
     try {
       const prompt = `
-        You are an assistant that answers questions based on the user's personal and professional background only.
-            
-        Here is the context about the user:
+        You are an assistant that answers questions strictly based on the user's personal and professional background.
+
+        Here is the user's context:
         ${JSON.stringify(
           { profile, experiences, educations, skills, projects, siteMetadata },
           null,
           2
         )}
-        
-        Now, respond to the following message:
-        
+
+        Now respond to this user input:
+
         "${input}"
-        
-        — If the message contains a **link (URL)**, explain that you do not have access to external web content and ask the user to paste the content directly if they want it analyzed.
-        — If the message is a question about the user, answer it concisely in **third-person** based only on the provided information.
-        — Never invent details not present in the provided data.
-        — Keep the tone professional but friendly.
-    `;
+
+        Instructions:
+          - If the message contains a URL, explain you cannot access external content and suggest pasting the text.
+          - If it's a question about the user, answer in the third person based only on the data above.
+          - Never invent or assume information not provided.
+          - Keep the tone professional and friendly.
+          - If the input is a LinkedIn post, give insights based on the user’s background.
+          - If the question is in another language, respond in that language.
+          - Format the output using valid Markdown.
+          - Avoid unnecessary detail: keep answers concise and relevant.
+          - Do not include images, or emojis in the response.
+      `;
 
       const res = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
@@ -148,14 +156,41 @@ export default function AIChat() {
           type="submit"
           disabled={loading || questionsAsked >= MAX_QUESTIONS}
           variant="outline"
+          className="flex items-center justify-center w-full h-10"
         >
-          {loading ? "Thinking..." : "Submit your question"}
+          {loading ? (
+            <>
+              <svg
+                className="animate-spin h-4 w-4 mr-2 text-[#fca96b]"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                />
+              </svg>
+              Thinking...
+            </>
+          ) : (
+            "Submit your question"
+          )}
         </Button>
       </form>
 
       {response && (
         <div className="mt-4 whitespace-pre-wrap bg-zinc-100 dark:bg-zinc-800 p-4 rounded opacity-0 animate-fade-in transition-opacity duration-700">
-          {response}
+          <ReactMarkdown>{response}</ReactMarkdown>
         </div>
       )}
 
