@@ -17,7 +17,7 @@ export default function FloatingBadgeCloud() {
     setAnimValues(values);
   }, []);
 
-  if (animValues.length !== techs.length) return null; // évite le flash
+  if (animValues.length !== techs.length) return null;
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 place-items-center relative">
