@@ -142,7 +142,7 @@ export default function Home() {
               Start a project
             </h2>
             <p className="text-base mb-6 text-zinc-600 dark:text-zinc-400">
-              Got an idea or need a dev? Let&apos;s bring your vision to life.
+              Got an idea or need a dev ? Let&apos;s bring your vision to life.
             </p>
 
             <ContactForm />

@@ -3,6 +3,7 @@
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
 import Button from "@/components/Button";
+import Badge from "@/components/Badge";
 import ProjectCard from "@/components/work/ProjectCard";
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
@@ -34,6 +35,7 @@ export default function Work() {
       <main className="flex-grow px-6 sm:px-20 py-10 mt-10 md:mt-10 lg:mt-20 space-y-10">
         {/* Work Section */}
         <section className="max-w-4xl mx-auto space-y-6">
+          <Badge>Work</Badge>
           <h1 className="text-3xl sm:text-4xl font-bold mb-8">My Projects</h1>
           {projects.map((proj, i) => (
             <ProjectCard key={i} {...proj} />

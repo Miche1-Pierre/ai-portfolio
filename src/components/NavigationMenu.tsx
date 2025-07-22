@@ -5,7 +5,7 @@ export default function NavigationMenu() {
   return (
     <div
       className="fixed flex items-center 
-      light:bg-white/80 text-zinc-900 
+      bg-white/80 text-zinc-900 
       dark:bg-zinc-900/80 dark:text-white
       rounded-full px-2 py-1 shadow-lg shadow-zinc-400/30 dark:shadow-black/30 backdrop-blur-sm 
       border border-zinc-300 dark:border-white/10 

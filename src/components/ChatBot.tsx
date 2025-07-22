@@ -102,7 +102,7 @@ export default function AIChat() {
           - If the question is in another language, respond in that language.
           - Format the output using valid Markdown.
           - Avoid unnecessary detail: keep answers concise and relevant.
-          - Do not include images, or emojis in the response.
+          - Do not include images in the response.
       `;
 
       const res = await fetch("https://api.openai.com/v1/chat/completions", {

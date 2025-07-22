@@ -2,6 +2,7 @@
 
 import NavigationMenu from "@/components/NavigationMenu";
 import Button from "@/components/Button";
+import Badge from "@/components/Badge";
 import Footer from "@/components/Footer";
 import Profile from "@/components/about/Profile";
 import WorkExperienceItem from "@/components/about/Experience";
@@ -45,8 +46,9 @@ export default function About() {
           {/* Colonne centrale */}
           <section className="flex-1 max-w-3xl mx-auto flex flex-col gap-28">
             <div className="sm:w-2/3 flex flex-col">
+              <Badge className="w-[65px] mb-4">About</Badge>
               <h1 className="text-6xl font-bold">{profile.name}</h1>
-              <p className="text-xl text-[#45d8ac] font-semibold mt-2">
+              <p className="text-3xl text-[#45d8ac] font-semibold mt-2">
                 {profile.jobTitle}
               </p>
 
