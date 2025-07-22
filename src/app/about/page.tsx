@@ -10,7 +10,13 @@ import EducationItem from "@/components/about/Education";
 import SkillSection from "@/components/about/Skills";
 
 import { useEffect, useState } from "react";
-import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
+import {
+  ArrowUp,
+  Github,
+  Linkedin,
+  Mail,
+  BookOpenCheckIcon,
+} from "lucide-react";
 import { experiences, educations, profile } from "@/app/const";
 
 export default function About() {
@@ -62,6 +68,16 @@ export default function About() {
                 >
                   <Github size={14} />
                   GitHub
+                </a>
+                <a
+                  href="https://www.hackerrank.com/profile/pierre_miche1"
+                  aria-label="HackerRank"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-[#fca96b] flex items-center gap-2 transition-colors border border-zinc-700 rounded-full p-2"
+                >
+                  <BookOpenCheckIcon size={14} />
+                  HackerRank
                 </a>
                 <a
                   href="https://www.linkedin.com/in/pierre-michel-6424a8240/"
