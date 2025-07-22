@@ -31,7 +31,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between overflow-hidden">
       {/* Header */}
       <header className="p-6 sm:p-10 flex justify-center">
         <NavigationMenu />
