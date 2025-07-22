@@ -3,7 +3,7 @@ import Badge, { BadgeColor } from "@/components/Badge";
 import Image from "next/image";
 import { useState } from "react";
 
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
 
 type Project = {
   title: string;
@@ -26,9 +26,10 @@ export default function ProjectCard({
 
   return (
     <Card className="space-y-4">
-      {/* Slider */}
+      {/* Navigation boutons */}
       {images.length > 0 && (
         <div className="relative w-full rounded-xl overflow-hidden">
+          {/* Image */}
           <Image
             src={images[current]}
             alt={`Screenshot ${current + 1}`}
@@ -40,7 +41,38 @@ export default function ProjectCard({
             unoptimized
             priority={current === 0}
           />
-          {/* Navigation boutons */}
+
+          {/* Flèche gauche */}
+          {images.length > 1 && current > 0 && (
+            <button
+              onClick={() => setCurrent((c) => Math.max(c - 1, 0))}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-zinc-800/70 p-1 rounded-full hover:bg-[#45d8ac] transition-colors border border-zinc-300 dark:border-zinc-600 hover:border-[#45d8ac]"
+              aria-label="Previous image"
+            >
+              <ChevronLeft
+                size={20}
+                className="text-zinc-800 dark:text-white"
+              />
+            </button>
+          )}
+
+          {/* Flèche droite */}
+          {images.length > 1 && current < images.length - 1 && (
+            <button
+              onClick={() =>
+                setCurrent((c) => Math.min(c + 1, images.length - 1))
+              }
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-zinc-800/70 p-1 rounded-full hover:bg-[#45d8ac] transition-colors  border border-zinc-300 dark:border-zinc-600 hover:border-[#45d8ac]"
+              aria-label="Next image"
+            >
+              <ChevronRight
+                size={20}
+                className="text-zinc-800 dark:text-white"
+              />
+            </button>
+          )}
+
+          {/* Points de navigation en bas */}
           {images.length > 1 && (
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
               {images.map((_, i) => (
@@ -48,8 +80,11 @@ export default function ProjectCard({
                   key={i}
                   onClick={() => setCurrent(i)}
                   className={`w-3 h-3 rounded-full ${
-                    i === current ? "bg-[#45d8ac]" : "bg-zinc-300"
+                    i === current
+                      ? "bg-[#45d8ac]"
+                      : "bg-zinc-300 dark:bg-zinc-600"
                   }`}
+                  aria-label={`Image ${i + 1}`}
                 />
               ))}
             </div>
