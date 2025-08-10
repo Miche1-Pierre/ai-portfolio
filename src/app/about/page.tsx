@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Profile from "@/components/about/Profile";
 import WorkExperienceItem from "@/components/about/Experience";
 import EducationItem from "@/components/about/Education";
+import CertificationGrid from "@/components/about/CertificationGrid";
 import SkillSection from "@/components/about/Skills";
 
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ import {
   Mail,
   BookOpenCheckIcon,
 } from "lucide-react";
-import { experiences, educations, profile } from "@/app/const";
+import { experiences, educations, profile, certifications } from "@/app/const";
 
 export default function About() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -140,6 +141,9 @@ export default function About() {
                 ))}
               </div>
             </section>
+
+            {/* Certifications Section */}
+            <CertificationGrid certifications={certifications} />
 
             {/* Skills Section */}
             <SkillSection />
