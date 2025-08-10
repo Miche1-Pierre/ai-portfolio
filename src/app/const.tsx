@@ -49,8 +49,9 @@ export const profile = {
   imageSrc: "/images/profile.png",
   imageAlt: "Pierre Michel",
   jobTitle: "Fullstack Developer",
-  description: "Passionate about web development and always ready to take on new challenges, I create high-performance, elegant applications.",
-}
+  description:
+    "Passionate about web development and always ready to take on new challenges, I create high-performance, elegant applications.",
+};
 
 export const experiences = [
   {
@@ -127,6 +128,22 @@ export const skills = {
     "adaptability",
   ],
 };
+
+{
+  /* Certifications */
+}
+export const certifications = [
+  {
+    title:
+      "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+    issuer: "Oracle",
+    description:
+      "The Oracle Cloud Infrastructure (OCI) AI Foundations certification is designed to introduce learners to the fundamental concepts of artificial intelligence (AI) and machine learning (ML), with a specific focus on the practical application of these technologies within the Oracle Cloud Infrastructure. This course is ideal for beginners and provides an accessible entry point for those looking to enhance their understanding of AI and ML without the requirement of prior extensive technical experience.",
+    imageSrc: "/images/certifications/OCI25AICFAV1.png",
+    issueDate: "July 23, 2025",
+    expirationDate: "July 23, 2027",
+  },
+];
 
 {
   /* Work */
