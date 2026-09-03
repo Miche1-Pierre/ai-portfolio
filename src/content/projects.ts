@@ -55,12 +55,14 @@ export const projects: Project[] = [
     overview:
       "Teams don't lose time building - they lose it transferring context. Taskforce replaces the handoffs of a normal delivery (vision → spec → architecture → API → breakdown → implementation → QA) with one governed run where every decision, constraint and model call is attributed and preserved. Its intelligence core, Brain OS, is built to remember the why - “Git remembers what changed. Taskforce remembers why.”",
     problem:
-      "Context leaks across every handoff between people and tools. Nothing understands the work across Linear, GitHub and Notion and the AI that acts on them - so intent gets re-explained at each step instead of delivered.",
+      "Context leaks across every handoff between people and tools. Nothing understands the work across your tracker, repo and docs - and the AI that acts on them - so intent gets re-explained at each step instead of delivered.",
     approach: [
       "A seven-checkpoint delivery run - Vision → Product Spec → Architecture → API Contract → Breakdown → Implementation → QA & Deploy - with human approval at every gate.",
-      "Multi-tenant backend in Java 21 / Spring Boot on Clean Architecture; Next.js / React front end; PostgreSQL and Keycloak for auth and SSO.",
-      "An AI gateway routing to Claude, OpenAI, Cursor and self-hosted Ollama, plus an MCP integration to orchestrate tools like Linear and GitHub.",
-      "~9 containerised services behind Nginx, shipped with Docker Compose and GitHub Actions CI/CD.",
+      "Multi-tenant backend in Java 21 / Spring Boot 4 as a layered modular monolith; Next.js 16 / React 19 front end; PostgreSQL 18 with pgvector, and Keycloak for OIDC auth and SSO.",
+      "An AI gateway routing to local Ollama (Qwen3) and hosted Groq, BGE-M3 embeddings over a pgvector 'Brain OS' for retrieval, and a custom Java tool-calling agent (Cortex).",
+      "Bidirectional MCP - Taskforce is both an MCP server and an OAuth MCP client - with native GitHub and Slack integrations and a connector catalogue for the rest.",
+      "~11 containerised services behind Nginx, shipped with Docker Compose, GHCR and GitHub Actions CI/CD (CodeQL, OWASP ZAP and Trivy in the pipeline).",
+      "Security by default: RS256 JWT via Keycloak, RBAC, TOTP 2FA, strict CSP/HSTS, Bucket4j rate limiting, encrypted connector secrets, Turnstile and an SSRF guard.",
       "A public, versioned documentation vault: architecture, ADRs, API contracts, data model, security and runbooks.",
     ],
     results: [
@@ -70,10 +72,11 @@ export const projects: Project[] = [
     ],
     role: "Solo - architecture, product and implementation.",
     stackGroups: [
-      { label: "Backend", items: ["Java 21", "Spring Boot", "Clean Architecture", "PostgreSQL", "Keycloak"] },
-      { label: "Frontend", items: ["Next.js", "React", "TypeScript", "TailwindCSS", "shadcn/ui"] },
-      { label: "Applied AI", items: ["LLM gateway", "Claude / OpenAI / Ollama", "MCP", "Multi-agent orchestration"] },
-      { label: "DevOps", items: ["Docker Compose", "Nginx", "GitHub Actions", "GHCR"] },
+      { label: "Backend", items: ["Java 21", "Spring Boot 4", "PostgreSQL 18 + pgvector", "Flyway", "Keycloak (OIDC)", "RabbitMQ", "Redis", "MinIO (S3)", "Stripe"] },
+      { label: "Frontend", items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "shadcn/ui", "TanStack Query", "Zustand", "tiptap"] },
+      { label: "Applied AI", items: ["Ollama (Qwen3)", "Groq", "BGE-M3 embeddings", "pgvector RAG", "Tool-calling agent", "MCP (server + client)"] },
+      { label: "DevOps", items: ["Docker Compose", "Nginx", "GHCR", "GitHub Actions", "CodeQL", "OWASP ZAP", "Trivy"] },
+      { label: "Security", items: ["OAuth2 / RS256 JWT", "RBAC", "TOTP 2FA", "CSP / HSTS", "Rate limiting (Bucket4j)", "Encrypted secrets", "Turnstile", "SSRF guard"] },
     ],
     links: {
       site: "https://www.taskforce-project.fr",
@@ -82,7 +85,7 @@ export const projects: Project[] = [
     },
     cover: "/images/projects/taskforce/taskforce_1.png",
     images: ["/images/projects/taskforce/taskforce_1.png"],
-    stack: ["Java 21", "Spring Boot", "Next.js", "PostgreSQL", "Keycloak", "MCP", "Docker", "GitHub Actions"],
+    stack: ["Java 21", "Spring Boot 4", "Next.js 16", "PostgreSQL", "pgvector", "Keycloak", "MCP", "Docker", "GitHub Actions"],
     period: "2025 - present",
     featured: true,
   },

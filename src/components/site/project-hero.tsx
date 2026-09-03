@@ -45,7 +45,6 @@ export function ProjectHero({ project }: { project: Project }) {
   const cover = project.cover ?? project.images?.[0];
   const domain = project.links?.site?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? project.slug;
 
-  const muted = { color: "color-mix(in srgb, var(--stage-fg) 62%, transparent)" };
   const subtle = { color: "color-mix(in srgb, var(--stage-fg) 45%, transparent)" };
   const outlineBtn = "stage-outline rounded-full border";
   const links = project.links;
@@ -66,8 +65,43 @@ export function ProjectHero({ project }: { project: Project }) {
 
   return (
     <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
-      {/* 1. text (top layer, above the beam) */}
-      <div className="container-x relative z-30 flex flex-col items-center text-center">
+      {/* Paint order matters for the title's mix-blend-difference: the beam paints FIRST (behind
+          everything), the text SECOND (so it blends against the beam), the mockup LAST. We rely on
+          DOM order + the section's `isolate`, with NO per-layer z-index - a z-index would spawn a
+          separate stacking context and break the blend. */}
+
+      {/* 1. WebGL beam (painted first, behind everything): fixed-height region anchored at the top
+           so the flare always lands on the mockup's top edge regardless of viewport/section height. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[1150px]">
+        {mounted ? (
+          // Always render the beam (it is the signature). Under reduced-motion we freeze the
+          // animation (speeds -> 0) instead of hiding it, so it never just disappears.
+          <LaserFlow
+            color={beam}
+            backgroundColor={stage.bg}
+            transparentBackground={adaptive}
+            horizontalBeamOffset={0.1}
+            verticalBeamOffset={0.03}
+            verticalSizing={1.8}
+            horizontalSizing={0.5}
+            wispDensity={1}
+            wispIntensity={8}
+            fogIntensity={0.7}
+            flowSpeed={reduce ? 0 : 0.35}
+            wispSpeed={reduce ? 0 : 12}
+            fogFallSpeed={reduce ? 0 : 0.6}
+            dpr={1.5}
+          />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{ background: `radial-gradient(42% 34% at 50% 2%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 45%, transparent), transparent 70%)` }}
+          />
+        )}
+      </div>
+
+      {/* 2. text (relative, so it shares the section stacking context and paints over the beam) */}
+      <div className="container-x relative flex flex-col items-center text-center">
         <div className="flex items-center gap-3">
           <span
             className="rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider backdrop-blur"
@@ -80,10 +114,15 @@ export function ProjectHero({ project }: { project: Project }) {
           </span>
         </div>
 
-        <h1 className="mt-6 max-w-3xl font-heading text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-5xl md:text-6xl">
+        {/* white + mix-blend-difference => letters invert to dark over the white beam, stay light
+            over the dark stage, and read dark over the cream stage in light mode - all automatic. */}
+        <h1
+          className="mt-6 max-w-3xl font-heading text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-5xl md:text-6xl"
+          style={{ color: "#ffffff", mixBlendMode: "difference" }}
+        >
           {project.name}
         </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed" style={muted}>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed" style={{ color: "#dedede", mixBlendMode: "difference" }}>
           {project.tagline}
         </p>
 
@@ -118,8 +157,8 @@ export function ProjectHero({ project }: { project: Project }) {
         ) : null}
       </div>
 
-      {/* 2. product window (bottom layer): a wide screenshot the beam passes down behind */}
-      <div className="relative z-10 mx-auto mt-20 w-full max-w-[84rem] px-4 sm:px-8 sm:mt-24">
+      {/* 3. product window (painted last, sits over the beam) */}
+      <div className="relative mx-auto mt-20 w-full max-w-[84rem] px-4 sm:px-8 sm:mt-24">
         <div
           className="group relative w-full overflow-hidden rounded-2xl shadow-2xl"
           style={{ boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
@@ -157,36 +196,6 @@ export function ProjectHero({ project }: { project: Project }) {
             )}
           </div>
         </div>
-      </div>
-
-      {/* 3. WebGL beam (BACK layer): fixed-height region anchored at the top so the flare always
-           lands on the mockup's top edge regardless of viewport/section height. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[1150px]">
-        {mounted ? (
-          // Always render the beam (it is the signature). Under reduced-motion we freeze the
-          // animation (speeds -> 0) instead of hiding it, so it never just disappears.
-          <LaserFlow
-            color={beam}
-            backgroundColor={stage.bg}
-            transparentBackground={adaptive}
-            horizontalBeamOffset={0.1}
-            verticalBeamOffset={0.03}
-            verticalSizing={1.8}
-            horizontalSizing={0.5}
-            wispDensity={1}
-            wispIntensity={8}
-            fogIntensity={0.7}
-            flowSpeed={reduce ? 0 : 0.35}
-            wispSpeed={reduce ? 0 : 12}
-            fogFallSpeed={reduce ? 0 : 0.6}
-            dpr={1.5}
-          />
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{ background: `radial-gradient(42% 34% at 50% 2%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 45%, transparent), transparent 70%)` }}
-          />
-        )}
       </div>
     </section>
   );

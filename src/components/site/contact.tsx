@@ -60,10 +60,10 @@ export function Contact() {
               <button
                 type="button"
                 onClick={copy}
-                className="group mt-3 flex items-center gap-3 text-left font-heading text-xl font-semibold tracking-tight sm:text-2xl"
+                className="group mt-3 flex items-center gap-3 text-left font-heading text-sm font-semibold tracking-tight sm:text-lg md:text-xl"
               >
-                <Mail className="size-5 text-brand" />
-                <span className="break-all">{site.email}</span>
+                <Mail className="size-5 shrink-0 text-brand" />
+                <span className="whitespace-nowrap">{site.email}</span>
                 <span className="grid size-7 place-items-center rounded-md border text-muted-foreground transition-colors group-hover:text-foreground">
                   {copied ? <Check className="size-3.5 text-brand" /> : <Copy className="size-3.5" />}
                 </span>
