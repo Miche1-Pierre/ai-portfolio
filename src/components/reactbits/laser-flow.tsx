@@ -346,9 +346,12 @@ export function LaserFlow({
       const background = new THREE.Color(value || "#000000");
       const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
       const lightBackground = luma > 0.72;
-      mount.style.backgroundColor = value || "#000000";
+      // Transparent container + a blend mode that composites over whatever is behind the beam
+      // (screen adds light on dark, multiply darkens on light), so the beam can sit in front of
+      // the product image without hiding it.
+      mount.style.backgroundColor = "transparent";
       canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
-      canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
+      canvas.style.mixBlendMode = lightBackground ? "multiply" : "screen";
     };
     applyBackgroundMode(backgroundColor);
     mount.appendChild(canvas);
@@ -426,14 +429,15 @@ export function LaserFlow({
       if (!pausedRef.current) renderer.render(scene, camera);
     };
 
-    let resizeRaf = 0;
-    const scheduleResize = () => {
-      if (resizeRaf) cancelAnimationFrame(resizeRaf);
-      resizeRaf = requestAnimationFrame(setSizeNow);
-    };
-
+    // Size synchronously, then re-measure after layout settles. The component is dynamically
+    // imported (ssr:false) and can mount before the section has its final height, which left the
+    // canvas at its 300x150 default until a manual window resize. Direct (non-rAF) ResizeObserver
+    // + a couple of deferred re-measures make the beam appear correctly on first load.
     setSizeNow();
-    const ro = new ResizeObserver(scheduleResize);
+    const raf1 = requestAnimationFrame(setSizeNow);
+    const t1 = window.setTimeout(setSizeNow, 100);
+    const t2 = window.setTimeout(setSizeNow, 400);
+    const ro = new ResizeObserver(() => setSizeNow());
     ro.observe(mount);
 
     const io = new IntersectionObserver(
@@ -471,7 +475,7 @@ export function LaserFlow({
     };
     const onCtxRestored = () => {
       pausedRef.current = false;
-      scheduleResize();
+      setSizeNow();
     };
     canvas.addEventListener("webglcontextlost", onCtxLost, false);
     canvas.addEventListener("webglcontextrestored", onCtxRestored, false);
@@ -555,6 +559,9 @@ export function LaserFlow({
 
     return () => {
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(raf1);
+      clearTimeout(t1);
+      clearTimeout(t2);
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVis);
@@ -603,9 +610,9 @@ export function LaserFlow({
       const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
       const lightBackground = luma > 0.72;
       const mount = mountRef.current;
-      if (mount) mount.style.backgroundColor = backgroundColor || "#000000";
+      if (mount) mount.style.backgroundColor = "transparent";
       canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
-      canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
+      canvas.style.mixBlendMode = lightBackground ? "multiply" : "screen";
     }
   }, [
     wispDensity,

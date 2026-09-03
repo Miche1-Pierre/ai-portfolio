@@ -62,36 +62,9 @@ export function ProjectHero({ project }: { project: Project }) {
   };
 
   return (
-    <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden">
-      {/* WebGL beam (or a static fallback for reduced-motion / pre-mount) */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {mounted ? (
-          // Always render the beam (it is the signature). Under reduced-motion we freeze the
-          // animation (speeds -> 0) instead of hiding it, so it never just disappears.
-          <LaserFlow
-            color={beam}
-            backgroundColor={stage.bg}
-            horizontalBeamOffset={0.12}
-            verticalBeamOffset={0.15}
-            verticalSizing={1.6}
-            horizontalSizing={0.5}
-            wispDensity={1}
-            wispIntensity={8}
-            fogIntensity={0.7}
-            flowSpeed={reduce ? 0 : 0.35}
-            wispSpeed={reduce ? 0 : 12}
-            fogFallSpeed={reduce ? 0 : 0.6}
-            dpr={1.5}
-          />
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{ background: `radial-gradient(46% 40% at 50% 0%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 45%, transparent), transparent 68%)` }}
-          />
-        )}
-      </div>
-
-      <div className="container-x relative z-10 flex flex-col items-center pt-32 pb-16 text-center sm:pt-36">
+    <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
+      {/* 1. text (top layer, above the beam) */}
+      <div className="container-x relative z-30 flex flex-col items-center text-center">
         <div className="flex items-center gap-3">
           <span
             className="rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider backdrop-blur"
@@ -140,11 +113,13 @@ export function ProjectHero({ project }: { project: Project }) {
             )}
           </div>
         ) : null}
+      </div>
 
-        {/* the product window the beam lands on: real screenshot (with cursor reveal), or a clean icon cover */}
+      {/* 2. product window (bottom layer): a wide screenshot that sits BEHIND the beam */}
+      <div className="relative z-10 mx-auto mt-12 w-full max-w-[84rem] px-4 sm:px-8">
         <div
-          className="group relative mt-14 w-full max-w-5xl overflow-hidden rounded-2xl border shadow-2xl"
-          style={{ borderColor: `color-mix(in srgb, ${beam} 55%, transparent)`, boxShadow: `0 30px 80px -40px color-mix(in srgb, ${beam} 60%, transparent)` }}
+          className="group relative w-full overflow-hidden rounded-2xl border shadow-2xl"
+          style={{ borderColor: `color-mix(in srgb, ${beam} 55%, transparent)`, boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
         >
           <div className="flex items-center gap-1.5 border-b px-4 py-2.5" style={{ borderColor: "color-mix(in srgb, var(--stage-fg) 12%, transparent)", backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
             <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 22%, transparent)" }} />
@@ -154,10 +129,10 @@ export function ProjectHero({ project }: { project: Project }) {
               {domain}
             </span>
           </div>
-          <div className="relative aspect-[16/10] w-full" style={{ backgroundColor: "var(--stage-elevated)" }}>
+          <div className="relative aspect-[16/9] w-full" style={{ backgroundColor: "var(--stage-elevated)" }}>
             {cover ? (
               <>
-                <Image src={cover} alt={`${project.name} product screenshot`} fill sizes="(max-width: 1024px) 100vw, 1024px" className="object-cover object-top" priority />
+                <Image src={cover} alt={`${project.name} product screenshot`} fill sizes="(max-width: 1344px) 100vw, 1344px" className="object-cover object-top" priority />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   ref={revealRef}
@@ -179,6 +154,34 @@ export function ProjectHero({ project }: { project: Project }) {
             )}
           </div>
         </div>
+      </div>
+
+      {/* 3. WebGL beam (middle layer): in front of the image, behind the text; poured from the right */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-20">
+        {mounted ? (
+          // Always render the beam (it is the signature). Under reduced-motion we freeze the
+          // animation (speeds -> 0) instead of hiding it, so it never just disappears.
+          <LaserFlow
+            color={beam}
+            backgroundColor={stage.bg}
+            horizontalBeamOffset={0.26}
+            verticalBeamOffset={0.1}
+            verticalSizing={1.7}
+            horizontalSizing={0.5}
+            wispDensity={1}
+            wispIntensity={8}
+            fogIntensity={0.7}
+            flowSpeed={reduce ? 0 : 0.35}
+            wispSpeed={reduce ? 0 : 12}
+            fogFallSpeed={reduce ? 0 : 0.6}
+            dpr={1.5}
+          />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{ mixBlendMode: "screen", background: `radial-gradient(40% 36% at 76% 6%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 55%, transparent), transparent 70%)` }}
+          />
+        )}
       </div>
     </section>
   );
