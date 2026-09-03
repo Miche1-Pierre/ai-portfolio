@@ -156,8 +156,9 @@ export function ProjectHero({ project }: { project: Project }) {
         </div>
       </div>
 
-      {/* 3. WebGL beam (BACK layer): behind the product image, glowing from the top like Huly */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+      {/* 3. WebGL beam (BACK layer): fixed-height region anchored at the top so the flare always
+           lands on the mockup's top edge regardless of viewport/section height. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[1150px]">
         {mounted ? (
           // Always render the beam (it is the signature). Under reduced-motion we freeze the
           // animation (speeds -> 0) instead of hiding it, so it never just disappears.
@@ -165,8 +166,8 @@ export function ProjectHero({ project }: { project: Project }) {
             color={beam}
             backgroundColor={stage.bg}
             horizontalBeamOffset={0.1}
-            verticalBeamOffset={-0.18}
-            verticalSizing={1.85}
+            verticalBeamOffset={0.03}
+            verticalSizing={1.8}
             horizontalSizing={0.5}
             wispDensity={1}
             wispIntensity={8}
