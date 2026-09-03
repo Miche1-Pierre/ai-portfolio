@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import Image from "next/image";
 import { GraduationCap, Languages, MapPin, ShieldCheck } from "lucide-react";
 import { Section } from "@/components/site/section";
@@ -5,6 +7,9 @@ import { Reveal } from "@/components/motion/reveal";
 import { AIPortrait } from "@/components/site/ai-portrait";
 import { certifications, education } from "@/content/experience";
 import { site } from "@/content/site";
+
+// Drop a portrait at public/images/about.png to use it; otherwise the abstract AI visual shows.
+const hasPhoto = fs.existsSync(path.join(process.cwd(), "public", "images", "about.png"));
 
 export function About() {
   return (
@@ -18,7 +23,11 @@ export function About() {
         <Reveal>
           <div className="relative overflow-hidden rounded-2xl border bg-card">
             <div className="relative aspect-[4/5] w-full overflow-hidden" style={{ backgroundColor: "var(--stage)" }}>
-              <AIPortrait />
+              {hasPhoto ? (
+                <Image src="/images/about.png" alt={site.name} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" priority={false} />
+              ) : (
+                <AIPortrait />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
               <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white/70 backdrop-blur">
                 Applied AI

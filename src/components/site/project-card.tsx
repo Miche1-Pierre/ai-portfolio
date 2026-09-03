@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { ProjectArt } from "@/components/site/project-art";
+import { IconCover } from "@/components/site/icon-cover";
 import type { Project } from "@/content/projects";
 import { cn } from "@/lib/utils";
 
@@ -43,9 +43,7 @@ export function ProjectCard({
             className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="absolute inset-0 p-4 transition-transform duration-500 group-hover:scale-[1.02]">
-            <ProjectArt project={project} className="h-full w-full" />
-          </div>
+          <IconCover project={project} />
         )}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/70 to-transparent" />
       </div>

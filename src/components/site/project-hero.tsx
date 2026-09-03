@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { useReducedMotion } from "motion/react";
 import { ArrowUpRight, BookText, Github, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ProjectArt } from "@/components/site/project-art";
+import { IconCover } from "@/components/site/icon-cover";
 import type { Project } from "@/content/projects";
 
 const LaserFlow = dynamic(() => import("@/components/reactbits/laser-flow").then((m) => m.LaserFlow), {
@@ -21,13 +21,13 @@ const kindLabel: Record<Project["kind"], string> = {
   archive: "Archive",
 };
 
-// Colours resolved from the CSS tokens (globals.css) so light/dark lives in one place.
+// Resolved from the CSS tokens (globals.css) so light/dark lives in one place.
 function readStage() {
-  if (typeof window === "undefined") return { bg: "#090c12", fg: "#ffffff" };
+  if (typeof window === "undefined") return { bg: "#f2ede6", fg: "#17120e" };
   const cs = getComputedStyle(document.documentElement);
   return {
-    bg: cs.getPropertyValue("--stage").trim() || "#090c12",
-    fg: cs.getPropertyValue("--stage-fg").trim() || "#ffffff",
+    bg: cs.getPropertyValue("--stage").trim() || "#f2ede6",
+    fg: cs.getPropertyValue("--stage-fg").trim() || "#17120e",
   };
 }
 
@@ -35,7 +35,7 @@ export function ProjectHero({ project }: { project: Project }) {
   const { resolvedTheme } = useTheme();
   const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
-  const [stage, setStage] = useState({ bg: "#090c12", fg: "#ffffff" });
+  const [stage, setStage] = useState({ bg: "#f2ede6", fg: "#17120e" });
   const revealRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => setMounted(true), []);
@@ -43,13 +43,15 @@ export function ProjectHero({ project }: { project: Project }) {
     if (mounted) setStage(readStage());
   }, [mounted, resolvedTheme]);
 
+  // Only the beam colour is theme-aware; the surface switches with the theme like everything else.
   const beam = project.beamMode === "adaptive" ? stage.fg : project.accent;
-  const glow = project.beamMode === "adaptive" ? stage.fg : project.accent;
   const cover = project.cover ?? project.images?.[0];
+  const domain = project.links?.site?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? project.slug;
 
   const muted = { color: "color-mix(in srgb, var(--stage-fg) 62%, transparent)" };
-  const subtle = { color: "color-mix(in srgb, var(--stage-fg) 42%, transparent)" };
+  const subtle = { color: "color-mix(in srgb, var(--stage-fg) 45%, transparent)" };
   const outlineBtn = "stage-outline rounded-full border";
+  const links = project.links;
 
   const onMove = (e: React.MouseEvent<HTMLElement>) => {
     const el = revealRef.current;
@@ -65,8 +67,6 @@ export function ProjectHero({ project }: { project: Project }) {
     el.style.setProperty("--my", "-9999px");
   };
 
-  const links = project.links;
-
   return (
     <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden">
       {/* WebGL beam (or a static fallback for reduced-motion / pre-mount) */}
@@ -77,26 +77,24 @@ export function ProjectHero({ project }: { project: Project }) {
             color={beam}
             backgroundColor={stage.bg}
             horizontalBeamOffset={0.0}
-            verticalBeamOffset={0.0}
-            verticalSizing={2.0}
+            verticalBeamOffset={0.15}
+            verticalSizing={1.6}
             horizontalSizing={0.5}
             wispDensity={1}
-            wispIntensity={5}
-            fogIntensity={0.45}
-            flowSpeed={0.34}
+            wispIntensity={8}
+            fogIntensity={0.7}
+            flowSpeed={0.35}
             dpr={1.5}
           />
         ) : (
           <div
             className="absolute inset-0"
-            style={{ background: `radial-gradient(58% 44% at 50% 0%, color-mix(in srgb, ${glow} 42%, transparent), transparent 70%)` }}
+            style={{ background: `radial-gradient(46% 40% at 50% 0%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 45%, transparent), transparent 68%)` }}
           />
         )}
-        {/* fade into the page background below the hero */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
       </div>
 
-      <div className="container-x relative z-10 flex flex-col items-center pt-32 pb-14 text-center sm:pt-40">
+      <div className="container-x relative z-10 flex flex-col items-center pt-32 pb-16 text-center sm:pt-36">
         <div className="flex items-center gap-3">
           <span
             className="rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider backdrop-blur"
@@ -119,12 +117,7 @@ export function ProjectHero({ project }: { project: Project }) {
         {links && (links.site || links.github || links.docs || links.demo) ? (
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
             {links.site && (
-              <Button
-                size="sm"
-                className="rounded-full"
-                style={{ backgroundColor: "var(--stage-fg)", color: "var(--stage)" }}
-                render={<a href={links.site} target="_blank" rel="noreferrer" />}
-              >
+              <Button size="sm" className="rounded-full" style={{ backgroundColor: "var(--stage-fg)", color: "var(--stage)" }} render={<a href={links.site} target="_blank" rel="noreferrer" />}>
                 <Globe />
                 Visit site
                 <ArrowUpRight />
@@ -151,45 +144,41 @@ export function ProjectHero({ project }: { project: Project }) {
           </div>
         ) : null}
 
-        {/* the "window below": screenshot with a cursor-follow reveal, or the project diagram */}
+        {/* the product window the beam lands on: real screenshot (with cursor reveal), or a clean icon cover */}
         <div
-          className="group relative mt-12 w-full max-w-3xl overflow-hidden rounded-2xl border shadow-2xl"
-          style={{ borderColor: `color-mix(in srgb, ${glow} 45%, transparent)` }}
+          className="group relative mt-14 w-full max-w-4xl overflow-hidden rounded-2xl border shadow-2xl"
+          style={{ borderColor: `color-mix(in srgb, ${beam} 55%, transparent)`, boxShadow: `0 30px 80px -40px color-mix(in srgb, ${beam} 60%, transparent)` }}
         >
-          <div className="flex items-center gap-1.5 border-b px-4 py-2.5 backdrop-blur" style={{ borderColor: "color-mix(in srgb, var(--stage-fg) 12%, transparent)", backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
-            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 25%, transparent)" }} />
-            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 20%, transparent)" }} />
-            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 15%, transparent)" }} />
+          <div className="flex items-center gap-1.5 border-b px-4 py-2.5" style={{ borderColor: "color-mix(in srgb, var(--stage-fg) 12%, transparent)", backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
+            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 22%, transparent)" }} />
+            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 18%, transparent)" }} />
+            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 14%, transparent)" }} />
             <span className="ml-3 font-mono text-[11px]" style={subtle}>
-              {project.slug}
+              {domain}
             </span>
           </div>
           <div className="relative aspect-[16/10] w-full" style={{ backgroundColor: "var(--stage-elevated)" }}>
             {cover ? (
               <>
-                <Image src={cover} alt={`${project.name} screenshot`} fill sizes="(max-width: 768px) 100vw, 768px" className="object-cover object-top" priority />
+                <Image src={cover} alt={`${project.name} product screenshot`} fill sizes="(max-width: 896px) 100vw, 896px" className="object-cover object-top" priority />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   ref={revealRef}
                   src={cover}
                   alt=""
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-top opacity-70"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-top opacity-60"
                   style={{
                     mixBlendMode: "lighten",
-                    WebkitMaskImage:
-                      "radial-gradient(circle at var(--mx, -9999px) var(--my, -9999px), rgba(255,255,255,1) 0px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0) 220px)",
-                    maskImage:
-                      "radial-gradient(circle at var(--mx, -9999px) var(--my, -9999px), rgba(255,255,255,1) 0px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0) 220px)",
+                    WebkitMaskImage: "radial-gradient(circle at var(--mx, -9999px) var(--my, -9999px), rgba(255,255,255,1) 0px, rgba(255,255,255,0.6) 130px, rgba(255,255,255,0) 240px)",
+                    maskImage: "radial-gradient(circle at var(--mx, -9999px) var(--my, -9999px), rgba(255,255,255,1) 0px, rgba(255,255,255,0.6) 130px, rgba(255,255,255,0) 240px)",
                     WebkitMaskRepeat: "no-repeat",
                     maskRepeat: "no-repeat",
                   }}
                 />
               </>
             ) : (
-              <div className="absolute inset-0 grid place-items-center p-6">
-                <ProjectArt project={project} className="h-full w-full max-h-56" />
-              </div>
+              <IconCover project={project} />
             )}
           </div>
         </div>

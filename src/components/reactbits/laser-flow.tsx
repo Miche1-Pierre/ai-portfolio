@@ -381,7 +381,7 @@ export function LaserFlow({
       uFalloffStart: { value: falloffStart },
       uFogFallSpeed: { value: fogFallSpeed },
       uColor: { value: new THREE.Vector3(1, 1, 1) },
-      uFade: { value: hasFadedRef.current ? 1 : 0 },
+      uFade: { value: 1 }, // start fully visible (no fade-in) so the beam is never missed
     };
     uniformsRef.current = uniforms;
 
@@ -401,7 +401,8 @@ export function LaserFlow({
 
     const clock = new THREE.Clock();
     let prevTime = 0;
-    let fade = hasFadedRef.current ? 1 : 0;
+    hasFadedRef.current = true;
+    let fade = 1;
 
     const mouseTarget = new THREE.Vector2(0, 0);
     const mouseSmooth = new THREE.Vector2(0, 0);
