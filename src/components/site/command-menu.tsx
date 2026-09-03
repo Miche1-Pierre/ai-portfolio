@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
+  ArrowUpRight,
   Briefcase,
   Copy,
   Github,
@@ -29,6 +31,7 @@ import {
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { site } from "@/content/site";
+import { featuredProjects } from "@/content/projects";
 
 const sections = [
   { id: "work", label: "Work", icon: Layers },
@@ -41,6 +44,7 @@ const sections = [
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+  const router = useRouter();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -96,6 +100,15 @@ export function CommandMenu() {
                 <CommandItem key={s.id} value={s.label} onSelect={() => run(go(s.id))}>
                   <s.icon />
                   {s.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Projects">
+              {featuredProjects.map((p) => (
+                <CommandItem key={p.slug} value={`project ${p.name}`} onSelect={() => run(() => router.push(`/work/${p.slug}`))}>
+                  <ArrowUpRight />
+                  {p.name}
                 </CommandItem>
               ))}
             </CommandGroup>

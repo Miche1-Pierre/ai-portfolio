@@ -45,11 +45,23 @@ export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24">
       {/* background */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-grid mask-fade-b opacity-60" />
-        <div className="absolute left-1/2 top-[-12rem] h-[30rem] w-[48rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklch,var(--brand)_26%,transparent),transparent)] blur-2xl will-change-transform animate-aurora" />
-        <div className="absolute right-[-8rem] top-[6rem] h-[22rem] w-[30rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklch,var(--brand-2)_20%,transparent),transparent)] blur-2xl will-change-transform animate-aurora [animation-delay:-9s]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        {/* fine grid, focused near the headline then faded out */}
+        <div className="absolute inset-0 bg-grid mask-radial opacity-[0.55]" />
+        {/* soft brand spotlight behind the headline */}
+        <div
+          className="absolute left-1/2 top-[-14rem] h-[36rem] w-[62rem] -translate-x-1/2 rounded-full opacity-70 blur-[72px]"
+          style={{ background: "radial-gradient(closest-side, color-mix(in oklch, var(--brand) 26%, transparent), transparent)" }}
+        />
+        {/* secondary violet glow, slow drift */}
+        <div
+          className="absolute right-[-6rem] top-[3rem] h-[26rem] w-[34rem] rounded-full opacity-50 blur-[72px] will-change-transform animate-aurora [animation-delay:-11s]"
+          style={{ background: "radial-gradient(closest-side, color-mix(in oklch, var(--brand-2) 20%, transparent), transparent)" }}
+        />
+        {/* delicate top light line */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        {/* ground into the page */}
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-background" />
       </div>
 
       <div className="container-x">
