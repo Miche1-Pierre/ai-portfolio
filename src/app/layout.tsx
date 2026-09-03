@@ -34,11 +34,11 @@ export const metadata: Metadata = {
     description,
     url: site.url,
     siteName: site.name,
-    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: title }],
     locale: "en_US",
     type: "website",
   },
-  twitter: { card: "summary_large_image", title, description, images: ["/images/og-image.png"] },
+  // Images come from src/app/opengraph-image.tsx (file-based metadata).
+  twitter: { card: "summary_large_image", title, description },
   robots: { index: true, follow: true },
   alternates: { canonical: site.url },
 };
