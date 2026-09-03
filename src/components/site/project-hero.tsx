@@ -21,29 +21,23 @@ const kindLabel: Record<Project["kind"], string> = {
   archive: "Archive",
 };
 
-// Resolved from the CSS tokens (globals.css) so light/dark lives in one place.
-function readStage() {
-  if (typeof window === "undefined") return { bg: "#f2ede6", fg: "#17120e" };
-  const cs = getComputedStyle(document.documentElement);
-  return {
-    bg: cs.getPropertyValue("--stage").trim() || "#f2ede6",
-    fg: cs.getPropertyValue("--stage-fg").trim() || "#17120e",
-  };
-}
+// LaserFlow needs concrete hex; these MIRROR the --stage tokens in globals.css, keyed off the
+// theme (default dark) so the beam background always matches the surface. Computing from
+// resolvedTheme (not getComputedStyle) avoids a timing race that painted the hero white on reload.
+const STAGE = {
+  dark: { bg: "#17120e", fg: "#f7f4ee" },
+  light: { bg: "#f2ede6", fg: "#17120e" },
+} as const;
 
 export function ProjectHero({ project }: { project: Project }) {
   const { resolvedTheme } = useTheme();
   const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
-  const [stage, setStage] = useState({ bg: "#f2ede6", fg: "#17120e" });
   const revealRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => setMounted(true), []);
-  useEffect(() => {
-    if (mounted) setStage(readStage());
-  }, [mounted, resolvedTheme]);
 
-  // Only the beam colour is theme-aware; the surface switches with the theme like everything else.
+  const stage = mounted && resolvedTheme === "light" ? STAGE.light : STAGE.dark;
   const beam = project.beamMode === "adaptive" ? stage.fg : project.accent;
   const cover = project.cover ?? project.images?.[0];
   const domain = project.links?.site?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? project.slug;
@@ -146,7 +140,7 @@ export function ProjectHero({ project }: { project: Project }) {
 
         {/* the product window the beam lands on: real screenshot (with cursor reveal), or a clean icon cover */}
         <div
-          className="group relative mt-14 w-full max-w-4xl overflow-hidden rounded-2xl border shadow-2xl"
+          className="group relative mt-14 w-full max-w-5xl overflow-hidden rounded-2xl border shadow-2xl"
           style={{ borderColor: `color-mix(in srgb, ${beam} 55%, transparent)`, boxShadow: `0 30px 80px -40px color-mix(in srgb, ${beam} 60%, transparent)` }}
         >
           <div className="flex items-center gap-1.5 border-b px-4 py-2.5" style={{ borderColor: "color-mix(in srgb, var(--stage-fg) 12%, transparent)", backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
@@ -160,7 +154,7 @@ export function ProjectHero({ project }: { project: Project }) {
           <div className="relative aspect-[16/10] w-full" style={{ backgroundColor: "var(--stage-elevated)" }}>
             {cover ? (
               <>
-                <Image src={cover} alt={`${project.name} product screenshot`} fill sizes="(max-width: 896px) 100vw, 896px" className="object-cover object-top" priority />
+                <Image src={cover} alt={`${project.name} product screenshot`} fill sizes="(max-width: 1024px) 100vw, 1024px" className="object-cover object-top" priority />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   ref={revealRef}
