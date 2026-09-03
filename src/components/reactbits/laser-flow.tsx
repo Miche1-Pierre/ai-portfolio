@@ -523,6 +523,16 @@ export function LaserFlow({
       raf = requestAnimationFrame(animate);
       if (pausedRef.current || !inViewRef.current) return;
 
+      // Self-heal the canvas size every frame. The container can settle to its real size after
+      // the (dynamically imported) component mounts; without this the canvas stays at its 300x150
+      // default, which at the wrong resolution makes the beam fill white. This makes it reliable
+      // on first load and reload without needing a manual window resize.
+      const mw = mount.clientWidth || 1;
+      const mh = mount.clientHeight || 1;
+      if (Math.abs(mw - lastSizeRef.current.width) > 0.5 || Math.abs(mh - lastSizeRef.current.height) > 0.5) {
+        setSizeNow();
+      }
+
       const t = clock.getElapsedTime();
       const dt = Math.max(0, t - prevTime);
       prevTime = t;
