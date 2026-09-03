@@ -265,6 +265,9 @@ export type LaserFlowProps = {
   fogFallSpeed?: number;
   color?: string;
   backgroundColor?: string;
+  /** Composite the beam over the page with `screen` on a transparent backdrop (no invert).
+   *  Used for the white/adaptive beam so it stays WHITE in light mode instead of being flipped. */
+  transparentBackground?: boolean;
 };
 
 export function LaserFlow({
@@ -289,6 +292,7 @@ export function LaserFlow({
   fogFallSpeed = 0.6,
   color = "#FF79C6",
   backgroundColor = "#000000",
+  transparentBackground = false,
 }: LaserFlowProps) {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -343,6 +347,14 @@ export function LaserFlow({
     canvas.style.height = "100%";
     canvas.style.display = "block";
     const applyBackgroundMode = (value: string) => {
+      // Transparent mode: the beam glows over whatever is behind it (screen blend), no opaque
+      // backdrop and no invert - so a white beam reads white in BOTH themes.
+      if (transparentBackground) {
+        mount.style.backgroundColor = "transparent";
+        canvas.style.filter = "none";
+        canvas.style.mixBlendMode = "screen";
+        return;
+      }
       const background = new THREE.Color(value || "#000000");
       const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
       const lightBackground = luma > 0.72;
@@ -614,13 +626,19 @@ export function LaserFlow({
     (uniforms.uColor.value as THREE.Vector3).set(r, g, b);
     const canvas = rendererRef.current?.domElement;
     if (canvas) {
-      const background = new THREE.Color(backgroundColor || "#000000");
-      const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
-      const lightBackground = luma > 0.72;
       const mount = mountRef.current;
-      if (mount) mount.style.backgroundColor = backgroundColor || "#000000";
-      canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
-      canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
+      if (transparentBackground) {
+        if (mount) mount.style.backgroundColor = "transparent";
+        canvas.style.filter = "none";
+        canvas.style.mixBlendMode = "screen";
+      } else {
+        const background = new THREE.Color(backgroundColor || "#000000");
+        const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
+        const lightBackground = luma > 0.72;
+        if (mount) mount.style.backgroundColor = backgroundColor || "#000000";
+        canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
+        canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
+      }
     }
   }, [
     wispDensity,
@@ -640,6 +658,7 @@ export function LaserFlow({
     fogFallSpeed,
     color,
     backgroundColor,
+    transparentBackground,
   ]);
 
   return (

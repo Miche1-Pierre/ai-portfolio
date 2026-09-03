@@ -13,15 +13,9 @@ const kindLabel: Record<Project["kind"], string> = {
   archive: "Archive",
 };
 
-export function ProjectCard({
-  project,
-  size = "md",
-  className,
-}: {
-  project: Project;
-  size?: "lg" | "md" | "sm";
-  className?: string;
-}) {
+// One uniform card for every project (Huly-style): identical thumbnail framing (16/10) and body,
+// so the grid reads as a consistent set of tiles rather than mismatched sizes.
+export function ProjectCard({ project, className }: { project: Project; className?: string }) {
   const cover = project.cover ?? project.images?.[0];
 
   return (
@@ -33,13 +27,13 @@ export function ProjectCard({
       )}
       aria-label={`${project.name} - open case study`}
     >
-      <div className={cn("relative w-full overflow-hidden border-b bg-muted/20", size === "lg" ? "h-52 sm:h-64" : "h-36")}>
+      <div className="relative aspect-[16/10] w-full overflow-hidden border-b bg-muted/20">
         {cover ? (
           <Image
             src={cover}
             alt=""
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (
@@ -55,11 +49,10 @@ export function ProjectCard({
           </Badge>
           <span className="font-mono text-[11px] text-muted-foreground">{project.period}</span>
         </div>
-        <h3 className={cn("font-heading font-semibold tracking-tight", size === "lg" ? "text-2xl" : "text-lg")}>{project.name}</h3>
+        <h3 className="font-heading text-lg font-semibold tracking-tight">{project.name}</h3>
         <p className="text-sm leading-relaxed text-muted-foreground">{project.tagline}</p>
-        {size === "lg" ? <p className="text-sm leading-relaxed text-muted-foreground/90">{project.description}</p> : null}
         <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-2">
-          {project.stack.slice(0, size === "lg" ? 7 : 4).map((s) => (
+          {project.stack.slice(0, 4).map((s) => (
             <span key={s} className="rounded-md border bg-muted/40 px-2 py-0.5 text-[11px] text-muted-foreground">
               {s}
             </span>

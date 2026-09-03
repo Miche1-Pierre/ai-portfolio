@@ -38,7 +38,10 @@ export function ProjectHero({ project }: { project: Project }) {
   useEffect(() => setMounted(true), []);
 
   const stage = mounted && resolvedTheme === "light" ? STAGE.light : STAGE.dark;
-  const beam = project.beamMode === "adaptive" ? stage.fg : project.accent;
+  // Taskforce's beam is WHITE in both themes (its brand is white/black). We keep it white and
+  // composite it with `screen` on a transparent backdrop, so light mode no longer flips it to black.
+  const adaptive = project.beamMode === "adaptive";
+  const beam = adaptive ? "#f7f4ee" : project.accent;
   const cover = project.cover ?? project.images?.[0];
   const domain = project.links?.site?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? project.slug;
 
@@ -118,10 +121,10 @@ export function ProjectHero({ project }: { project: Project }) {
       {/* 2. product window (bottom layer): a wide screenshot the beam passes down behind */}
       <div className="relative z-10 mx-auto mt-20 w-full max-w-[84rem] px-4 sm:px-8 sm:mt-24">
         <div
-          className="group relative w-full overflow-hidden rounded-2xl border shadow-2xl"
-          style={{ borderColor: `color-mix(in srgb, ${beam} 55%, transparent)`, boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
+          className="group relative w-full overflow-hidden rounded-2xl shadow-2xl"
+          style={{ boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
         >
-          <div className="flex items-center gap-1.5 border-b px-4 py-2.5" style={{ borderColor: "color-mix(in srgb, var(--stage-fg) 12%, transparent)", backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
+          <div className="flex items-center gap-1.5 px-4 py-2.5" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
             <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 22%, transparent)" }} />
             <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 18%, transparent)" }} />
             <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 14%, transparent)" }} />
@@ -165,6 +168,7 @@ export function ProjectHero({ project }: { project: Project }) {
           <LaserFlow
             color={beam}
             backgroundColor={stage.bg}
+            transparentBackground={adaptive}
             horizontalBeamOffset={0.1}
             verticalBeamOffset={0.03}
             verticalSizing={1.8}
