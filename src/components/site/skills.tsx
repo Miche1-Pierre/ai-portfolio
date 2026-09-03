@@ -12,7 +12,7 @@ export function Skills() {
       index="03"
       eyebrow="Skills"
       title="A full-stack core with an applied-AI edge."
-      description="Backend systems that hold in production, frontends people actually use, and agents with guardrails — in environments where compliance is not optional."
+      description="Backend systems that hold in production, frontends people actually use, and agents with guardrails - in environments where compliance is not optional."
     >
       <Stagger className="grid gap-4 md:grid-cols-2">
         {skillGroups.map((g, i) => {

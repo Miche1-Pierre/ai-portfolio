@@ -11,10 +11,10 @@ export function Experience() {
       index="02"
       eyebrow="Experience"
       title="From research lab to regulated industry to startup leadership."
-      description="Three years of taking projects from scoping through to production — and progressively owning architecture, applied AI and product decisions."
+      description="Three years of taking projects from scoping through to production - and progressively owning architecture, applied AI and product decisions."
     >
       <ol className="relative">
-        {/* the rail — a single line, centered on the dots */}
+        {/* the rail - a single line, centered on the dots */}
         <span
           aria-hidden
           className="pointer-events-none absolute bottom-3 left-[10px] top-2 w-px -translate-x-1/2 bg-gradient-to-b from-border via-border to-transparent"
@@ -23,7 +23,7 @@ export function Experience() {
           const rich = e.bullets.length > 0;
           return (
             <li key={`${e.company}-${e.role}`} className="relative grid grid-cols-[20px_1fr] gap-x-4 pb-8 last:pb-0 sm:gap-x-6">
-              {/* dot — centered in the 20px gutter, exactly on the rail */}
+              {/* dot - centered in the 20px gutter, exactly on the rail */}
               <span className="relative flex justify-center pt-[7px]" aria-hidden>
                 {e.current ? <span className="absolute top-[5px] size-3.5 animate-pulse-ring rounded-full bg-brand/50" /> : null}
                 <span className={cn("relative z-10 size-[9px] rounded-full ring-4 ring-background", e.current ? "bg-brand" : "bg-muted-foreground/40")} />
@@ -67,7 +67,7 @@ function Head({ e }: { e: (typeof experiences)[number] }) {
         {e.role} <span className="text-muted-foreground">·</span> {e.company}
       </h3>
       <span className="font-mono text-[11px] text-muted-foreground">
-        {e.start} — {e.end}
+        {e.start} - {e.end}
         {e.current ? <span className="ml-2 text-brand">●</span> : null}
       </span>
       <p className="w-full text-xs text-muted-foreground">{e.location}</p>

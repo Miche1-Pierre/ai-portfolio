@@ -53,8 +53,12 @@
 
   --animate-marquee: marquee 45s linear infinite;
   --animate-aurora: aurora 22s ease-in-out infinite alternate;
+  --animate-aurora-slow: aurora 32s ease-in-out infinite alternate;
   --animate-shimmer: shimmer 2.6s linear infinite;
   --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --animate-flow: flow-dash 2.6s linear infinite;
+  --animate-twinkle: twinkle 2.8s ease-in-out infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
 }
 
 /* ---------- tokens ---------- */
@@ -93,6 +97,11 @@
   --sidebar-accent-foreground: var(--accent-foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
+
+  /* Project-page hero "stage" (hex, so the WebGL beam can read them). Light theme. */
+  --stage: #e9edf4;
+  --stage-elevated: #f5f7fb;
+  --stage-fg: #0b0e15;
 }
 
 .dark {
@@ -129,6 +138,11 @@
   --sidebar-accent-foreground: var(--accent-foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
+
+  /* Project-page hero "stage". Dark theme. */
+  --stage: #090c12;
+  --stage-elevated: #0e121b;
+  --stage-fg: #ffffff;
 }
 
 /* ---------- base ---------- */
@@ -210,6 +224,29 @@
   }
 }
 
+/* Project-page hero "stage" surfaces (all theme values live in :root / .dark). */
+@utility stage {
+  background-color: var(--stage);
+  color: var(--stage-fg);
+}
+@utility stage-panel {
+  background-color: color-mix(in srgb, var(--stage-fg) 6%, transparent);
+  border-color: color-mix(in srgb, var(--stage-fg) 14%, transparent);
+}
+@utility stage-outline {
+  border-color: color-mix(in srgb, var(--stage-fg) 20%, transparent);
+  background-color: color-mix(in srgb, var(--stage-fg) 6%, transparent);
+  color: var(--stage-fg);
+  &:hover {
+    background-color: color-mix(in srgb, var(--stage-fg) 12%, transparent);
+  }
+}
+
+/* Fine, premium film grain for the home hero (no visible stripes). */
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* ---------- keyframes ---------- */
 @keyframes marquee {
   from {
@@ -252,11 +289,42 @@
   }
 }
 
+/* Diagram animations (stroke flow, twinkle, breathing) */
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-aurora,
+  .animate-aurora-slow,
   .animate-shimmer,
-  .animate-pulse-ring {
+  .animate-pulse-ring,
+  .animate-flow,
+  .animate-twinkle,
+  .animate-breathe {
     animation: none !important;
   }
   html {

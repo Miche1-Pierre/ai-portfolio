@@ -101,7 +101,7 @@ export function Contact() {
             </label>
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
               <p className="text-xs text-muted-foreground" aria-live="polite">
-                {status === "success" ? "Sent — I'll get back to you shortly." : status === "error" ? "Something went wrong. Email me directly instead." : "Replies within a day, usually faster."}
+                {status === "success" ? "Sent - I'll get back to you shortly." : status === "error" ? "Something went wrong. Email me directly instead." : "Replies within a day, usually faster."}
               </p>
               <Button type="submit" disabled={status === "sending"} className="h-10 rounded-full px-5">
                 {status === "sending" ? "Sending…" : "Send message"}

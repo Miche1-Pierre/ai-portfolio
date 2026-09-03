@@ -41,10 +41,10 @@ export function About() {
           <Reveal delay={0.05}>
             <div className="space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
               <p>
-                I have progressively been given responsibilities beyond development — <span className="text-foreground">architecture, applied AI and product design</span>. Over the past three years, in startups and established companies, in a research lab and in a regulated environment, I have taken projects from scoping through to production.
+                I have progressively been given responsibilities beyond development - <span className="text-foreground">architecture, applied AI and product design</span>. Over the past three years, in startups and established companies, in a research lab and in a regulated environment, I have taken projects from scoping through to production.
               </p>
               <p>
-                Today I lead engineering at Plania while shipping enterprise AI systems at TechGuys, and I spend the rest of my time on <span className="text-foreground">Taskforce</span> and <span className="text-foreground">Brain OS</span> — an execution layer and a memory substrate for agents. I care about systems that stay correct, traceable and explainable, which is also why regulated environments never scared me off.
+                Today I lead engineering at Plania while shipping enterprise AI systems at TechGuys, and I spend the rest of my time on <span className="text-foreground">Taskforce</span> and <span className="text-foreground">Brain OS</span> - an execution layer and a memory substrate for agents. I care about systems that stay correct, traceable and explainable, which is also why regulated environments never scared me off.
               </p>
             </div>
           </Reveal>
@@ -60,7 +60,7 @@ export function About() {
                   <p className="mt-3 font-medium">{ed.degree}</p>
                   <p className="text-sm text-muted-foreground">{ed.school}</p>
                   <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-                    {ed.detail} · {ed.start} — {ed.end}
+                    {ed.detail} · {ed.start} - {ed.end}
                   </p>
                 </div>
               ))}

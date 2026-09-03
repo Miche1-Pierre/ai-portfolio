@@ -9,13 +9,13 @@ import "./globals.css";
 const geistSans = Geist({ variable: "--font-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const title = `${site.name} — ${site.title}`;
+const title = `${site.name} - ${site.title}`;
 const description =
-  "Full-stack software engineer moving into applied AI. Architecture, LLM agents and product design — from scoping to production. Relocating to Montréal, available from October 2026.";
+  "Full-stack software engineer moving into applied AI. Architecture, LLM agents and product design - from scoping to production. Relocating to Montréal, available from October 2026.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: title, template: `%s — ${site.name}` },
+  title: { default: title, template: `%s - ${site.name}` },
   description,
   keywords: [
     "Pierre Michel",

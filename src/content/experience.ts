@@ -24,7 +24,7 @@ export const experiences: Experience[] = [
     location: "Montréal, QC",
     current: true,
     summary:
-      "Leading engineering for a SaaS with 13,000 registered users — architecture, security, pricing and an agentic layer over the business.",
+      "Leading engineering for a SaaS with 13,000 registered users - architecture, security, pricing and an agentic layer over the business.",
     bullets: [
       "Rebuilt the product architecture, fixed security flaws and reworked the pricing model; MRR held at $12k.",
       "Designed an agentic system connecting 10+ business tools (analytics, payments, infrastructure) to automate internal workflows.",
@@ -42,9 +42,9 @@ export const experiences: Experience[] = [
     summary:
       "Three enterprise accounts delivered in seven months, independently or in a pair, from scoping to production.",
     bullets: [
-      `${client("Safex", "A North American carrier")}: designed and shipped an AI sales agent to production — 60% of traffic goes through it, 1 conversation in 4 leads to a quote request.`,
-      `${client("Communauto", "A car-sharing operator across 4 countries")}: AI-automated triage of vehicle incident reports — unit cost cut from $1.93 to near zero, ~100 hours of manual processing freed every month ($29k a year) and redeployed to higher-value work.`,
-      `${client("Groupe Laplante", "A lease-financing group with 5 dealerships")}: feasibility study, architecture and scoping, Law 25 and FINTRAC compliance, banking integrations — development under way.`,
+      `${client("Safex", "A North American carrier")}: designed and shipped an AI sales agent to production - 60% of traffic goes through it, 1 conversation in 4 leads to a quote request.`,
+      `${client("Communauto", "A car-sharing operator across 4 countries")}: AI-automated triage of vehicle incident reports - unit cost cut from $1.93 to near zero, ~100 hours of manual processing freed every month ($29k a year) and redeployed to higher-value work.`,
+      `${client("Groupe Laplante", "A lease-financing group with 5 dealerships")}: feasibility study, architecture and scoping, Law 25 and FINTRAC compliance, banking integrations - development under way.`,
     ],
     tags: ["LLM agents", "RAG", "Next.js", "Compliance", "Integrations"],
   },
@@ -102,7 +102,7 @@ export const education = [
   {
     school: "Metz Numeric School (MNS)",
     degree: "Bachelor, Full-Stack Development",
-    detail: "RNCP Level 6 — bachelor equivalent",
+    detail: "RNCP Level 6 - bachelor equivalent",
     start: "2023",
     end: "2026",
   },
@@ -113,7 +113,7 @@ export const certifications = [
     title: "AI Foundations Associate",
     issuer: "Oracle Cloud Infrastructure",
     year: "2025",
-    detail: "Valid 2025 – 2027",
+    detail: "Valid 2025 - 2027",
     image: "/images/certifications/OCI25AICFAV1.png",
   },
 ] as const;

@@ -7,7 +7,7 @@ export type SkillGroup = {
 export const skillGroups: SkillGroup[] = [
   {
     title: "Backend & Frontend",
-    blurb: "Systems that survive production — clean architecture, multi-tenant, typed end to end.",
+    blurb: "Systems that survive production - clean architecture, multi-tenant, typed end to end.",
     items: [
       "Java 21 / Spring Boot",
       "Clean Architecture",
@@ -37,7 +37,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "Security & Compliance",
-    blurb: "Built for regulated environments — from identity to audit trails.",
+    blurb: "Built for regulated environments - from identity to audit trails.",
     items: [
       "OAuth2 / OIDC (Keycloak)",
       "RBAC",
@@ -51,7 +51,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "DevOps, Quality & Tools",
-    blurb: "Containers, pipelines, tests — and AI-native tooling in the loop.",
+    blurb: "Containers, pipelines, tests - and AI-native tooling in the loop.",
     items: [
       "Docker",
       "GitHub Actions",

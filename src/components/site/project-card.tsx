@@ -31,7 +31,7 @@ export function ProjectCard({
         "group card-hover relative flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-card text-left outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className
       )}
-      aria-label={`${project.name} — open case study`}
+      aria-label={`${project.name} - open case study`}
     >
       <div className={cn("relative w-full overflow-hidden border-b bg-muted/20", size === "lg" ? "h-52 sm:h-64" : "h-36")}>
         {cover ? (

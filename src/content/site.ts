@@ -4,7 +4,7 @@ export const site = {
   title: "Full-Stack Software Engineer · Applied AI",
   headline: "I take products from scoping to production.",
   subheadline:
-    "Architecture, applied AI and product design — in startups and established companies, a research lab and a regulated environment.",
+    "Architecture, applied AI and product design, across startups and established companies, a research lab and a regulated environment.",
   location: "France · relocating to Montréal, QC",
   availability: "Available from October 2026",
   email: "pierre.michel.work@gmail.com",

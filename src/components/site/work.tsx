@@ -14,7 +14,7 @@ export function Work() {
       id="work"
       index="01"
       eyebrow="Selected work"
-      title="Products, agents and platforms — shipped, not just prototyped."
+      title="Products, agents and platforms - shipped, not just prototyped."
       description="A flagship execution layer, an LLM memory substrate, a 13,000-user SaaS rebuilt under load, and AI systems in production for enterprise clients."
     >
       <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[minmax(0,1fr)]">
