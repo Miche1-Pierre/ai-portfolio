@@ -65,7 +65,9 @@ export function ProjectHero({ project }: { project: Project }) {
     <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden">
       {/* WebGL beam (or a static fallback for reduced-motion / pre-mount) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {mounted && !reduce ? (
+        {mounted ? (
+          // Always render the beam (it is the signature). Under reduced-motion we freeze the
+          // animation (speeds -> 0) instead of hiding it, so it never just disappears.
           <LaserFlow
             color={beam}
             backgroundColor={stage.bg}
@@ -76,7 +78,9 @@ export function ProjectHero({ project }: { project: Project }) {
             wispDensity={1}
             wispIntensity={8}
             fogIntensity={0.7}
-            flowSpeed={0.35}
+            flowSpeed={reduce ? 0 : 0.35}
+            wispSpeed={reduce ? 0 : 12}
+            fogFallSpeed={reduce ? 0 : 0.6}
             dpr={1.5}
           />
         ) : (

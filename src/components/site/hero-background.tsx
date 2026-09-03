@@ -14,7 +14,7 @@ export function HeroBackground() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  if (!mounted || reduce) {
+  if (!mounted) {
     return (
       <div
         className="absolute inset-0"
@@ -30,7 +30,7 @@ export function HeroBackground() {
         origin="top-right"
         rayColor1="#e0913a"
         rayColor2="#c81e1e"
-        speed={1.4}
+        speed={reduce ? 0 : 1.4}
         intensity={light ? 0.9 : 1.25}
         spread={1.5}
         saturation={1.15}
