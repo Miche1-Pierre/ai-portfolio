@@ -115,8 +115,8 @@ export function ProjectHero({ project }: { project: Project }) {
         ) : null}
       </div>
 
-      {/* 2. product window (bottom layer): a wide screenshot that sits BEHIND the beam */}
-      <div className="relative z-10 mx-auto mt-12 w-full max-w-[84rem] px-4 sm:px-8">
+      {/* 2. product window (bottom layer): a wide screenshot the beam glows out from behind */}
+      <div className="relative z-10 mx-auto mt-24 w-full max-w-[84rem] px-4 sm:px-8 sm:mt-28">
         <div
           className="group relative w-full overflow-hidden rounded-2xl border shadow-2xl"
           style={{ borderColor: `color-mix(in srgb, ${beam} 55%, transparent)`, boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
@@ -165,8 +165,8 @@ export function ProjectHero({ project }: { project: Project }) {
             color={beam}
             backgroundColor={stage.bg}
             horizontalBeamOffset={0.2}
-            verticalBeamOffset={-0.08}
-            verticalSizing={2.0}
+            verticalBeamOffset={-0.16}
+            verticalSizing={1.5}
             horizontalSizing={0.5}
             wispDensity={1}
             wispIntensity={8}
