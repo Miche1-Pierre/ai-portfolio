@@ -55,12 +55,12 @@ export default function OpenGraphImage() {
           </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#9aa4b5" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, fontSize: 22, color: "#9aa4b5" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ width: 12, height: 12, borderRadius: 12, background: "#45d8ac" }} />
-            {site.availability} · {site.location}
+            {site.availability} · Montréal, QC
           </div>
-          <div>{site.url.replace("https://", "")}</div>
+          <div style={{ display: "flex", flexShrink: 0 }}>{site.url.replace("https://", "")}</div>
         </div>
       </div>
     ),
