@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView, useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowUpRight, Github, Linkedin, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HeroBackground } from "@/components/site/hero-background";
 import { metrics, site } from "@/content/site";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -46,18 +47,7 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24">
       {/* background: soft aurora field + film grain (no stripes) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="absolute left-1/2 top-[-18rem] h-[44rem] w-[72rem] -translate-x-1/2 rounded-full opacity-60 blur-[110px] will-change-transform animate-aurora-slow"
-          style={{ background: "radial-gradient(closest-side, color-mix(in oklch, var(--brand) 30%, transparent), transparent)" }}
-        />
-        <div
-          className="absolute right-[-12rem] top-[2rem] h-[34rem] w-[44rem] rounded-full opacity-45 blur-[110px] will-change-transform animate-aurora [animation-delay:-8s]"
-          style={{ background: "radial-gradient(closest-side, color-mix(in oklch, var(--brand-2) 26%, transparent), transparent)" }}
-        />
-        <div
-          className="absolute bottom-[-16rem] left-[-8rem] h-[30rem] w-[40rem] rounded-full opacity-30 blur-[120px] will-change-transform animate-aurora-slow [animation-delay:-17s]"
-          style={{ background: "radial-gradient(closest-side, color-mix(in oklch, var(--brand) 22%, transparent), transparent)" }}
-        />
+        <HeroBackground />
         {/* film grain for a premium, non-flat surface (whisper-subtle) */}
         <div className="absolute inset-0 bg-noise opacity-[0.02] mix-blend-soft-light" />
         {/* soft vignette to focus the centre */}

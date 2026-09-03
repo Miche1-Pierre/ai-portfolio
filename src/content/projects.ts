@@ -78,7 +78,7 @@ export const projects: Project[] = [
     links: {
       site: "https://www.taskforce-project.fr",
       github: "https://github.com/taskforce-project",
-      docs: "https://github.com/taskforce-project/taskforce-docs",
+      docs: "https://docs.taskforce-project.fr/guides/bienvenue",
     },
     stack: ["Java 21", "Spring Boot", "Next.js", "PostgreSQL", "Keycloak", "MCP", "Docker", "GitHub Actions"],
     period: "2025 - present",
@@ -91,7 +91,7 @@ export const projects: Project[] = [
     tagline: "Your project's reference memory, readable by your AI.",
     description:
       "A reference memory for a whole project, kept fresh, navigable and readable by both people and AI, so an assistant works on the real state of the product instead of re-scanning everything on each conversation.",
-    accent: "#c0563a",
+    accent: "#22d3ee",
     overview:
       "Documentation drifts and scatters; AI assistants lose the thread and start from scratch every conversation. Brain OS keeps a project's decisions, constraints and architecture as a single, versioned source of truth, a “neural Ctrl+F” an agent can query for exactly what it needs. Battle-tested in production on Plania.",
     problem:
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     tagline: "A 13,000-user SaaS, rebuilt from the architecture up.",
     description:
       "Plania is an AI platform that generates a complete, bank-ready business plan in under 30 minutes. As Head of Engineering I rebuilt its architecture, closed security flaws, reworked pricing, then added an agentic layer over 10+ business tools and rebuilt the purchase-and-payments funnel end to end.",
-    accent: "#e0913a",
+    accent: "#10b981",
     overview:
       "Plania turns a founder's idea into a 30-page business plan, 5-year financial projections and a market analysis, formatted for banks and investors. I inherited it as a live SaaS with 13,000 registered users and rebuilt it under load: foundations first (architecture, security, pricing), then an agentic layer over the business and a rebuilt purchase funnel, all while keeping revenue flat through the migration.",
     problem:
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     tagline: "60% of traffic; 1 conversation in 4 becomes a quote request.",
     description:
       "Designed and shipped to production an on-site AI sales agent for an asset-based North American freight carrier (full- and less-than-truckload, cross-border). It now handles the majority of inbound traffic and converts a quarter of conversations into spot-quote requests.",
-    accent: "#d1452f",
+    accent: "#38bdf8",
     overview:
       "An “Ask AI” assistant embedded on a freight carrier's site, taken from scoping to production in weeks. It answers inbound prospects, qualifies them and pushes qualified intent straight into the spot-quote funnel.",
     problem:
@@ -188,7 +188,7 @@ export const projects: Project[] = [
     tagline: "$1.93 → ~$0 per report; ~100 hours a month freed.",
     description:
       "AI-automated triage of vehicle incident reports for a car-sharing operator active in four countries - cutting unit cost to near zero and redeploying about 100 hours of manual processing every month ($29k a year) to higher-value work.",
-    accent: "#e2a032",
+    accent: "#39f06a",
     overview:
       "A car-sharing operator running in four countries processed vehicle incident reports by hand. I automated the triage - classification and extraction with a human in the loop for edge cases - collapsing the per-report cost and freeing a meaningful slice of the team's month.",
     problem:
@@ -218,7 +218,7 @@ export const projects: Project[] = [
     tagline: "Feasibility, architecture and compliance for 5 dealerships.",
     description:
       "Feasibility study, architecture and scoping for a lease-financing group, including Law 25 and FINTRAC compliance and banking integrations. Development under way.",
-    accent: "#b23b3b",
+    accent: "#8b5cf6",
     overview:
       "A lease-financing group with five dealerships needed a regulated platform. I ran the feasibility study, set the architecture and scoped delivery - with compliance (Québec's Law 25, FINTRAC) and banking integrations designed in from the start rather than bolted on.",
     problem:
@@ -245,7 +245,7 @@ export const projects: Project[] = [
     tagline: "Traceability under 21 CFR Part 11 and GAMP 5.",
     description:
       "Built the core of a pharmaceutical laboratory information management system at Nancyclotep: inventory, industrial process and traceability management, designed to 21 CFR Part 11 (electronic signatures, audit trails) and GAMP 5.",
-    accent: "#cf7a3e",
+    accent: "#2dd4bf",
     overview:
       "At Nancyclotep I built the core of a laboratory information management system for a regulated pharmaceutical environment - inventory, industrial process and traceability - with electronic signatures and audit trails designed to the standards that govern the domain.",
     problem:
@@ -272,7 +272,7 @@ export const projects: Project[] = [
     tagline: "Internal reporting, project and team management.",
     description:
       "Internal application built for SynapsIA: reporting, project management and team management with custom statistics.",
-    accent: "#c86a35",
+    accent: "#f97316",
     overview:
       "An internal tool for SynapsIA bringing reporting, project management and team management together, with custom statistics for the team.",
     approach: [
@@ -298,7 +298,7 @@ export const projects: Project[] = [
     tagline: "School administration: absences, EDM and chat.",
     description:
       "Administration tool built as an R&D project at Metz Numeric School: administrator management, online absence and lateness tracking, electronic document management and chat.",
-    accent: "#b9542f",
+    accent: "#ef4444",
     overview:
       "An R&D administration tool for Metz Numeric School: managing administrators, tracking absences and lateness online, electronic document management and an internal chat.",
     approach: [
@@ -324,7 +324,7 @@ export const projects: Project[] = [
     tagline: "Next.js 15, React 19, Tailwind v4, shadcn/ui, motion.",
     description:
       "The site you are reading - built as a small product: typed content, accessible components, motion with reduced-motion fallbacks, SEO and analytics.",
-    accent: "#d98324",
+    accent: "#f43f5e",
     overview:
       "The site you are reading, built as a small product: fully typed content, accessible components on shadcn/ui, motion with reduced-motion fallbacks, and a WebGL beam (React Bits' LaserFlow) on each project page.",
     approach: [

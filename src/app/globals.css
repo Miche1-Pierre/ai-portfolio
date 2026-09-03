@@ -111,10 +111,11 @@
   --brand: var(--primary);
   --brand-2: var(--chart-4);
 
-  /* Project-page hero "stage" (hex, so the WebGL beam can read them). Light theme. */
-  --stage: #f1eae1;
-  --stage-elevated: #fbf7f2;
-  --stage-fg: #1a1a1a;
+  /* Project-page hero is a dark "stage" in BOTH themes so the vivid beams render cleanly
+     (the light-mode WebGL invert path broke). Hex, so the beam can read the tokens. */
+  --stage: #17120e;
+  --stage-elevated: #221a14;
+  --stage-fg: #f7f4ee;
 
   --font-sans: var(--font-poppins), Poppins, ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-libre-baskerville), "Libre Baskerville", ui-serif, serif;

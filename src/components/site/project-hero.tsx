@@ -43,7 +43,6 @@ export function ProjectHero({ project }: { project: Project }) {
     if (mounted) setStage(readStage());
   }, [mounted, resolvedTheme]);
 
-  const isLight = resolvedTheme === "light";
   const beam = project.beamMode === "adaptive" ? stage.fg : project.accent;
   const glow = project.beamMode === "adaptive" ? stage.fg : project.accent;
   const cover = project.cover ?? project.images?.[0];
@@ -82,8 +81,8 @@ export function ProjectHero({ project }: { project: Project }) {
             verticalSizing={1.7}
             horizontalSizing={0.5}
             wispDensity={1}
-            wispIntensity={isLight ? 3.4 : 5}
-            fogIntensity={isLight ? 0.3 : 0.45}
+            wispIntensity={5}
+            fogIntensity={0.45}
             flowSpeed={0.34}
             dpr={1.5}
           />

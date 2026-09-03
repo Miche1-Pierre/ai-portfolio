@@ -2,6 +2,7 @@ import Image from "next/image";
 import { GraduationCap, Languages, MapPin, ShieldCheck } from "lucide-react";
 import { Section } from "@/components/site/section";
 import { Reveal } from "@/components/motion/reveal";
+import { AIPortrait } from "@/components/site/ai-portrait";
 import { certifications, education } from "@/content/experience";
 import { site } from "@/content/site";
 
@@ -16,9 +17,12 @@ export function About() {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
         <Reveal>
           <div className="relative overflow-hidden rounded-2xl border bg-card">
-            <div className="relative aspect-[4/5] w-full">
-              <Image src="/images/profile.png" alt={site.name} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" priority={false} />
+            <div className="relative aspect-[4/5] w-full overflow-hidden" style={{ backgroundColor: "var(--stage)" }}>
+              <AIPortrait />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+              <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white/70 backdrop-blur">
+                Applied AI
+              </span>
             </div>
             <ul className="grid gap-2 p-5 text-sm">
               <li className="flex items-center gap-2 text-muted-foreground">
