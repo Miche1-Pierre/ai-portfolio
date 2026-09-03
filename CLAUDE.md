@@ -1,44 +1,40 @@
-# CLAUDE.md — AI Portfolio (Space OS refactor)
+# CLAUDE.md — Pierre Michel's portfolio (v2)
 
-Pierre Michel's developer portfolio (Next.js 15 · React 19 · TypeScript · Tailwind 4),
-being refactored into a **"Space OS"**: a navigable universe where travelling between
-five planets *is* the navigation. **All user-facing copy is in English.**
+Developer portfolio of Pierre Michel — **Full-Stack Software Engineer · Applied AI**.
+Single-page Next.js app, Attio/Linear-grade design. **All user-facing copy is in English.**
 
-## Read first
-The full specification is in **`docs/`** (`README.md` + `01`–`07`): concept & scope,
-art direction, screen-by-screen storyboard, asset library, architecture, CV-sourced
-content, and roadmap. Start at `docs/README.md`.
+## Stack
+Next.js 15 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 · **shadcn/ui
+(`base-nova` style on `@base-ui/react` — use the `render` prop, not `asChild`)** · `motion` 13
+(`motion/react`) · `next-themes` (dark by default) · `lucide-react` · `next-sitemap` · Vercel Analytics.
+Fonts: Geist (`--font-sans`) + Geist Mono (`--font-geist-mono`).
 
-## Decisions locked (2026-09-02)
-- **Navigation:** routed-per-destination (`/earth /software /ai /life-sciences /projects`),
-  progressive enhancement — real SSR pages under a cinematic travel layer. (`docs/05`)
-- **Visual direction — UNDER TEST:** 3D **low-poly cartoon "diorama"** look (Short-Trip-ish),
-  **pre-rendered** in Blender → images/sprites/video, composited in a 2D/parallax web layer
-  (target runtime = pre-rendered, not live R3F). This is being validated via a **style frame**
-  before any portfolio code. The 2D "Star-Chart Blueprint" in `docs/02` is the fallback if the
-  low-poly test doesn't win. Update `docs/02`, `docs/04`, `docs/05 §5.4` once the look is chosen.
-- **Current phase:** STYLE FRAME — the first scene (launch base) follows Pierre's own brief in
-  **`docs/08-scene-brief-launch-base.md`** (source of truth for this scene): low-poly canyon, huge
-  paneled station-sphere behind, small rocket **posée** at centre — **no flame / smoke / lift-off**,
-  16:9, frontal slight low angle. The Blender file is split into collections **`BG` / `TERRAIN` /
-  `ROCKET`** so each renders as its own web layer. No portfolio code until the look is approved.
+## Where things live
+- `src/content/*.ts` — **all content, typed** (site/metrics/nav, experience/education/certs,
+  projects, skills). Source of truth = the CV in `C:\Users\pierr\OneDrive\Desktop\Candidature\CV`
+  (extract with `pdftotext -layout`). Never invent facts.
+- `src/components/site/*` — sections (navbar, hero, marquee, work, experience, skills, about,
+  contact, footer) + `command-menu` (⌘K) + `theme-toggle`. `src/components/motion/reveal.tsx` —
+  scroll-reveal helpers (no `filter: blur` animations: too costly).
+- `src/components/ui/*` — shadcn primitives. `Button` sets `nativeButton={false}` automatically when
+  rendered as a link.
+- `src/app/globals.css` — oklch tokens (`--brand` teal, `--brand-2` violet), `@utility` helpers
+  (`container-x`, `bg-grid`, `glass`, `text-gradient`, `eyebrow`, `card-hover`). Gotcha: inside
+  `@utility`, use `background-image` (longhand) for gradient text — the `background` shorthand drops
+  `background-clip: text` under Lightning CSS.
+- `next.config.ts` — `/about` → `/#about`, `/work` → `/#work` redirects (old URLs are indexed).
+- `docs/` — the earlier "Space OS" exploration (01–08). **Superseded** by v2; kept as history.
 
-## Blender MCP (wired)
-- Server registered in `.mcp.json` (`blender` → `uvx blender-mcp`, UTF-8 env).
-- Addon installed at `…/Blender/5.1/scripts/addons/blender_mcp.py`.
-- **To use:** open **Blender 5.1** → Preferences → Add-ons → enable **"Interface: MCP for Blender"**
-  → 3D viewport sidebar (`N`) → **MCP for Blender** tab → **Start MCP Server** (socket port 9876).
-  Then launch Claude Code **from `C:\Portfolio`**, approve the `blender` server → `mcp__blender__*`
-  tools become available.
-- ⚠️ **Save the .blend before running `execute_blender_code`** (it runs arbitrary Python).
-  The first command after connecting sometimes no-ops — just retry. Don't run a second MCP client
-  (e.g. Claude Desktop) against Blender at the same time.
+## Rules
+- **Client names from the CV stay anonymised** (`site.showClientNames = false`) until Pierre
+  explicitly allows publishing them. Metrics from the CV are fine.
+- No client-side API keys (the old OpenAI chatbot was removed for that reason).
+- The CV PDF is **not** published (contains a phone number) unless Pierre asks.
+- Respect `prefers-reduced-motion`; keep animations cheap (no blur filters, small aurora blobs).
+- Commit only when asked; **never push/merge to `master` without explicit OK** (Vercel deploys it).
 
-## Git
-- Identity: `Miche1-Pierre <pierre.michel.work@gmail.com>` (set locally; verified).
-- Working branch: **`feat/space-os`** (off `master`). GitFlow: PR into `dev` then `master`.
-- **Don't push or force-push without asking.** Commit only when asked.
-
-## Guardrails
-- Never delete/overwrite the user's files or force-push public history without explicit OK.
-- Client names/metrics from the CV (Safex, Communauto, Plania…) need NDA review before going public (`docs/06 §6.6`).
+## Dev
+- Branch: `feat/portfolio-v2` (pushed; PR into `master` pending Pierre's review).
+- Dev server: `npm run dev -- -p 3010` → http://localhost:3010 (3000/3001 are taken on this machine).
+- Checks: `npx tsc --noEmit`, `npx next lint`, `npm run build` (postbuild regenerates the sitemap).
+- Git identity: `Miche1-Pierre <pierre.michel.work@gmail.com>`.
