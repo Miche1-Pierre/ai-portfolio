@@ -156,17 +156,17 @@ export function ProjectHero({ project }: { project: Project }) {
         </div>
       </div>
 
-      {/* 3. WebGL beam (middle layer): in front of the image, behind the text; poured from the right */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-20">
+      {/* 3. WebGL beam (BACK layer): behind the product image, glowing from the top like Huly */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         {mounted ? (
           // Always render the beam (it is the signature). Under reduced-motion we freeze the
           // animation (speeds -> 0) instead of hiding it, so it never just disappears.
           <LaserFlow
             color={beam}
             backgroundColor={stage.bg}
-            horizontalBeamOffset={0.26}
-            verticalBeamOffset={0.1}
-            verticalSizing={1.7}
+            horizontalBeamOffset={0.2}
+            verticalBeamOffset={-0.08}
+            verticalSizing={2.0}
             horizontalSizing={0.5}
             wispDensity={1}
             wispIntensity={8}
@@ -179,7 +179,7 @@ export function ProjectHero({ project }: { project: Project }) {
         ) : (
           <div
             className="absolute inset-0"
-            style={{ mixBlendMode: "screen", background: `radial-gradient(40% 36% at 76% 6%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 55%, transparent), transparent 70%)` }}
+            style={{ background: `radial-gradient(42% 34% at 50% 2%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 45%, transparent), transparent 70%)` }}
           />
         )}
       </div>

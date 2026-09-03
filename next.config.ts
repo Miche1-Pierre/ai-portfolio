@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  // Off on purpose: StrictMode double-invokes effects in dev, which churns the WebGL context in
+  // LaserFlow (mount/cleanup/mount) and fought proper GPU cleanup. Prod is unaffected either way.
+  reactStrictMode: false,
   experimental: {
     optimizeCss: true,
   },

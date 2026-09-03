@@ -346,12 +346,9 @@ export function LaserFlow({
       const background = new THREE.Color(value || "#000000");
       const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
       const lightBackground = luma > 0.72;
-      // Transparent container + a blend mode that composites over whatever is behind the beam
-      // (screen adds light on dark, multiply darkens on light), so the beam can sit in front of
-      // the product image without hiding it.
-      mount.style.backgroundColor = "transparent";
+      mount.style.backgroundColor = value || "#000000";
       canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
-      canvas.style.mixBlendMode = lightBackground ? "multiply" : "screen";
+      canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
     };
     applyBackgroundMode(backgroundColor);
     mount.appendChild(canvas);
@@ -584,9 +581,10 @@ export function LaserFlow({
       geometry.dispose();
       material.dispose();
       renderer.dispose();
-      // NOTE: no forceContextLoss() here. Under React StrictMode (dev) the effect mounts,
-      // cleans up, then remounts immediately; losing the context first makes Chrome refuse the
-      // next one, so the beam vanished on reload in dev. dispose() is enough for cleanup.
+      // Release the WebGL context on unmount, or client-side navigation between project pages
+      // leaks a context each time until the browser refuses new ones (no beam). Safe now that
+      // StrictMode is off (no immediate mount/cleanup/mount churn).
+      renderer.forceContextLoss();
       if (mount.contains(canvas)) mount.removeChild(canvas);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -620,9 +618,9 @@ export function LaserFlow({
       const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
       const lightBackground = luma > 0.72;
       const mount = mountRef.current;
-      if (mount) mount.style.backgroundColor = "transparent";
+      if (mount) mount.style.backgroundColor = backgroundColor || "#000000";
       canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
-      canvas.style.mixBlendMode = lightBackground ? "multiply" : "screen";
+      canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
     }
   }, [
     wispDensity,
