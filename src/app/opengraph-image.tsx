@@ -16,10 +16,10 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          backgroundColor: "#0b0f16",
+          backgroundColor: "#17120e",
           backgroundImage:
-            "radial-gradient(900px 500px at 20% 0%, rgba(69,216,172,0.22), transparent 60%), radial-gradient(700px 400px at 100% 100%, rgba(150,110,255,0.22), transparent 60%)",
-          color: "#f2f4f8",
+            "radial-gradient(900px 500px at 18% 0%, rgba(181,48,46,0.32), transparent 60%), radial-gradient(700px 420px at 100% 100%, rgba(230,163,58,0.22), transparent 60%)",
+          color: "#f7f4ee",
           fontFamily: "sans-serif",
         }}
       >
@@ -28,9 +28,9 @@ export default function OpenGraphImage() {
             style={{
               width: 56,
               height: 56,
-              borderRadius: 14,
-              background: "#f2f4f8",
-              color: "#0b0f16",
+              borderRadius: 12,
+              background: "#f7f4ee",
+              color: "#17120e",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -42,7 +42,7 @@ export default function OpenGraphImage() {
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 30, fontWeight: 600 }}>{site.name}</div>
-            <div style={{ fontSize: 20, color: "#9aa4b5" }}>{site.title}</div>
+            <div style={{ fontSize: 20, color: "#b8ada0" }}>{site.title}</div>
           </div>
         </div>
 
@@ -50,14 +50,14 @@ export default function OpenGraphImage() {
           <div style={{ fontSize: 76, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02, maxWidth: 980 }}>
             I take products from scoping to production.
           </div>
-          <div style={{ fontSize: 28, color: "#b7c0cf", maxWidth: 1000 }}>
+          <div style={{ fontSize: 28, color: "#cabfb2", maxWidth: 1000 }}>
             Architecture · Applied AI · LLM agents · Java / Spring Boot · Next.js
           </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, fontSize: 22, color: "#9aa4b5" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, fontSize: 22, color: "#b8ada0" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 12, height: 12, borderRadius: 12, background: "#45d8ac" }} />
+            <div style={{ width: 12, height: 12, borderRadius: 12, background: "#d24a3a" }} />
             {site.availability} · Montréal, QC
           </div>
           <div style={{ display: "flex", flexShrink: 0 }}>{site.url.replace("https://", "")}</div>

@@ -7,7 +7,8 @@ Single-page Next.js app, Attio/Linear-grade design. **All user-facing copy is in
 Next.js 15 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 · **shadcn/ui
 (`base-nova` style on `@base-ui/react` — use the `render` prop, not `asChild`)** · `motion` 13
 (`motion/react`) · `next-themes` (dark by default) · `lucide-react` · `three` (WebGL beam) ·
-`next-sitemap` · Vercel Analytics. Fonts: Geist (`--font-sans`) + Geist Mono (`--font-geist-mono`).
+`next-sitemap` · Vercel Analytics. Fonts: Poppins (`--font-sans` + headings), IBM Plex Mono
+(`--font-mono`), Libre Baskerville (`--font-serif`), all self-hosted via `next/font/google`.
 
 ## Where things live
 - `src/content/*.ts` — **all content, typed** (site/metrics/nav, experience/education/certs,
@@ -26,8 +27,11 @@ Next.js 15 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 
   chrome showcase (screenshot with a cursor-follow mask reveal, or the diagram when there's no shot).
 - `src/components/ui/*` — shadcn primitives. `Button` sets `nativeButton={false}` automatically when
   rendered as a link.
-- `src/app/globals.css` — oklch tokens (`--brand` teal, `--brand-2` violet), `@utility` helpers
-  (`container-x`, `bg-grid`, `glass`, `text-gradient`, `eyebrow`, `card-hover`). Gotcha: inside
+- `src/app/globals.css` — **single source of truth for the theme** (his rule): a warm editorial
+  HSL palette (red `--primary`, cream/brown surfaces) for light + dark; `--brand`/`--brand-2` alias
+  `--primary`/`--chart-4` so the gradient/aurora/accents follow it; `--stage*` hex tokens drive the
+  project hero (read at runtime for the WebGL beam). `@utility` helpers (`container-x`, `bg-noise`,
+  `glass`, `text-gradient`, `eyebrow`, `card-hover`, `stage`/`stage-outline`). Gotcha: inside
   `@utility`, use `background-image` (longhand) for gradient text — the `background` shorthand drops
   `background-clip: text` under Lightning CSS.
 - `next.config.ts` — `/about` → `/#about`, `/work` → `/#work` redirects (old URLs are indexed).
