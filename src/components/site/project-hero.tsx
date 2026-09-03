@@ -67,10 +67,9 @@ export function ProjectHero({ project }: { project: Project }) {
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         {mounted && !reduce ? (
           <LaserFlow
-            key={`${beam}-${stage.bg}`}
             color={beam}
             backgroundColor={stage.bg}
-            horizontalBeamOffset={0.0}
+            horizontalBeamOffset={0.12}
             verticalBeamOffset={0.15}
             verticalSizing={1.6}
             horizontalSizing={0.5}

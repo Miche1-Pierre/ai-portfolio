@@ -567,7 +567,9 @@ export function LaserFlow({
       geometry.dispose();
       material.dispose();
       renderer.dispose();
-      renderer.forceContextLoss();
+      // NOTE: no forceContextLoss() here. Under React StrictMode (dev) the effect mounts,
+      // cleans up, then remounts immediately; losing the context first makes Chrome refuse the
+      // next one, so the beam vanished on reload in dev. dispose() is enough for cleanup.
       if (mount.contains(canvas)) mount.removeChild(canvas);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
