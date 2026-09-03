@@ -77,8 +77,8 @@ export function ProjectHero({ project }: { project: Project }) {
             color={beam}
             backgroundColor={stage.bg}
             horizontalBeamOffset={0.0}
-            verticalBeamOffset={-0.05}
-            verticalSizing={1.7}
+            verticalBeamOffset={0.0}
+            verticalSizing={2.0}
             horizontalSizing={0.5}
             wispDensity={1}
             wispIntensity={5}
