@@ -164,8 +164,8 @@ export function ProjectHero({ project }: { project: Project }) {
           <LaserFlow
             color={beam}
             backgroundColor={stage.bg}
-            horizontalBeamOffset={0.2}
-            verticalBeamOffset={-0.22}
+            horizontalBeamOffset={0.1}
+            verticalBeamOffset={-0.18}
             verticalSizing={1.85}
             horizontalSizing={0.5}
             wispDensity={1}
