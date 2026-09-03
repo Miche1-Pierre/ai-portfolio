@@ -36,6 +36,8 @@ export type Project = {
   images?: string[];
   /** Screenshot shown in the hero showcase; falls back to the diagram when absent. */
   cover?: string;
+  /** True when the cover is a photo (not a UI screenshot): the hero renders it without the browser chrome. */
+  coverBare?: boolean;
 
   stack: string[];
   period: string;
@@ -84,7 +86,12 @@ export const projects: Project[] = [
       docs: "https://docs.taskforce-project.fr/guides/bienvenue",
     },
     cover: "/images/projects/taskforce/taskforce_1.png",
-    images: ["/images/projects/taskforce/taskforce_1.png"],
+    // Gallery = the other three shots (the dashboard cover already headlines the hero).
+    images: [
+      "/images/projects/taskforce/taskforce_2.png",
+      "/images/projects/taskforce/taskforce_3.png",
+      "/images/projects/taskforce/taskforce_4.png",
+    ],
     stack: ["Java 21", "Spring Boot 4", "Next.js 16", "PostgreSQL", "pgvector", "Keycloak", "MCP", "Docker", "GitHub Actions"],
     period: "2025 - present",
     featured: true,
@@ -167,6 +174,8 @@ export const projects: Project[] = [
     description:
       "Designed and shipped to production an on-site AI sales agent for an asset-based North American freight carrier (full- and less-than-truckload, cross-border). It now handles the majority of inbound traffic and converts a quarter of conversations into spot-quote requests.",
     accent: "#38bdf8",
+    cover: "/images/projects/ai-sales-agent/ai-sales-agent_1.jpg",
+    coverBare: true,
     overview:
       "An “Ask AI” assistant embedded on a freight carrier's site, taken from scoping to production in weeks. It answers inbound prospects, qualifies them and pushes qualified intent straight into the spot-quote funnel.",
     problem:
@@ -198,6 +207,8 @@ export const projects: Project[] = [
     description:
       "AI-automated triage of vehicle incident reports for a car-sharing operator active in four countries - cutting unit cost to near zero and redeploying about 100 hours of manual processing every month ($29k a year) to higher-value work.",
     accent: "#39f06a",
+    cover: "/images/projects/incident-triage/incident-triage_1.jpg",
+    coverBare: true,
     overview:
       "A car-sharing operator running in four countries processed vehicle incident reports by hand. I automated the triage - classification and extraction with a human in the loop for edge cases - collapsing the per-report cost and freeing a meaningful slice of the team's month.",
     problem:
@@ -228,6 +239,8 @@ export const projects: Project[] = [
     description:
       "Feasibility study, architecture and scoping for a lease-financing group, including Law 25 and FINTRAC compliance and banking integrations. Development under way.",
     accent: "#8b5cf6",
+    cover: "/images/projects/lease-financing/lease-financing_1.jpg",
+    coverBare: true,
     overview:
       "A lease-financing group with five dealerships needed a regulated platform. I ran the feasibility study, set the architecture and scoped delivery - with compliance (Québec's Law 25, FINTRAC) and banking integrations designed in from the start rather than bolted on.",
     problem:
@@ -255,6 +268,8 @@ export const projects: Project[] = [
     description:
       "Built the core of a pharmaceutical laboratory information management system at Nancyclotep: inventory, industrial process and traceability management, designed to 21 CFR Part 11 (electronic signatures, audit trails) and GAMP 5.",
     accent: "#2dd4bf",
+    cover: "/images/projects/pharma-lims/pharma-lims_1.jpg",
+    coverBare: true,
     overview:
       "At Nancyclotep I built the core of a laboratory information management system for a regulated pharmaceutical environment - inventory, industrial process and traceability - with electronic signatures and audit trails designed to the standards that govern the domain.",
     problem:

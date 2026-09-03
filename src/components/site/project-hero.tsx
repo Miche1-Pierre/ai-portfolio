@@ -163,14 +163,16 @@ export function ProjectHero({ project }: { project: Project }) {
           className="group relative w-full overflow-hidden rounded-2xl shadow-2xl"
           style={{ boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
         >
-          <div className="flex items-center gap-1.5 px-4 py-2.5" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
-            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 22%, transparent)" }} />
-            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 18%, transparent)" }} />
-            <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 14%, transparent)" }} />
-            <span className="ml-3 font-mono text-[11px]" style={subtle}>
-              {domain}
-            </span>
-          </div>
+          {!project.coverBare && (
+            <div className="flex items-center gap-1.5 px-4 py-2.5" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 5%, transparent)" }}>
+              <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 22%, transparent)" }} />
+              <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 18%, transparent)" }} />
+              <span className="size-2.5 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--stage-fg) 14%, transparent)" }} />
+              <span className="ml-3 font-mono text-[11px]" style={subtle}>
+                {domain}
+              </span>
+            </div>
+          )}
           <div className="relative aspect-[16/9] w-full" style={{ backgroundColor: "var(--stage-elevated)" }}>
             {cover ? (
               <>
