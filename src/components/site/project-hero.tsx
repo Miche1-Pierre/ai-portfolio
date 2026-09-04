@@ -37,11 +37,13 @@ export function ProjectHero({ project }: { project: Project }) {
 
   useEffect(() => setMounted(true), []);
 
-  const stage = mounted && resolvedTheme === "light" ? STAGE.light : STAGE.dark;
-  // Taskforce follows its black/white brand: pass white and let the light-mode invert path render
-  // it black on the light stage - so white beam in dark, black beam in light.
+  // The project hero is ALWAYS a dark stage (in both site themes) so every beam renders identically:
+  // vivid, no invert artifacts, colour fixed per project. Only the page BELOW the hero follows the theme.
+  const light = mounted && resolvedTheme === "light";
+  const stage = STAGE.dark;
   const adaptive = project.beamMode === "adaptive";
-  const beam = adaptive ? "#f7f4ee" : project.accent;
+  // Taskforce follows its brand: white in dark theme, primary blue in light theme. Others: one fixed colour.
+  const beam = adaptive ? (light ? "#2f6bf6" : "#f7f4ee") : project.accent;
   const cover = project.cover ?? project.images?.[0];
   const domain = project.links?.site?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? project.slug;
 
@@ -64,7 +66,12 @@ export function ProjectHero({ project }: { project: Project }) {
   };
 
   return (
-    <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden pb-20">
+    <section
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="stage relative isolate overflow-hidden pb-20"
+      style={{ ["--stage"]: STAGE.dark.bg, ["--stage-fg"]: STAGE.dark.fg, ["--stage-elevated"]: "#221a14" } as React.CSSProperties}
+    >
       {/* Paint order: beam FIRST (behind), text SECOND (blends against it via mix-blend-difference),
           mockup LAST - via DOM order + the section's `isolate`, with NO per-layer z-index. The beam
           shares the text's wrapper and its region is 2x that wrapper, so the flare (mid-beam) always
