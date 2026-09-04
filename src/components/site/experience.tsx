@@ -1,6 +1,7 @@
 import { Section } from "@/components/site/section";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
+import { MovingBorderCard } from "@/components/aceternity/moving-border";
 import { experiences } from "@/content/experience";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +32,7 @@ export function Experience() {
 
               <Reveal delay={i * 0.03}>
                 {rich ? (
-                  <div className="-mt-1 rounded-2xl border bg-card/60 p-5 transition-colors hover:bg-card sm:p-6">
+                  <MovingBorderCard duration={9000} borderRadius="1rem" className="-mt-1 p-5 sm:p-6">
                     <Head e={e} />
                     <p className="mt-3 text-sm leading-relaxed text-foreground/90">{e.summary}</p>
                     <ul className="mt-3 space-y-2">
@@ -43,7 +44,7 @@ export function Experience() {
                       ))}
                     </ul>
                     <Tags tags={e.tags} />
-                  </div>
+                  </MovingBorderCard>
                 ) : (
                   <div className="pb-1 pt-0.5">
                     <Head e={e} />
