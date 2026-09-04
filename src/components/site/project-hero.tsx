@@ -71,8 +71,8 @@ export function ProjectHero({ project }: { project: Project }) {
           lands at the wrapper's bottom edge = the mockup top, no matter how many lines the title takes.
           Only Taskforce (adaptive) flips white/black by theme; colored beams keep their colour via
           `screen` (transparentBackground) so they read the same in light and dark. */}
-      <div className="relative pt-32 sm:pt-36">
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 bottom-[-100%]">
+      <div className="relative pt-32 pb-20 sm:pt-36 sm:pb-24">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 bottom-[-128%]">
           {mounted ? (
             <LaserFlow
               color={beam}
@@ -155,8 +155,9 @@ export function ProjectHero({ project }: { project: Project }) {
         </div>
       </div>
 
-      {/* 3. product window (painted last, sits over the beam) */}
-      <div className="relative mx-auto mt-10 w-full max-w-[84rem] px-4 sm:px-8 sm:mt-12">
+      {/* 3. product window (painted last, sits over the beam). The gap above it is the wrapper's
+           padding-bottom, so the beam region ends at this mockup's top edge and the flare lands there. */}
+      <div className="relative mx-auto w-full max-w-[84rem] px-4 sm:px-8">
         <div
           className="group relative w-full overflow-hidden rounded-2xl shadow-2xl"
           style={{ boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
