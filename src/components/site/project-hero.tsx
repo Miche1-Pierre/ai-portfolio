@@ -72,7 +72,7 @@ export function ProjectHero({ project }: { project: Project }) {
           Only Taskforce (adaptive) flips white/black by theme; colored beams keep their colour via
           `screen` (transparentBackground) so they read the same in light and dark. */}
       <div className="relative pt-32 pb-20 sm:pt-36 sm:pb-24">
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 bottom-[-128%]">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 bottom-[-134%]">
           {mounted ? (
             <LaserFlow
               color={beam}

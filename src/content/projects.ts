@@ -271,8 +271,7 @@ export const projects: Project[] = [
     description:
       "Built the core of a pharmaceutical laboratory information management system at Nancyclotep (a molecular-imaging & radiopharmaceutical platform): inventory, industrial process and traceability, designed to 21 CFR Part 11 (electronic signatures, audit trails) and GAMP 5.",
     accent: "#10e6c0",
-    cover: "/images/projects/pharma-lims/posifit.png",
-    coverBare: true,
+    cover: "/images/projects/pharma-lims/nancyclotep.png",
     overview:
       "At Nancyclotep I built the core of a laboratory information management system for a regulated pharmaceutical environment - inventory, industrial process and traceability - with electronic signatures and audit trails designed to the standards that govern the domain.",
     problem:
@@ -291,7 +290,7 @@ export const projects: Project[] = [
       { label: "Regulated", items: ["21 CFR Part 11", "GAMP 5", "Audit trails"] },
     ],
     links: { site: "https://nancyclotep.com" },
-    access: "Built at Nancyclotep, in a regulated pharmaceutical environment (no public repo); see also posifit.com.",
+    access: "Built at Nancyclotep, a molecular-imaging and radiopharmaceutical platform - a regulated environment with no public repository.",
     stack: ["Vue.js", "Nuxt", "PHP", "PostgreSQL", "Keycloak", "NAS"],
     period: "2025 - 2026",
   },
