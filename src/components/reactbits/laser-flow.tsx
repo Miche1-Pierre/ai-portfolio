@@ -325,7 +325,7 @@ export function LaserFlow({
     if (!mount) return;
     const renderer = new THREE.WebGLRenderer({
       antialias: false,
-      alpha: false,
+      alpha: true,
       depth: false,
       stencil: false,
       powerPreference: "high-performance",
@@ -341,25 +341,20 @@ export function LaserFlow({
     renderer.setPixelRatio(currentDprRef.current);
     renderer.shadowMap.enabled = false;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.setClearColor(0x000000, 1);
+    renderer.setClearColor(0x000000, 0);
     const canvas = renderer.domElement;
     canvas.style.width = "100%";
     canvas.style.height = "100%";
     canvas.style.display = "block";
     const applyBackgroundMode = (value: string) => {
-      // Transparent mode: the beam glows over whatever is behind it (screen blend), no opaque
-      // backdrop and no invert - so a white beam reads white in BOTH themes.
-      if (transparentBackground) {
-        mount.style.backgroundColor = "transparent";
-        canvas.style.filter = "none";
-        canvas.style.mixBlendMode = "screen";
-        return;
-      }
       const background = new THREE.Color(value || "#000000");
       const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
       const lightBackground = luma > 0.72;
-      mount.style.backgroundColor = value || "#000000";
-      canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
+      // Transparent canvas (alpha) so the beam composites over the page itself: `screen` for an
+      // additive glow on a dark stage, `normal` so the colour shows as-is on a light stage. No
+      // invert filter => no dark beam-core in light mode; the colour stays fixed per project.
+      mount.style.backgroundColor = "transparent";
+      canvas.style.filter = "none";
       canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
     };
     applyBackgroundMode(backgroundColor);
@@ -627,18 +622,12 @@ export function LaserFlow({
     const canvas = rendererRef.current?.domElement;
     if (canvas) {
       const mount = mountRef.current;
-      if (transparentBackground) {
-        if (mount) mount.style.backgroundColor = "transparent";
-        canvas.style.filter = "none";
-        canvas.style.mixBlendMode = "screen";
-      } else {
-        const background = new THREE.Color(backgroundColor || "#000000");
-        const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
-        const lightBackground = luma > 0.72;
-        if (mount) mount.style.backgroundColor = backgroundColor || "#000000";
-        canvas.style.filter = lightBackground ? "invert(1) hue-rotate(180deg)" : "none";
-        canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
-      }
+      const background = new THREE.Color(backgroundColor || "#000000");
+      const luma = background.r * 0.2126 + background.g * 0.7152 + background.b * 0.0722;
+      const lightBackground = luma > 0.72;
+      if (mount) mount.style.backgroundColor = "transparent";
+      canvas.style.filter = "none";
+      canvas.style.mixBlendMode = lightBackground ? "normal" : "screen";
     }
   }, [
     wispDensity,
