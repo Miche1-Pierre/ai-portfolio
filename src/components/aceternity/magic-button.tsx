@@ -22,7 +22,7 @@ export function MagicButton({
 }) {
   const inner = (
     <>
-      <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,var(--brand-2)_0%,var(--brand)_50%,var(--brand-2)_100%)]" />
+      <span className="absolute inset-[-1000%] animate-[magic-spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,var(--brand-2)_0%,var(--brand)_50%,var(--brand-2)_100%)]" />
       <span
         className={cn(
           "inline-flex h-full w-full items-center justify-center gap-2 rounded-lg bg-background px-7 text-sm font-medium text-foreground backdrop-blur-3xl",

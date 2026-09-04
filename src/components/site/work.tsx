@@ -31,7 +31,7 @@ function FeaturedPin({ project }: { project: Project }) {
   return (
     <div className="flex h-[27rem] w-full items-center justify-center">
       <PinContainer href={`/work/${project.slug}`} title="View case study">
-        <div className="w-[17rem] sm:w-[19rem]">
+        <div className="w-[18rem] sm:w-[22rem]">
           <div className="relative mb-4 aspect-[16/10] w-full overflow-hidden rounded-xl border bg-muted/20">
             {cover ? (
               <Image src={cover} alt="" fill sizes="(max-width: 640px) 80vw, 320px" className="object-cover object-top" />
@@ -74,7 +74,7 @@ export function Work() {
       description="A flagship execution layer, an LLM memory substrate, a 13,000-user SaaS rebuilt under load, and AI systems in production for enterprise clients."
     >
       {/* Featured: 3D-pin cards that open the case study */}
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {featuredProjects.map((p) => (
           <FeaturedPin key={p.slug} project={p} />
         ))}

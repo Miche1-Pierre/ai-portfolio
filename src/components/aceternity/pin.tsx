@@ -25,7 +25,7 @@ export function PinContainer({
     <Link
       className={cn("group/pin relative z-10 cursor-pointer", containerClassName)}
       href={href}
-      onMouseEnter={() => setTransform("translate(-50%,-50%) rotateX(40deg) scale(0.8)")}
+      onMouseEnter={() => setTransform("translate(-50%,-50%) rotateX(18deg) scale(0.96)")}
       onMouseLeave={() => setTransform("translate(-50%,-50%) rotateX(0deg) scale(1)")}
     >
       <div style={{ perspective: "1000px", transform: "rotateX(70deg) translateZ(0deg)" }} className="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2">
@@ -44,11 +44,10 @@ export function PinContainer({
 function PinPerspective({ title }: { title?: string }) {
   return (
     <div className="pointer-events-none absolute inset-0 z-40 flex h-full w-full items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100">
-      <div className="inset-0 -mt-7 h-full w-full flex-none">
+      <div className="inset-0 -mt-10 h-full w-full flex-none">
         <div className="absolute inset-x-0 top-0 flex justify-center">
-          <span className="relative z-20 flex items-center rounded-full bg-foreground px-4 py-0.5 text-xs font-semibold text-background ring-1 ring-border">
+          <span className="relative z-20 whitespace-nowrap rounded-full bg-foreground px-5 py-1.5 text-xs font-semibold text-background shadow-lg ring-1 ring-border">
             {title ?? "View"}
-            <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-brand/0 via-brand to-brand/0 transition-opacity duration-500 group-hover/pin:opacity-90" />
           </span>
         </div>
 

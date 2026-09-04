@@ -16,14 +16,17 @@ const AMBER = "#e0913a";
 const ORANGE = "#d98324";
 
 const globeConfig: GlobeConfig = {
-  globeColor: "#1a1210",
-  emissive: "#1a1210",
-  emissiveIntensity: 0.12,
-  shininess: 0.9,
-  atmosphereColor: "#f0b199",
-  atmosphereAltitude: 0.12,
-  polygonColor: "rgba(240,180,150,0.65)",
-  ambientLight: "#f0b199",
+  globeColor: "#2a1c15",
+  emissive: "#2a1c15",
+  emissiveIntensity: 0.22,
+  shininess: 1.1,
+  atmosphereColor: "#ffb488",
+  atmosphereAltitude: 0.16,
+  polygonColor: "rgba(247,206,178,0.85)",
+  ambientLight: "#ffd9c2",
+  directionalLeftLight: "#ffffff",
+  directionalTopLight: "#ffe9dc",
+  pointLight: "#ffd9c2",
   arcTime: 1600,
   arcLength: 0.9,
   rings: 1,
@@ -32,22 +35,13 @@ const globeConfig: GlobeConfig = {
   autoRotateSpeed: 0.7,
 };
 
-// A few warm arcs (Paris -> Montréal is the move; the rest span time zones).
-const P = { montreal: [45.5, -73.56], paris: [48.85, 2.35], nyc: [40.71, -74], sf: [37.77, -122.41], london: [51.5, -0.12], tokyo: [35.68, 139.69], toronto: [43.65, -79.38], berlin: [52.52, 13.4], sao: [-23.55, -46.63], sing: [1.35, 103.81], syd: [-33.86, 151.2] } as const;
-const arc = (order: number, a: readonly [number, number] | number[], b: readonly [number, number] | number[], arcAlt: number, color: string): Position => ({ order, startLat: a[0], startLng: a[1], endLat: b[0], endLng: b[1], arcAlt, color });
+// The only journey that matters here: France <-> Montréal.
+const P = { montreal: [45.5, -73.56], paris: [48.85, 2.35] } as const;
+const arc = (order: number, a: readonly [number, number], b: readonly [number, number], arcAlt: number, color: string): Position => ({ order, startLat: a[0], startLng: a[1], endLat: b[0], endLng: b[1], arcAlt, color });
 const globeArcs: Position[] = [
-  arc(1, P.paris, P.montreal, 0.3, RED),
-  arc(1, P.montreal, P.nyc, 0.2, AMBER),
-  arc(2, P.montreal, P.sf, 0.35, RED),
-  arc(2, P.paris, P.london, 0.1, ORANGE),
-  arc(3, P.london, P.nyc, 0.3, RED),
-  arc(3, P.nyc, P.sf, 0.25, AMBER),
-  arc(4, P.paris, P.berlin, 0.1, ORANGE),
-  arc(4, P.montreal, P.toronto, 0.1, AMBER),
-  arc(5, P.sf, P.tokyo, 0.4, RED),
-  arc(5, P.paris, P.sao, 0.45, AMBER),
-  arc(6, P.sing, P.syd, 0.3, ORANGE),
-  arc(6, P.london, P.tokyo, 0.5, RED),
+  arc(0, P.paris, P.montreal, 0.3, RED),
+  arc(1, P.montreal, P.paris, 0.3, AMBER),
+  arc(2, P.paris, P.montreal, 0.22, ORANGE),
 ];
 
 const stack = ["Java / Spring", "Next.js / React", "TypeScript", "Python", "PostgreSQL", "LLM agents", "RAG / MCP", "Docker / K8s"];
