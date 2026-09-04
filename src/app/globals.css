@@ -211,6 +211,12 @@
   background-size: 64px 64px;
 }
 
+/* Dot grid (Aceternity/JSM hero background). */
+@utility bg-grid-dots {
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 13%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 @utility mask-fade-b {
   mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
 }
@@ -352,6 +358,21 @@
   }
 }
 
+/* Spotlight sweep (Aceternity/JSM hero). */
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+.animate-spotlight {
+  animation: spotlight 2s ease 0.75s 1 forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-aurora,
@@ -362,6 +383,10 @@
   .animate-twinkle,
   .animate-breathe {
     animation: none !important;
+  }
+  .animate-spotlight {
+    animation: none !important;
+    opacity: 1;
   }
   html {
     scroll-behavior: auto;
