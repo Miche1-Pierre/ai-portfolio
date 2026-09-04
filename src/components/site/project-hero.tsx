@@ -64,43 +64,41 @@ export function ProjectHero({ project }: { project: Project }) {
   };
 
   return (
-    <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
-      {/* Paint order matters for the title's mix-blend-difference: the beam paints FIRST (behind
-          everything), the text SECOND (so it blends against the beam), the mockup LAST. We rely on
-          DOM order + the section's `isolate`, with NO per-layer z-index - a z-index would spawn a
-          separate stacking context and break the blend. */}
+    <section onMouseMove={onMove} onMouseLeave={onLeave} className="stage relative isolate overflow-hidden pb-20">
+      {/* Paint order: beam FIRST (behind), text SECOND (blends against it via mix-blend-difference),
+          mockup LAST - via DOM order + the section's `isolate`, with NO per-layer z-index. The beam
+          shares the text's wrapper and its region is 2x that wrapper, so the flare (mid-beam) always
+          lands at the wrapper's bottom edge = the mockup top, no matter how many lines the title takes.
+          Only Taskforce (adaptive) flips white/black by theme; colored beams keep their colour via
+          `screen` (transparentBackground) so they read the same in light and dark. */}
+      <div className="relative pt-32 sm:pt-36">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 bottom-[-100%]">
+          {mounted ? (
+            <LaserFlow
+              color={beam}
+              backgroundColor={stage.bg}
+              horizontalBeamOffset={0.1}
+              verticalBeamOffset={0.03}
+              verticalSizing={1.8}
+              horizontalSizing={0.5}
+              wispDensity={1}
+              wispIntensity={8}
+              fogIntensity={0.7}
+              flowSpeed={reduce ? 0 : 0.35}
+              wispSpeed={reduce ? 0 : 12}
+              fogFallSpeed={reduce ? 0 : 0.6}
+              dpr={1.5}
+            />
+          ) : (
+            <div
+              className="absolute inset-0"
+              style={{ background: `radial-gradient(42% 34% at 50% 2%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 45%, transparent), transparent 70%)` }}
+            />
+          )}
+        </div>
 
-      {/* 1. WebGL beam (painted first, behind everything): fixed-height region anchored at the top
-           so the flare always lands on the mockup's top edge regardless of viewport/section height. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[1150px]">
-        {mounted ? (
-          // Always render the beam (it is the signature). Under reduced-motion we freeze the
-          // animation (speeds -> 0) instead of hiding it, so it never just disappears.
-          <LaserFlow
-            color={beam}
-            backgroundColor={stage.bg}
-            horizontalBeamOffset={0.1}
-            verticalBeamOffset={0.03}
-            verticalSizing={1.8}
-            horizontalSizing={0.5}
-            wispDensity={1}
-            wispIntensity={8}
-            fogIntensity={0.7}
-            flowSpeed={reduce ? 0 : 0.35}
-            wispSpeed={reduce ? 0 : 12}
-            fogFallSpeed={reduce ? 0 : 0.6}
-            dpr={1.5}
-          />
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{ background: `radial-gradient(42% 34% at 50% 2%, color-mix(in srgb, ${project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent} 45%, transparent), transparent 70%)` }}
-          />
-        )}
-      </div>
-
-      {/* 2. text (relative, so it shares the section stacking context and paints over the beam) */}
-      <div className="container-x relative flex flex-col items-center text-center">
+        {/* text (relative, shares the section stacking context, paints over the beam) */}
+        <div className="container-x relative flex flex-col items-center text-center">
         <div className="flex items-center gap-3">
           <span
             className="rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider backdrop-blur"
@@ -154,10 +152,11 @@ export function ProjectHero({ project }: { project: Project }) {
             )}
           </div>
         ) : null}
+        </div>
       </div>
 
       {/* 3. product window (painted last, sits over the beam) */}
-      <div className="relative mx-auto mt-20 w-full max-w-[84rem] px-4 sm:px-8 sm:mt-24">
+      <div className="relative mx-auto mt-10 w-full max-w-[84rem] px-4 sm:px-8 sm:mt-12">
         <div
           className="group relative w-full overflow-hidden rounded-2xl shadow-2xl"
           style={{ boxShadow: `0 40px 90px -50px color-mix(in srgb, ${beam} 65%, transparent)` }}
