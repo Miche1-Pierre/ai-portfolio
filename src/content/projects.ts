@@ -88,11 +88,15 @@ export const projects: Project[] = [
       docs: "https://docs.taskforce-project.fr/guides/bienvenue",
     },
     cover: "/images/projects/taskforce/taskforce_1.png",
-    // Gallery = the other three shots (the dashboard cover already headlines the hero).
+    // Gallery = a real product tour (the dashboard cover already headlines the hero). Only clean
+    // screens: the board/inbox demo shots have a font glyph issue on accents, so they're left out.
     images: [
-      "/images/projects/taskforce/taskforce_2.png",
-      "/images/projects/taskforce/taskforce_3.png",
-      "/images/projects/taskforce/taskforce_4.png",
+      "/images/projects/taskforce/taskforce_2.png", // Brain OS knowledge graph (dark)
+      "/images/projects/taskforce/taskforce_5.png", // profile / activity overview
+      "/images/projects/taskforce/taskforce_3.png", // settings - GitHub & Slack integrations
+      "/images/projects/taskforce/taskforce_6.png", // project settings + Smart Assign
+      "/images/projects/taskforce/taskforce_7.png", // in-app help & docs
+      "/images/projects/taskforce/taskforce_4.png", // Brain OS knowledge graph (light)
     ],
     stack: ["Java 21", "Spring Boot 4", "Next.js 16", "PostgreSQL", "pgvector", "Keycloak", "MCP", "Docker", "GitHub Actions"],
     period: "2025 - present",
