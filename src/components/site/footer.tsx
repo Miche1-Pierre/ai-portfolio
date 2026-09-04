@@ -14,10 +14,10 @@ export function Footer() {
 
       <div className="container-x relative z-10 flex flex-col items-center text-center">
         <h2 className="max-w-2xl font-heading text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
-          Ready to build something with <span className="text-gradient">AI</span>?
+          Ready to build something <span className="text-gradient">great</span>?
         </h2>
         <p className="mt-5 max-w-md text-muted-foreground">
-          {site.availability}, Montréal and remote. The fastest way to reach me is a short email, I reply within a day.
+          {site.availability}, remote-friendly and open anywhere. The fastest way to reach me is a short email, I reply within a day.
         </p>
         <a href={`mailto:${site.email}`} className="mt-8">
           <MagicButton title="Let's get in touch" icon={<Navigation className="size-4" />} position="right" />

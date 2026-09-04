@@ -5,7 +5,7 @@ export const site = {
   headline: "I take products from scoping to production.",
   subheadline:
     "Architecture, applied AI and product design, across startups and established companies, a research lab and a regulated environment.",
-  location: "France · relocating to Montréal, QC",
+  location: "France · open to remote & relocation",
   availability: "Available from October 2026",
   email: "pierre.michel.work@gmail.com",
   url: "https://ai-portfolio-pierre-michel.vercel.app",

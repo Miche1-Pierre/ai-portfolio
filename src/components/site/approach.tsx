@@ -9,15 +9,15 @@ const phases = [
   },
   {
     n: "Phase 2",
-    title: "Build with AI in the loop",
-    blurb: "Ship in governed increments: applied AI where it earns its place, human approval at each gate, a real audit trail.",
-    tint: "#d98324",
+    title: "Build in the loop",
+    blurb: "Ship in governed increments, with the right tools in the loop, human approval at each gate, and a real audit trail.",
+    tint: "#e07b1a",
   },
   {
     n: "Phase 3",
     title: "Harden & launch",
     blurb: "Security, observability and QA through to production, with the documentation that keeps it maintainable.",
-    tint: "#e0913a",
+    tint: "#d6a516",
   },
 ];
 

@@ -2,12 +2,14 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { Check, Copy } from "lucide-react";
 import { BentoGrid, BentoCard } from "@/components/aceternity/bento-grid";
 import { MagicButton } from "@/components/aceternity/magic-button";
 import type { GlobeConfig, Position } from "@/components/aceternity/grid-globe";
 import { metrics, site } from "@/content/site";
+import { cn } from "@/lib/utils";
 
 const World = dynamic(() => import("@/components/aceternity/grid-globe").then((m) => m.World), { ssr: false });
 
@@ -15,7 +17,7 @@ const RED = "#c0392b";
 const AMBER = "#e0913a";
 const ORANGE = "#d98324";
 
-const globeConfig: GlobeConfig = {
+const globeConfigDark: GlobeConfig = {
   globeColor: "#2a1c15",
   emissive: "#2a1c15",
   emissiveIntensity: 0.22,
@@ -27,6 +29,27 @@ const globeConfig: GlobeConfig = {
   directionalLeftLight: "#ffffff",
   directionalTopLight: "#ffe9dc",
   pointLight: "#ffd9c2",
+  arcTime: 1600,
+  arcLength: 0.9,
+  rings: 1,
+  maxRings: 3,
+  autoRotate: true,
+  autoRotateSpeed: 0.7,
+};
+
+// Light theme: a warm sand globe with darker land so it reads on a pale tile.
+const globeConfigLight: GlobeConfig = {
+  globeColor: "#ecdcc9",
+  emissive: "#e6d2bd",
+  emissiveIntensity: 0.05,
+  shininess: 0.6,
+  atmosphereColor: "#e0913a",
+  atmosphereAltitude: 0.14,
+  polygonColor: "rgba(150,72,46,0.62)",
+  ambientLight: "#ffffff",
+  directionalLeftLight: "#ffffff",
+  directionalTopLight: "#fff2e8",
+  pointLight: "#ffe9dc",
   arcTime: 1600,
   arcLength: 0.9,
   rings: 1,
@@ -47,6 +70,11 @@ const globeArcs: Position[] = [
 const stack = ["Java / Spring", "Next.js / React", "TypeScript", "Python", "PostgreSQL", "LLM agents", "RAG / MCP", "Docker / K8s"];
 
 export function Bento() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const light = mounted && resolvedTheme === "light";
+
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
@@ -78,8 +106,8 @@ export function Bento() {
               From scoping to production, across very different rooms.
             </h3>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              Startups, a 13k-user SaaS, an AI research lab and a regulated pharma environment. I ship the
-              whole path: architecture, applied AI, and the product around it, with the checks each world needs.
+              Startups, a 13k-user SaaS, a research lab and a regulated pharma environment. I ship the whole
+              path: architecture, applied AI where it earns its place, and the product around it.
             </p>
           </div>
           <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
@@ -96,20 +124,24 @@ export function Bento() {
           </dl>
         </BentoCard>
 
-        {/* B — 3D globe */}
+        {/* B — 3D globe (adapts to light / dark) */}
         <BentoCard
-          className="min-h-[22rem] border-transparent text-white md:col-span-2 md:row-span-2"
-          style={{ background: "radial-gradient(120% 90% at 50% 8%, #241a14 0%, #140f0c 70%)" }}
+          className={cn("min-h-[22rem] border-transparent md:col-span-2 md:row-span-2", !light && "text-white")}
+          style={{
+            background: light
+              ? "radial-gradient(120% 90% at 50% 8%, #fbf1e6 0%, #f2e4d4 70%)"
+              : "radial-gradient(120% 90% at 50% 8%, #241a14 0%, #140f0c 70%)",
+          }}
         >
           <div className="relative z-10">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">Where</p>
-            <h3 className="mt-2 font-heading text-xl font-semibold tracking-tight">Montréal-bound, remote-ready.</h3>
-            <p className="mt-2 max-w-[15rem] text-sm leading-relaxed text-white/70">
-              Relocating to Montréal, QC, and comfortable collaborating across time zones.
+            <p className={cn("font-mono text-[11px] uppercase tracking-[0.18em]", light ? "text-muted-foreground" : "text-white/60")}>Where</p>
+            <h3 className="mt-2 font-heading text-xl font-semibold tracking-tight">Open to remote, anywhere.</h3>
+            <p className={cn("mt-2 max-w-[15rem] text-sm leading-relaxed", light ? "text-muted-foreground" : "text-white/70")}>
+              Based in France, happy to work remotely or relocate for the right team.
             </p>
           </div>
           <div aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-10 top-24 sm:top-28">
-            <World globeConfig={globeConfig} data={globeArcs} />
+            <World key={light ? "light" : "dark"} globeConfig={light ? globeConfigLight : globeConfigDark} data={globeArcs} />
           </div>
         </BentoCard>
 
@@ -160,7 +192,7 @@ export function Bento() {
         {/* F — copy email CTA */}
         <BentoCard className="items-start md:col-span-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <h3 className="font-heading text-xl font-semibold tracking-tight sm:text-2xl">Want to build something with AI?</h3>
+            <h3 className="font-heading text-xl font-semibold tracking-tight sm:text-2xl">Want to build something together?</h3>
             <p className="mt-1 text-sm text-muted-foreground">The best way to reach me is a short email. I reply within a day.</p>
           </div>
           <MagicButton

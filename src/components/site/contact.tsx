@@ -50,7 +50,7 @@ export function Contact() {
       index="05"
       eyebrow="Contact"
       title="Building something with AI, or hiring for it? Let's talk."
-      description={`${site.availability}. Open to Montréal-based roles and remote collaborations.`}
+      description={`${site.availability}. Open to remote roles and collaborations, anywhere.`}
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
         <Reveal>
