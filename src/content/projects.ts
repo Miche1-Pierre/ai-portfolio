@@ -88,15 +88,14 @@ export const projects: Project[] = [
       docs: "https://docs.taskforce-project.fr/guides/bienvenue",
     },
     cover: "/images/projects/taskforce/taskforce_1.png",
-    // Gallery = a real product tour (the dashboard cover already headlines the hero). Only clean
-    // screens: the board/inbox demo shots have a font glyph issue on accents, so they're left out.
+    // Gallery = the RNCP defense deck (clean, high-res, no glyph issue) + one live app view.
     images: [
-      "/images/projects/taskforce/taskforce_2.png", // Brain OS knowledge graph (dark)
-      "/images/projects/taskforce/taskforce_5.png", // profile / activity overview
-      "/images/projects/taskforce/taskforce_3.png", // settings - GitHub & Slack integrations
-      "/images/projects/taskforce/taskforce_6.png", // project settings + Smart Assign
-      "/images/projects/taskforce/taskforce_7.png", // in-app help & docs
-      "/images/projects/taskforce/taskforce_4.png", // Brain OS knowledge graph (light)
+      "/images/projects/taskforce/taskforce_g1.png", // defense - value proposition
+      "/images/projects/taskforce/taskforce_g2.png", // defense - backend stack
+      "/images/projects/taskforce/taskforce_g3.png", // defense - applied AI
+      "/images/projects/taskforce/taskforce_g4.png", // defense - Prometheus & Grafana
+      "/images/projects/taskforce/taskforce_g5.png", // defense - test coverage
+      "/images/projects/taskforce/taskforce_2.png", // Brain OS knowledge graph (live app)
     ],
     stack: ["Java 21", "Spring Boot 4", "Next.js 16", "PostgreSQL", "pgvector", "Keycloak", "MCP", "Docker", "GitHub Actions"],
     period: "2025 - present",
@@ -109,7 +108,7 @@ export const projects: Project[] = [
     tagline: "Your project's reference memory, readable by your AI.",
     description:
       "A reference memory for a whole project, kept fresh, navigable and readable by both people and AI, so an assistant works on the real state of the product instead of re-scanning everything on each conversation.",
-    accent: "#22d3ee",
+    accent: "#2dd4bf",
     overview:
       "Documentation drifts and scatters; AI assistants lose the thread and start from scratch every conversation. Brain OS keeps a project's decisions, constraints and architecture as a single, versioned source of truth, a “neural Ctrl+F” an agent can query for exactly what it needs. Battle-tested in production on Plania.",
     problem:
@@ -117,7 +116,7 @@ export const projects: Project[] = [
     approach: [
       "A single hub (Brain_OS.md) over versioned knowledge domains: project, product, architecture, contracts, security, roadmap.",
       "An agent kernel (AGENTS.md) the AI reads first, so it acts on the real, dated and verifiable state.",
-      "Exposed over MCP and built to work with Claude, Cursor, Obsidian, GitHub, Notion and Linear.",
+      "Exposed over MCP and built to work with Claude, VS Code, Obsidian, GitHub, Notion and Linear.",
     ],
     results: [
       "Battle-tested in production on Plania, not theory.",
@@ -127,7 +126,7 @@ export const projects: Project[] = [
     role: "Solo - R&D and architecture.",
     stackGroups: [
       { label: "Core", items: ["Structured Markdown", "Versioned domains", "MCP"] },
-      { label: "Works with", items: ["Claude", "Cursor", "Obsidian", "GitHub", "Linear"] },
+      { label: "Works with", items: ["Claude", "VS Code", "Obsidian", "GitHub", "Linear"] },
     ],
     links: { site: "https://bos-landing.onrender.com" },
     cover: "/images/projects/brain-os/brain-os_1.png",
@@ -174,16 +173,15 @@ export const projects: Project[] = [
   },
   {
     slug: "ai-sales-agent",
-    name: `AI sales agent - ${client("Safex", "North American carrier")}`,
+    name: `AI sales agent - ${client("Safex Transport", "North American carrier")}`,
     kind: "client",
     tagline: "60% of traffic; 1 conversation in 4 becomes a quote request.",
     description:
-      "Designed and shipped to production an on-site AI sales agent for an asset-based North American freight carrier (full- and less-than-truckload, cross-border). It now handles the majority of inbound traffic and converts a quarter of conversations into spot-quote requests.",
-    accent: "#38bdf8",
-    cover: "/images/projects/ai-sales-agent/ai-sales-agent_1.jpg",
-    coverBare: true,
+      "Designed and shipped to production the on-site AI sales agent for Safex Transport, an asset-based North American freight carrier (full- and less-than-truckload, cross-border). It now handles the majority of inbound traffic and converts a quarter of conversations into spot-quote requests.",
+    accent: "#fb923c",
+    cover: "/images/projects/ai-sales-agent/safex.png",
     overview:
-      "An “Ask AI” assistant embedded on a freight carrier's site, taken from scoping to production in weeks. It answers inbound prospects, qualifies them and pushes qualified intent straight into the spot-quote funnel.",
+      "An “Ask AI” assistant embedded on Safex Transport's site, taken from scoping to production in weeks. It answers inbound prospects, qualifies them and pushes qualified intent straight into the spot-quote funnel.",
     problem:
       "Inbound sales conversations arriving at volume against a small team, where most never reached a quote.",
     approach: [
@@ -200,7 +198,7 @@ export const projects: Project[] = [
       { label: "AI", items: ["LLM agents", "RAG", "Guardrails"] },
       { label: "Product", items: ["TypeScript", "Next.js", "Funnel integration"] },
     ],
-    access: "Client engagement - delivered under NDA; the client name is withheld.",
+    links: { site: "https://safextransport.ca" },
     stack: ["LLM agents", "RAG", "TypeScript", "Next.js"],
     period: "2026",
     featured: true,
@@ -211,18 +209,18 @@ export const projects: Project[] = [
     kind: "client",
     tagline: "$1.93 → ~$0 per report; ~100 hours a month freed.",
     description:
-      "AI-automated triage of vehicle incident reports for a car-sharing operator active in four countries - cutting unit cost to near zero and redeploying about 100 hours of manual processing every month ($29k a year) to higher-value work.",
+      "AI-automated triage of vehicle incident reports for Communauto, a car-sharing operator active in four countries - built on Power Automate and the Microsoft 365 suite, cutting unit cost to near zero and redeploying about 100 hours of manual processing every month ($29k a year) to higher-value work.",
     accent: "#39f06a",
     cover: "/images/projects/incident-triage/incident-triage_1.jpg",
     coverBare: true,
     overview:
-      "A car-sharing operator running in four countries processed vehicle incident reports by hand. I automated the triage - classification and extraction with a human in the loop for edge cases - collapsing the per-report cost and freeing a meaningful slice of the team's month.",
+      "Communauto, running in four countries, processed vehicle incident reports by hand. I automated the triage on Power Automate and Microsoft 365 (Microsoft Lists), with a Python prototype and a Chrome extension to capture and classify reports, and a human in the loop for edge cases - collapsing the per-report cost and freeing a meaningful slice of the team's month.",
     problem:
       "Manual triage of vehicle incident reports at $1.93 each, consuming ~100 hours of staff time every month.",
     approach: [
-      "A classification and extraction pipeline over incoming reports.",
-      "Human-in-the-loop review kept for edge cases.",
-      "Measured against the existing manual cost baseline.",
+      "Triage automated on Power Automate + Microsoft 365 (Microsoft Lists), no heavy infrastructure.",
+      "A Python prototype and a Chrome extension to capture, extract and classify incoming reports.",
+      "Human-in-the-loop review kept for edge cases, measured against the manual cost baseline.",
     ],
     results: [
       "Unit cost cut from $1.93 to near zero.",
@@ -230,11 +228,11 @@ export const projects: Project[] = [
     ],
     role: "Technical lead - design and delivery.",
     stackGroups: [
-      { label: "AI", items: ["LLMs", "Classification", "Extraction"] },
-      { label: "Automation", items: ["Python", "Node.js", "Human-in-the-loop"] },
+      { label: "Automation", items: ["Power Automate", "Microsoft 365", "Microsoft Lists"] },
+      { label: "Prototype", items: ["Python", "Chrome extension", "Classification / LLMs"] },
     ],
-    access: "Client engagement - delivered under NDA; the client name is withheld.",
-    stack: ["LLMs", "Python", "Node.js", "Automation"],
+    links: { site: "https://www.communauto.com" },
+    stack: ["Power Automate", "Microsoft 365", "Python", "Chrome extension"],
     period: "2026",
   },
   {
@@ -243,12 +241,11 @@ export const projects: Project[] = [
     kind: "client",
     tagline: "Feasibility, architecture and compliance for 5 dealerships.",
     description:
-      "Feasibility study, architecture and scoping for a lease-financing group, including Law 25 and FINTRAC compliance and banking integrations. Development under way.",
-    accent: "#8b5cf6",
-    cover: "/images/projects/lease-financing/lease-financing_1.jpg",
-    coverBare: true,
+      "Feasibility study, architecture and scoping for Groupe Laplante, a lease-financing group with five dealerships, including Law 25 and FINTRAC compliance and banking integrations. Development under way.",
+    accent: "#3450d4",
+    cover: "/images/projects/lease-financing/laplante.png",
     overview:
-      "A lease-financing group with five dealerships needed a regulated platform. I ran the feasibility study, set the architecture and scoped delivery - with compliance (Québec's Law 25, FINTRAC) and banking integrations designed in from the start rather than bolted on.",
+      "Groupe Laplante, with five dealerships, needed a regulated platform. I ran the feasibility study, set the architecture and scoped delivery - with compliance (Québec's Law 25, FINTRAC) and banking integrations designed in from the start rather than bolted on.",
     problem:
       "Standing up regulated lease-financing across five dealerships, with strict privacy and anti-money-laundering obligations.",
     approach: [
@@ -262,19 +259,19 @@ export const projects: Project[] = [
       { label: "Design", items: ["Architecture", "Feasibility", "Delivery scoping"] },
       { label: "Compliance", items: ["Law 25", "FINTRAC", "Banking integrations"] },
     ],
-    access: "Client engagement - delivered under NDA; the client name is withheld.",
+    links: { site: "https://www.laplantegroupeauto.com" },
     stack: ["Architecture", "Compliance", "Integrations"],
     period: "2026",
   },
   {
     slug: "pharma-lims",
-    name: "Pharmaceutical LIMS core",
+    name: "Pharmaceutical LIMS - Nancyclotep",
     kind: "client",
     tagline: "Traceability under 21 CFR Part 11 and GAMP 5.",
     description:
-      "Built the core of a pharmaceutical laboratory information management system at Nancyclotep: inventory, industrial process and traceability management, designed to 21 CFR Part 11 (electronic signatures, audit trails) and GAMP 5.",
-    accent: "#2dd4bf",
-    cover: "/images/projects/pharma-lims/pharma-lims_1.jpg",
+      "Built the core of a pharmaceutical laboratory information management system at Nancyclotep (a molecular-imaging & radiopharmaceutical platform): inventory, industrial process and traceability, designed to 21 CFR Part 11 (electronic signatures, audit trails) and GAMP 5.",
+    accent: "#10e6c0",
+    cover: "/images/projects/pharma-lims/posifit.png",
     coverBare: true,
     overview:
       "At Nancyclotep I built the core of a laboratory information management system for a regulated pharmaceutical environment - inventory, industrial process and traceability - with electronic signatures and audit trails designed to the standards that govern the domain.",
@@ -288,11 +285,14 @@ export const projects: Project[] = [
     results: ["Delivered the traceable core the lab's processes are built on."],
     role: "Full-stack developer.",
     stackGroups: [
-      { label: "Backend", items: ["Java", "Spring Boot", "PostgreSQL", "Keycloak"] },
+      { label: "Frontend", items: ["Vue.js", "Nuxt"] },
+      { label: "Backend", items: ["PHP", "PostgreSQL", "Keycloak"] },
+      { label: "Hosting", items: ["Internal NAS server", "Self-hosted"] },
       { label: "Regulated", items: ["21 CFR Part 11", "GAMP 5", "Audit trails"] },
     ],
-    access: "Built inside a regulated pharmaceutical environment - no public repository.",
-    stack: ["Java", "Spring Boot", "PostgreSQL", "Keycloak"],
+    links: { site: "https://nancyclotep.com" },
+    access: "Built at Nancyclotep, in a regulated pharmaceutical environment (no public repo); see also posifit.com.",
+    stack: ["Vue.js", "Nuxt", "PHP", "PostgreSQL", "Keycloak", "NAS"],
     period: "2025 - 2026",
   },
   {
@@ -310,10 +310,10 @@ export const projects: Project[] = [
       "Project and team management.",
     ],
     role: "Full-stack developer.",
-    stackGroups: [{ label: "Stack", items: ["PHP", "MySQL", "Docker"] }],
-    stack: ["PHP", "MySQL", "Docker"],
+    stackGroups: [{ label: "Stack", items: ["PHP", "React", "MySQL", "Docker"] }],
+    stack: ["PHP", "React", "MySQL", "Docker"],
     period: "2025",
-    links: { github: "https://github.com/Miche1-Pierre/speed-reporting" },
+    links: { site: "https://synapsia.fr", github: "https://github.com/Miche1-Pierre/speed-reporting" },
     cover: "/images/projects/speedreporting/speedreporting_1.png",
     images: [
       "/images/projects/speedreporting/speedreporting_1.png",
@@ -328,7 +328,7 @@ export const projects: Project[] = [
     tagline: "School administration: absences, EDM and chat.",
     description:
       "Administration tool built as an R&D project at Metz Numeric School: administrator management, online absence and lateness tracking, electronic document management and chat.",
-    accent: "#ef4444",
+    accent: "#b3261e",
     overview:
       "An R&D administration tool for Metz Numeric School: managing administrators, tracking absences and lateness online, electronic document management and an internal chat.",
     approach: [
@@ -336,8 +336,8 @@ export const projects: Project[] = [
       "Electronic document management and chat.",
     ],
     role: "Full-stack developer.",
-    stackGroups: [{ label: "Stack", items: ["Java", "Spring Boot", "MySQL"] }],
-    stack: ["Java", "Spring Boot", "MySQL"],
+    stackGroups: [{ label: "Stack", items: ["Java", "Spring Boot", "MySQL", "Docker"] }],
+    stack: ["Java", "Spring Boot", "MySQL", "Docker"],
     period: "2024",
     links: { github: "https://github.com/Miche1-Pierre/admin-mns" },
     cover: "/images/projects/adminmns/adminmns_1.png",
@@ -345,35 +345,6 @@ export const projects: Project[] = [
       "/images/projects/adminmns/adminmns_1.png",
       "/images/projects/adminmns/adminmns_2.png",
       "/images/projects/adminmns/adminmns_3.png",
-    ],
-  },
-  {
-    slug: "portfolio",
-    name: "This portfolio",
-    kind: "archive",
-    tagline: "Next.js 15, React 19, Tailwind v4, shadcn/ui, motion.",
-    description:
-      "The site you are reading - built as a small product: typed content, accessible components, motion with reduced-motion fallbacks, SEO and analytics.",
-    accent: "#f43f5e",
-    overview:
-      "The site you are reading, built as a small product: fully typed content, accessible components on shadcn/ui, motion with reduced-motion fallbacks, and a WebGL beam (React Bits' LaserFlow) on each project page.",
-    approach: [
-      "Typed content model; every fact traceable to the CV.",
-      "Accessible shadcn/ui components; motion respects prefers-reduced-motion.",
-      "SEO (metadata, JSON-LD, sitemap) and analytics.",
-    ],
-    role: "Solo.",
-    stackGroups: [
-      { label: "Framework", items: ["Next.js 15", "React 19", "TypeScript"] },
-      { label: "UI", items: ["Tailwind CSS v4", "shadcn/ui", "motion", "three.js"] },
-    ],
-    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "motion"],
-    period: "2026",
-    links: { github: "https://github.com/Miche1-Pierre/ai-portfolio" },
-    cover: "/images/projects/portfolio/portfolio_1.png",
-    images: [
-      "/images/projects/portfolio/portfolio_1.png",
-      "/images/projects/portfolio/portfolio_2.png",
     ],
   },
 ];

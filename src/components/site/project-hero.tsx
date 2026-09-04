@@ -38,8 +38,8 @@ export function ProjectHero({ project }: { project: Project }) {
   useEffect(() => setMounted(true), []);
 
   const stage = mounted && resolvedTheme === "light" ? STAGE.light : STAGE.dark;
-  // Taskforce's beam is WHITE in both themes (its brand is white/black). We keep it white and
-  // composite it with `screen` on a transparent backdrop, so light mode no longer flips it to black.
+  // Taskforce follows its black/white brand: pass white and let the light-mode invert path render
+  // it black on the light stage - so white beam in dark, black beam in light.
   const adaptive = project.beamMode === "adaptive";
   const beam = adaptive ? "#f7f4ee" : project.accent;
   const cover = project.cover ?? project.images?.[0];
@@ -79,7 +79,6 @@ export function ProjectHero({ project }: { project: Project }) {
           <LaserFlow
             color={beam}
             backgroundColor={stage.bg}
-            transparentBackground={adaptive}
             horizontalBeamOffset={0.1}
             verticalBeamOffset={0.03}
             verticalSizing={1.8}

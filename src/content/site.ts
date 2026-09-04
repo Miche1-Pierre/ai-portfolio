@@ -22,7 +22,7 @@ export const site = {
     },
   },
   /** Client names from the CV are hidden on the public site until explicitly allowed. */
-  showClientNames: false,
+  showClientNames: true,
 } as const;
 
 export const metrics = [
