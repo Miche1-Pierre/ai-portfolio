@@ -125,13 +125,21 @@ export function Bento() {
           </div>
         </BentoCard>
 
-        {/* D — currently building */}
-        <BentoCard className="md:col-span-2">
-          <div>
+        {/* D — currently building (real Taskforce / Brain OS shot behind) */}
+        <BentoCard className="relative md:col-span-2">
+          <Image
+            src="/images/projects/taskforce/taskforce_2.png"
+            alt="Taskforce Brain OS knowledge graph"
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover object-center opacity-35 transition-opacity duration-300 group-hover/bento:opacity-55"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/85 to-card/40" />
+          <div className="relative z-10">
             <p className="eyebrow">Currently building</p>
             <h3 className="mt-3 font-heading text-lg font-semibold tracking-tight">Taskforce &amp; Brain OS</h3>
           </div>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="relative z-10 mt-auto text-sm leading-relaxed text-muted-foreground">
             An AI delivery OS and its memory core, built in the open.{" "}
             <a href={site.socials.taskforce.href} target="_blank" rel="noreferrer" className="font-medium text-foreground underline-offset-4 hover:underline">
               See it on GitHub

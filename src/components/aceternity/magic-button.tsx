@@ -22,22 +22,22 @@ export function MagicButton({
 }) {
   const inner = (
     <>
-      <span className="absolute inset-[-1000%] animate-[magic-spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,var(--brand-2)_0%,var(--brand)_50%,var(--brand-2)_100%)]" />
+      <span className="absolute inset-[-1000%] animate-[magic-spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#ffcf8a_0%,var(--brand)_50%,#ffcf8a_100%)]" />
       <span
         className={cn(
-          "inline-flex h-full w-full items-center justify-center gap-2 rounded-lg bg-background px-7 text-sm font-medium text-foreground backdrop-blur-3xl",
+          "inline-flex h-full w-full items-center justify-center gap-2 rounded-lg bg-background px-7 text-sm font-medium text-foreground backdrop-blur-3xl transition-colors duration-300 group-hover:bg-muted",
           innerClassName
         )}
       >
-        {position === "left" && icon}
+        {position === "left" && <span className="transition-transform duration-300 group-hover:-translate-x-0.5">{icon}</span>}
         {title}
-        {position === "right" && icon}
+        {position === "right" && <span className="transition-transform duration-300 group-hover:translate-x-0.5">{icon}</span>}
       </span>
     </>
   );
 
   const base = cn(
-    "relative inline-flex h-12 w-full overflow-hidden rounded-lg p-[1.5px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring md:w-60",
+    "group relative inline-flex h-12 w-full overflow-hidden rounded-lg p-[2px] outline-none transition-[transform,box-shadow] duration-300 hover:scale-[1.03] hover:shadow-[0_12px_40px_-10px_var(--brand)] focus-visible:ring-2 focus-visible:ring-ring active:scale-95 md:w-60",
     className
   );
 
