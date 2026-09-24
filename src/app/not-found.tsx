@@ -7,10 +7,10 @@ export default function NotFound() {
   return (
     <main className="container-x flex min-h-dvh flex-col items-center justify-center text-center">
       <div aria-hidden className="flex items-end gap-1.5">
-        <Shape kind="circle" className="size-10 text-shape-red" />
-        <Shape kind="quarter" className="size-10 text-shape-blue" />
-        <Shape kind="dee" className="size-10 text-shape-lime" />
-        <Shape kind="half" className="h-5 w-10 text-shape-yellow" />
+        <Shape kind="square" className="size-10 text-shape-red" />
+        <Shape kind="step" className="size-10 text-shape-blue" />
+        <Shape kind="notch" className="size-10 text-shape-lime" />
+        <Shape kind="rect" className="h-5 w-10 text-shape-yellow" />
       </div>
       <Pill tone="red" className="mt-10">
         404

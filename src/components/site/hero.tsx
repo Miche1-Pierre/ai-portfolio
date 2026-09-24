@@ -7,8 +7,16 @@ import { Pill } from "@/components/site/pill";
 import { cta } from "@/components/site/cta";
 import { site } from "@/content/site";
 
-/** Dust-style hero: big left-aligned statement, one blue action, isometric floor on the right. */
+// The last word of the headline gets the highlight block (DA v3.1's accent device).
+function splitLast(text: string) {
+  const i = text.lastIndexOf(" ");
+  const last = text.slice(i + 1).replace(/\.$/, "");
+  return { lead: text.slice(0, i + 1), last, dot: text.endsWith(".") ? "." : "" };
+}
+
+/** Hero: big left-aligned statement, one cobalt action, the isometric architecture on the right. */
 export function Hero() {
+  const h = splitLast(site.headline);
   const reduce = useReducedMotion();
   const fade = (delay: number) =>
     reduce ? {} : { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const } };
@@ -22,7 +30,9 @@ export function Hero() {
           </motion.div>
 
           <motion.h1 {...fade(0.06)} className="display mt-7 text-[clamp(2.9rem,6.4vw,5.6rem)]">
-            {site.headline}
+            {h.lead}
+            <span className="mark">{h.last}</span>
+            {h.dot}
           </motion.h1>
 
           <motion.p {...fade(0.14)} className="mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl sm:leading-relaxed">

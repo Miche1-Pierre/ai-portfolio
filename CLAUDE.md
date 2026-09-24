@@ -1,9 +1,12 @@
 # CLAUDE.md — Pierre Michel's portfolio (v2)
 
 Developer portfolio of Pierre Michel — **Full-Stack Software Engineer · Applied AI**.
-Single-page Next.js app. **DA v3 (2026-09-24) is inspired by [dust.tt](https://dust.tt/home)**: white
-paper, near-black ink, one action blue, filled geometric shapes, pastel panels, light theme by
-default (dark theme kept). **All user-facing copy is in English.**
+Single-page Next.js app. **DA v3.1 (2026-09-24)**: it started from [dust.tt](https://dust.tt/home), then
+Pierre found v3 too close to Dust ("copier-collé"), so it was made his own: **square corners
+everywhere**, his Taskforce cobalt `#2F6BF6` as the one action colour, square shapes, a pixel "PM"
+monogram, blueprint rules with plus marks and crop marks, one highlighted word per statement
+(`.mark`), an isometric architecture diagram in the hero. Light theme by default, dark kept.
+**All user-facing copy is in English.**
 
 ## Stack
 Next.js 15 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 · **shadcn/ui
@@ -11,36 +14,41 @@ Next.js 15 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 
 (`motion/react`) · `next-themes` (light by default) · `lucide-react` · `three` + React Three
 Fiber (the `/journey` prototype) · `next-sitemap` · Vercel Analytics. Fonts: **Geist** (`--font-sans`
 + headings, variable: titles 450, display 550), **Geist Mono** (`--font-mono`: labels, numbers,
-datelines), **Instrument Serif** italic (`--font-serif`: one accent word only), all self-hosted via
-`next/font/google`.
+datelines, the terminal card), both self-hosted via `next/font/google`.
 
 ## Where things live
 - `src/content/*.ts` — **all content, typed** (site/metrics/nav, experience/education/certs,
   projects, skills). Source of truth = the CV in `C:\Users\pierr\OneDrive\Desktop\Candidature\CV`
   (extract with `pdftotext -layout`). Never invent facts.
-- `src/components/site/*` — home sections in page order: `navbar`, `hero` (+ `hero-iso`: the
-  isometric floor, chips and "what I'm shipping" card), `trusted` (name wall), `work` +
-  `project-card` (pastel panel + product window, identical for every project), `about` (statement
-  card + portrait), `approach` (flow panel), `impact` (results datasheet), `skills` (numbered
-  pillars), `experience` (ruled list), `contact`, `footer` (dark CTA band + columns). Plus
-  `command-menu` (⌘K) and `theme-toggle`. DA primitives: `shapes` (filled shapes + the `Tone`
-  maps: `toneShape/Fill/Tint/Ink`, `toneStrong` for pale tones), `logo` (the "PM" monogram built
-  from shapes), `pill` (eyebrow pill), `cta` (button styles for links). `project-hero` is the
-  case-study hero. `src/components/motion/reveal.tsx` — scroll-reveal helpers (no `filter: blur`).
-- `scripts/gen-hero-iso.py` — generates `public/illustrations/hero-iso.svg` (+ `-dark`) and prints
-  the chip anchors to copy into `hero-iso.tsx`.
+- `src/components/site/*` — home sections in page order (numbered 01 to 07 by their tags):
+  `navbar`, `hero` (+ `hero-iso`: the isometric architecture diagram, square label chips and the
+  terminal "ship log" card), `trusted` (ruled grid of organisations), `work` + `project-card`
+  (square pastel panel + product window, identical for every project), `about` (crop-marked
+  statement card + portrait), `approach` (three-stage pipeline on blueprint paper), `impact`
+  (datasheet led by one big number per column), `skills` (ruled 2x2 sheet), `experience` (ruled
+  log), `contact`, `footer` (dark CTA band + columns). Plus `command-menu` (⌘K) and `theme-toggle`.
+  DA primitives: `shapes` (square shapes only + the `Tone` maps: `toneShape/Fill/Tint/Ink`,
+  `toneStrong` for pale tones), `logo` (the pixel "PM" monogram), `pill` (square tag with an
+  optional index), `marks` (`PlusMark`, `SectionRule`, `CropMarks`), `cta` (square button styles
+  for links). `project-hero` is the case-study hero. `src/components/motion/reveal.tsx` —
+  scroll-reveal helpers (no `filter: blur`).
+- `scripts/gen-hero-iso.py` — generates `public/illustrations/hero-iso.svg` (+ `-dark`): square
+  blocks wired by right-angle cables; prints the chip anchors to copy into `hero-iso.tsx`.
 - `src/app/work/[slug]/page.tsx` — one **dedicated case-study page per project** (SSG via
   `generateStaticParams` + per-project `generateMetadata`). Hero = `ProjectHero`: back link, tone
-  pill, display title, actions, then the product as a window standing in a large pastel panel of
-  the project's `tone` (chrome bar hidden when `project.coverBare`). The v2 LaserFlow beam and the
-  Aceternity/React Bits effects were removed with DA v3 (recoverable from commit `10721ee`).
+  tag, display title, actions, then the product as a square window standing in a large
+  crop-marked pastel panel of the project's `tone` (chrome bar hidden when `project.coverBare`).
+  The v2 LaserFlow beam and the Aceternity/React Bits effects were removed with DA v3
+  (recoverable from commit `10721ee`).
 - `src/components/ui/*` — shadcn primitives. `Button` sets `nativeButton={false}` automatically when
   rendered as a link.
-- `src/app/globals.css` — **single source of truth for the theme** (his rule): DA v3 tokens for
-  light + dark. shadcn semantics (`--primary` = action blue `#0073DF`, AA with white), `--paper-soft`,
-  `--night` (dark band), and per tone (blue, red, green, lime, yellow, pink, sky) a vivid `--shape-*`,
-  a pastel `--tint-*` and an AA text `--ink-*`. Type classes `.display`, `.title`, `.serif-accent`,
-  `.num`, `.pill` (+ `data-tone`); utilities `container-x`, `container-wide`, `eyebrow`, `glass`.
+- `src/app/globals.css` — **single source of truth for the theme** (his rule): DA v3.1 tokens for
+  light + dark. Every radius token is 0 (square DA, shadcn primitives included). shadcn semantics
+  (`--primary` = Taskforce cobalt `#2F6BF6`, AA with white), `--paper-soft`, `--night` (dark band),
+  `--rule` (blueprint hairlines), and per tone (blue, red, green, lime, yellow, pink, sky) a vivid
+  `--shape-*`, a pastel `--tint-*` and an AA text `--ink-*`. Type classes `.display`, `.title`,
+  `.mark` (highlight block), `.num`, `.pill` (+ `data-tone`); utilities `container-x`,
+  `container-wide`, `eyebrow`, `glass`.
   `src/app/opengraph-image.tsx` and `src/app/icon.svg` mirror the palette in hex (they cannot read
   CSS variables).
 - `next.config.ts` — `/about` → `/#about`, `/work` → `/#work` redirects (old URLs are indexed).

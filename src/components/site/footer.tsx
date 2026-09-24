@@ -1,28 +1,34 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PMMark } from "@/components/site/logo";
+import { PlusMark } from "@/components/site/marks";
 import { Pill } from "@/components/site/pill";
 import { cta } from "@/components/site/cta";
 import { featuredProjects } from "@/content/projects";
 import { navigation, site } from "@/content/site";
 
-/** Dust's closing dark band: mono pill, big white line with one serif word, one blue action. */
+/** Closing dark band: a square tag, one highlighted word, a blinking cursor, one cobalt action. */
 function CtaBand() {
   return (
     <section className="relative overflow-hidden bg-night text-night-foreground">
-      <div className="container-x flex flex-col items-center py-24 text-center sm:py-32">
+      <div className="container-x relative py-24 sm:py-32">
+        <PlusMark className="left-5 top-8 text-night-foreground/40 sm:left-8" />
+        <PlusMark className="right-5 top-8 text-night-foreground/40 sm:right-8" />
         <Pill tone="night">Open to new teams</Pill>
         <h2 className="display mt-8 max-w-4xl text-[clamp(2.5rem,5.6vw,4.9rem)]">
-          Good products aren&apos;t just prototyped. They&apos;re <span className="serif-accent">shipped</span>.
+          Good products aren&apos;t just prototyped. They&apos;re <span className="mark">shipped</span>.
+          <span aria-hidden className="ml-3 inline-block h-[0.72em] w-[0.42em] translate-y-[0.06em] animate-blink bg-shape-lime" />
         </h2>
-        <p className="mt-7 max-w-2xl text-lg leading-relaxed text-night-muted">
-          {site.availability}, remote-friendly and open anywhere. The fastest way to reach me is a short email: I reply
-          within a day.
-        </p>
-        <a href={`mailto:${site.email}`} className={cta({ size: "lg", className: "mt-10" })}>
-          Let&apos;s get in touch
-          <ArrowRight />
-        </a>
+        <div className="mt-10 flex flex-col gap-8 border-t border-night-line pt-8 sm:flex-row sm:items-end sm:justify-between">
+          <p className="max-w-xl text-lg leading-relaxed text-night-muted">
+            {site.availability}, remote-friendly and open anywhere. The fastest way to reach me is a short email: I reply
+            within a day.
+          </p>
+          <a href={`mailto:${site.email}`} className={cta({ size: "lg" })}>
+            Let&apos;s get in touch
+            <ArrowRight />
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -31,7 +37,7 @@ function CtaBand() {
 function Column({ title, links }: { title: string; links: { href: string; label: string; external?: boolean }[] }) {
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-[0.06em] text-muted-foreground">{title}</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">{title}</p>
       <ul className="mt-5 space-y-3">
         {links.map((l) => (
           <li key={l.label}>
@@ -58,7 +64,7 @@ export function Footer() {
       <CtaBand />
       <div className="bg-paper-soft">
         <div className="container-wide py-16">
-          <PMMark mono className="h-8 text-foreground/80" />
+          <PMMark mono className="h-8 text-foreground/85" />
           <div className="mt-12 grid grid-cols-2 gap-10 sm:grid-cols-4">
             <Column title="Work" links={featuredProjects.map((p) => ({ href: `/work/${p.slug}`, label: p.name.split(" - ")[0] }))} />
             <Column title="Portfolio" links={navigation.map((n) => ({ href: `/${n.href}`, label: n.label }))} />
@@ -80,11 +86,11 @@ export function Footer() {
               ]}
             />
           </div>
-          <div className="mt-16 flex flex-col gap-3 border-t pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-16 flex flex-col gap-3 border-t border-rule pt-6 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {year} {site.name} · {site.title}
             </p>
-            <p>Built with Next.js, set in Geist.</p>
+            <p>Built with Next.js · set in Geist</p>
           </div>
         </div>
       </div>

@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { site } from "@/content/site";
 import "./globals.css";
 
-// DA v3 (Dust-inspired): Geist for everything, Geist Mono for labels and numbers, Instrument Serif
-// italic for a single accent word. Self-hosted by next/font; variables consumed in globals.css.
+// DA v3.1: Geist for everything, Geist Mono for labels, numbers and the terminal card.
+// Self-hosted by next/font; variables consumed in globals.css.
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
-const instrumentSerif = Instrument_Serif({ variable: "--font-instrument-serif", subsets: ["latin"], weight: "400", style: ["normal", "italic"], display: "swap" });
 
 const title = `${site.name} - ${site.title}`;
 const description =
@@ -59,7 +58,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable}`}>
       <head>
         <meta name="google-site-verification" content="9Vx6J3GIbxluE2__kWAbog-U-gc3-PSfxNK0OZFKSSo" />
         <script

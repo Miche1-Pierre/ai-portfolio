@@ -5,20 +5,21 @@ export const alt = `${site.name} - ${site.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// DA v3 palette (mirrors globals.css; next/og cannot read CSS variables).
+// DA v3.1 palette (mirrors globals.css; next/og cannot read CSS variables).
 const C = {
   paper: "#ffffff",
   ink: "#191715",
   muted: "#57534d",
-  blue: "#1c91ff",
-  blueTint: "#eaf6ff",
-  blueInk: "#0a63b8",
+  rule: "#d9d6d0",
+  blue: "#2f6bf6",
+  blueTint: "#eef3ff",
+  blueInk: "#1e4fc4",
   red: "#e14322",
   green: "#418b5c",
   lime: "#e2f78c",
   yellow: "#ffaa0d",
   pink: "#f99bc3",
-  sky: "#9fdbff",
+  sky: "#a9c6ff",
 };
 
 /**
@@ -38,15 +39,16 @@ async function inter(weight: number): Promise<ArrayBuffer | null> {
   }
 }
 
-/** The PM monogram made of shapes (same geometry as <PMMark />, at 2x). */
+/** The pixel "PM" monogram (same geometry as <PMMark />, at 2x; counters painted in paper). */
 function Mark() {
   return (
     <div style={{ position: "relative", width: 104, height: 48, display: "flex" }}>
-      <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 48, borderRadius: 2, background: C.green }} />
-      <div style={{ position: "absolute", left: 16, top: 0, width: 24, height: 28, borderTopRightRadius: 14, borderBottomRightRadius: 14, background: C.yellow }} />
-      <div style={{ position: "absolute", left: 46, top: 0, width: 16, height: 48, borderRadius: 2, background: C.red }} />
-      <div style={{ position: "absolute", left: 62, top: 0, width: 26, height: 13, borderBottomLeftRadius: 13, borderBottomRightRadius: 13, background: C.pink }} />
-      <div style={{ position: "absolute", left: 88, top: 0, width: 16, height: 48, borderRadius: 2, background: C.blue }} />
+      <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 48, background: C.blue }} />
+      <div style={{ position: "absolute", left: 16, top: 0, width: 24, height: 28, background: C.yellow }} />
+      <div style={{ position: "absolute", left: 16, top: 10, width: 10, height: 8, background: C.paper }} />
+      <div style={{ position: "absolute", left: 46, top: 0, width: 58, height: 48, background: C.red }} />
+      <div style={{ position: "absolute", left: 62, top: 12, width: 26, height: 36, background: C.paper }} />
+      <div style={{ position: "absolute", left: 70, top: 12, width: 10, height: 20, background: C.green }} />
     </div>
   );
 }
@@ -59,6 +61,9 @@ export default async function OpenGraphImage() {
     ...(regular ? [{ name: "Inter", data: regular, weight: 400 as const, style: "normal" as const }] : []),
     ...(semibold ? [{ name: "Inter", data: semibold, weight: 600 as const, style: "normal" as const }] : []),
   ];
+  // the last word of the headline gets the cobalt highlight block, as on the site
+  const words = site.headline.replace(/\.$/, "").split(" ");
+  const last = words.pop();
 
   return new ImageResponse(
     (
@@ -74,17 +79,19 @@ export default async function OpenGraphImage() {
           color: C.ink,
           fontFamily: fonts.length ? "Inter" : "sans-serif",
           position: "relative",
+          border: `1px solid ${C.rule}`,
         }}
       >
-        {/* decorative shapes, top right (Dust-like platforms seen from above) */}
-        <div style={{ position: "absolute", right: 72, top: 64, display: "flex", gap: 14, alignItems: "flex-end" }}>
-          <div style={{ width: 92, height: 92, borderRadius: 9999, background: C.lime }} />
-          <div style={{ width: 92, height: 92, borderTopRightRadius: 92, background: C.blue }} />
-          <div style={{ width: 46, height: 92, borderTopRightRadius: 46, borderBottomRightRadius: 46, background: C.pink }} />
+        {/* decorative blocks, top right (the hero's architecture, seen from above) */}
+        <div style={{ position: "absolute", right: 72, top: 64, display: "flex", gap: 12, alignItems: "flex-end" }}>
+          <div style={{ width: 88, height: 88, background: C.lime }} />
+          <div style={{ width: 88, height: 88, background: C.blue }} />
+          <div style={{ width: 44, height: 88, background: C.pink }} />
         </div>
-        <div style={{ position: "absolute", right: 72, top: 170, display: "flex", gap: 14 }}>
-          <div style={{ width: 150, height: 56, borderRadius: 28, background: C.sky }} />
-          <div style={{ width: 92, height: 46, borderTopLeftRadius: 46, borderTopRightRadius: 46, background: C.yellow, alignSelf: "flex-end" }} />
+        <div style={{ position: "absolute", right: 72, top: 164, display: "flex", gap: 12 }}>
+          <div style={{ width: 144, height: 44, background: C.sky }} />
+          <div style={{ width: 44, height: 44, background: C.yellow, alignSelf: "flex-end" }} />
+          <div style={{ width: 44, height: 44, background: C.green }} />
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
@@ -96,7 +103,15 @@ export default async function OpenGraphImage() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ fontSize: 84, fontWeight: 600, letterSpacing: -3.6, lineHeight: 1, maxWidth: 900 }}>{site.headline}</div>
+          <div style={{ display: "flex", flexWrap: "wrap", columnGap: 22, rowGap: 4, fontSize: 84, fontWeight: 600, letterSpacing: -3.6, lineHeight: 1, maxWidth: 980 }}>
+            {words.map((w, i) => (
+              <span key={`${w}-${i}`}>{w}</span>
+            ))}
+            <span style={{ display: "flex" }}>
+              <span style={{ background: C.blue, color: C.paper, padding: "0 10px" }}>{last}</span>
+              <span>.</span>
+            </span>
+          </div>
           <div style={{ fontSize: 28, color: C.muted, maxWidth: 1000 }}>{TAGLINE}</div>
         </div>
 
@@ -108,14 +123,13 @@ export default async function OpenGraphImage() {
               gap: 12,
               background: C.blueTint,
               color: C.blueInk,
-              borderRadius: 9999,
-              padding: "10px 20px",
+              padding: "10px 18px",
               fontSize: 20,
               letterSpacing: 1.5,
               textTransform: "uppercase",
             }}
           >
-            <div style={{ width: 10, height: 10, borderRadius: 10, background: C.blue }} />
+            <div style={{ width: 10, height: 10, background: C.blue }} />
             {site.availability}
           </div>
           <div style={{ display: "flex", flexShrink: 0, color: C.muted }}>{site.url.replace("https://", "")}</div>

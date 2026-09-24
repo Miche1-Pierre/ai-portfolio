@@ -74,7 +74,7 @@ export function CommandMenu() {
       <Button
         variant="outline"
         size="sm"
-        className="hidden h-9 gap-2 rounded-[10px] bg-paper-soft pr-1.5 pl-3 text-muted-foreground md:inline-flex"
+        className="hidden h-9 gap-2 rounded-none bg-paper-soft pr-1.5 pl-3 text-muted-foreground md:inline-flex"
         onClick={() => setOpen(true)}
         aria-label="Open command menu"
       >

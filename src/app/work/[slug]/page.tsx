@@ -105,7 +105,7 @@ export default async function ProjectPage({ params }: Params) {
                   <ul className="space-y-4">
                     {project.results.map((r) => (
                       <li key={r} className="flex gap-3.5 text-[17px] leading-relaxed">
-                        <span className={cn("mt-0.5 grid size-6 shrink-0 place-items-center rounded-full", toneTint[tone])}>
+                        <span className={cn("mt-0.5 grid size-6 shrink-0 place-items-center", toneTint[tone])}>
                           <Check className={cn("size-3.5", toneInk[tone])} strokeWidth={2.5} />
                         </span>
                         <span>{r}</span>
@@ -150,7 +150,7 @@ export default async function ProjectPage({ params }: Params) {
                   <div className="flex justify-between gap-6 py-3 first:pt-0">
                     <dt className="text-muted-foreground">Type</dt>
                     <dd className="flex items-center gap-2 text-right font-medium">
-                      <span className={cn("size-2 rounded-full", toneFill[toneStrong(tone)])} />
+                      <span className={cn("size-2", toneFill[toneStrong(tone)])} />
                       {kindLabel[project.kind]}
                     </dd>
                   </div>
@@ -222,7 +222,7 @@ export default async function ProjectPage({ params }: Params) {
               <ArrowLeft className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-x-0.5" />
               <span className="min-w-0">
                 <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-                  <span className={cn("size-2 rounded-full", toneFill[toneStrong(prev.tone)])} />
+                  <span className={cn("size-2", toneFill[toneStrong(prev.tone)])} />
                   Previous
                 </span>
                 <span className="mt-1 block truncate text-lg font-medium tracking-[-0.015em]">{prev.name}</span>
@@ -236,7 +236,7 @@ export default async function ProjectPage({ params }: Params) {
               <span className="min-w-0">
                 <span className="flex items-center justify-end gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
                   Next
-                  <span className={cn("size-2 rounded-full", toneFill[toneStrong(next.tone)])} />
+                  <span className={cn("size-2", toneFill[toneStrong(next.tone)])} />
                 </span>
                 <span className="mt-1 block truncate text-lg font-medium tracking-[-0.015em]">{next.name}</span>
               </span>
