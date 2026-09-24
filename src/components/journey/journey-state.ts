@@ -11,6 +11,18 @@ export const smoothstep = (v: number, a: number, b: number) => {
   return t * t * (3 - 2 * t);
 };
 
+/** Générateur pseudo-aléatoire à graine (mulberry32) : décors et particules reproductibles, pas
+ *  de Math.random (règle Sonar S2245, et un rendu identique d'une visite à l'autre). */
+export function mulberry(seed: number) {
+  let t = seed >>> 0;
+  return () => {
+    t = (t + 0x6d2b79f5) >>> 0;
+    let x = Math.imul(t ^ (t >>> 15), 1 | t);
+    x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 /** État partagé du rover (écrit par <Rover>, lu par l'atmosphère, les traces, les particules). */
 export const roverState = {
   s: 0,

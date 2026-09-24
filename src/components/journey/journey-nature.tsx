@@ -6,7 +6,7 @@ import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 
 import journeyPath from "@/data/journey-path.json";
-import { lookState, roverState, smoothstep, toThree } from "@/components/journey/journey-state";
+import { lookState, mulberry, roverState, smoothstep, toThree } from "@/components/journey/journey-state";
 
 /* ----------------------------------------------------------------------------- l'eau */
 
@@ -375,16 +375,6 @@ export function Meadow({ scenes }: { scenes: readonly THREE.Object3D[] }) {
       <primitive object={built.flowerMesh} />
     </>
   );
-}
-
-function mulberry(seed: number) {
-  let t = seed >>> 0;
-  return () => {
-    t = (t + 0x6d2b79f5) >>> 0;
-    let x = Math.imul(t ^ (t >>> 15), 1 | t);
-    x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
-    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
-  };
 }
 
 /* ----------------------------------------------------------------------------- les nuages, le soleil */

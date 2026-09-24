@@ -9,7 +9,7 @@ import * as THREE from "three";
 import { worldPalette } from "@/content/world-palette";
 import journeyPath from "@/data/journey-path.json";
 import { JOURNEY_START_S } from "@/components/journey/stations";
-import { lookState, roverState, smoothstep, toThree, UP } from "@/components/journey/journey-state";
+import { lookState, mulberry, roverState, smoothstep, toThree, UP } from "@/components/journey/journey-state";
 import { Clouds, Effects, Meadow, SNOW_MATERIAL, SunSprite, TunnelLights, WATER, addSnowSparkle, getWaterMaterial, updateWater } from "@/components/journey/journey-nature";
 
 const DRACO = "/draco/";
@@ -355,13 +355,13 @@ function Particles() {
       depthWrite: false,
       alphaTest: 0.02,
     });
-    return { positions, velocities, life, geometry, material, cursor: 0, pending: 0 };
+    return { positions, velocities, life, geometry, material, cursor: 0, pending: 0, rnd: mulberry(4242) };
   }, []);
   const dust = useMemo(() => new THREE.Color("#c7a27a"), []);
   const powder = useMemo(() => new THREE.Color("#eef3f8"), []);
 
   useFrame((_, dt) => {
-    const { positions, velocities, life, geometry, material } = state;
+    const { positions, velocities, life, geometry, material, rnd } = state;
     const snow = smoothstep(roverState.altitude, SNOW.from, SNOW.to);
     material.color.copy(dust).lerp(powder, snow);
     material.opacity = 0.35 + 0.25 * snow;
@@ -371,18 +371,18 @@ function Particles() {
       state.pending -= 1;
       const i = state.cursor;
       state.cursor = (state.cursor + 1) % PARTICLES;
-      const side = Math.random() < 0.5 ? -0.8 : 0.8;
+      const side = rnd() < 0.5 ? -0.8 : 0.8;
       const p = roverState.position;
       const f = roverState.forward;
       const r = roverState.right;
       positions[i * 3] = p.x - f.x * 1.3 + r.x * side;
       positions[i * 3 + 1] = p.y + 0.15;
       positions[i * 3 + 2] = p.z - f.z * 1.3 + r.z * side;
-      const kick = 0.6 + Math.random() * 1.2;
-      velocities[i * 3] = -f.x * kick + (Math.random() - 0.5) * 0.8;
-      velocities[i * 3 + 1] = 0.8 + Math.random() * 1.2;
-      velocities[i * 3 + 2] = -f.z * kick + (Math.random() - 0.5) * 0.8;
-      life[i] = 0.9 + Math.random() * 0.5;
+      const kick = 0.6 + rnd() * 1.2;
+      velocities[i * 3] = -f.x * kick + (rnd() - 0.5) * 0.8;
+      velocities[i * 3 + 1] = 0.8 + rnd() * 1.2;
+      velocities[i * 3 + 2] = -f.z * kick + (rnd() - 0.5) * 0.8;
+      life[i] = 0.9 + rnd() * 0.5;
     }
     for (let i = 0; i < PARTICLES; i++) {
       if (life[i] <= 0) continue;
