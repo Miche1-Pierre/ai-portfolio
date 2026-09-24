@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
 
@@ -5,21 +7,18 @@ export const alt = `${site.name} - ${site.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// DA v3.2 palette (mirrors globals.css; next/og cannot read CSS variables).
+// DA v3.3 palette (mirrors globals.css; next/og cannot read CSS variables).
 const C = {
   paper: "#ffffff",
   ink: "#191715",
   muted: "#57534d",
-  rule: "#d9d6d0",
   blue: "#2f6bf6",
   blueTint: "#eef3ff",
   blueInk: "#1e4fc4",
   red: "#e14322",
   green: "#418b5c",
-  lime: "#e2f78c",
   yellow: "#ffaa0d",
   pink: "#f99bc3",
-  sky: "#a9c6ff",
 };
 
 /**
@@ -39,6 +38,20 @@ async function inter(weight: number): Promise<ArrayBuffer | null> {
   }
 }
 
+/** The hero's pipeline scene (light theme, from scripts/gen-hero-iso.py) as a data URI. */
+async function scene(): Promise<string | null> {
+  try {
+    const svg = await readFile(join(process.cwd(), "public", "illustrations", "hero-iso.svg"));
+    return `data:image/svg+xml;base64,${svg.toString("base64")}`;
+  } catch {
+    return null;
+  }
+}
+
+// the scene's view box is 629.0 x 433.8 (see RATIO in src/components/site/hero-iso.tsx)
+const ART_W = 600;
+const ART_H = Math.round((ART_W * 433.8) / 629.0);
+
 /** The "PM" monogram made of shapes (same geometry as <PMMark />, at 2x). */
 function Mark() {
   return (
@@ -52,10 +65,11 @@ function Mark() {
   );
 }
 
-const TAGLINE = "Architecture · Applied AI · LLM agents · Java / Spring Boot · Next.js";
+// two lines, broken between the practice and the stack
+const TAGLINE = ["Architecture · Applied AI · LLM agents", "Java / Spring Boot · Next.js"];
 
 export default async function OpenGraphImage() {
-  const [regular, semibold] = await Promise.all([inter(400), inter(600)]);
+  const [regular, semibold, art] = await Promise.all([inter(400), inter(600), scene()]);
   const fonts = [
     ...(regular ? [{ name: "Inter", data: regular, weight: 400 as const, style: "normal" as const }] : []),
     ...(semibold ? [{ name: "Inter", data: semibold, weight: 600 as const, style: "normal" as const }] : []),
@@ -73,25 +87,18 @@ export default async function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: 72,
+          padding: 64,
           backgroundColor: C.paper,
           color: C.ink,
           fontFamily: fonts.length ? "Inter" : "sans-serif",
           position: "relative",
-          border: `1px solid ${C.rule}`,
         }}
       >
-        {/* decorative blocks, top right: square volumes with round details, like the hero */}
-        <div style={{ position: "absolute", right: 72, top: 64, display: "flex", gap: 12, alignItems: "flex-end" }}>
-          <div style={{ width: 88, height: 88, borderRadius: 9999, background: C.lime }} />
-          <div style={{ width: 88, height: 88, background: C.blue }} />
-          <div style={{ width: 44, height: 88, borderTopRightRadius: 44, borderBottomRightRadius: 44, background: C.pink }} />
-        </div>
-        <div style={{ position: "absolute", right: 72, top: 164, display: "flex", gap: 12 }}>
-          <div style={{ width: 144, height: 44, borderRadius: 22, background: C.sky }} />
-          <div style={{ width: 44, height: 44, background: C.yellow, alignSelf: "flex-end" }} />
-          <div style={{ width: 44, height: 44, borderTopRightRadius: 44, background: C.green }} />
-        </div>
+        {/* the pipeline scene of the hero, on the right (its floor fades into the paper) */}
+        {art ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={art} width={ART_W} height={ART_H} alt="" style={{ position: "absolute", right: 36, top: 92 }} />
+        ) : null}
 
         <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
           <Mark />
@@ -101,8 +108,8 @@ export default async function OpenGraphImage() {
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", columnGap: 22, rowGap: 4, fontSize: 84, fontWeight: 600, letterSpacing: -3.6, lineHeight: 1, maxWidth: 980 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", columnGap: 18, rowGap: 2, fontSize: 70, fontWeight: 600, letterSpacing: -3, lineHeight: 1.02, maxWidth: 560 }}>
             {words.map((w, i) => (
               <span key={`${w}-${i}`}>{w}</span>
             ))}
@@ -111,7 +118,11 @@ export default async function OpenGraphImage() {
               <span>.</span>
             </span>
           </div>
-          <div style={{ fontSize: 28, color: C.muted, maxWidth: 1000 }}>{TAGLINE}</div>
+          <div style={{ display: "flex", flexDirection: "column", fontSize: 24, color: C.muted, lineHeight: 1.35 }}>
+            {TAGLINE.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, fontSize: 22 }}>

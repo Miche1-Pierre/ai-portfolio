@@ -25,7 +25,8 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   projects, skills). Source of truth = the CV in `C:\Users\pierr\OneDrive\Desktop\Candidature\CV`
   (extract with `pdftotext -layout`). Never invent facts.
 - `src/components/site/*` — home sections in page order (numbered 01 to 07 by their tags):
-  `navbar`, `hero` (+ `hero-iso`: the pipeline diorama, four square stage tags and, from `sm`,
+  `navbar` (section links centred from `xl`, in the menu below: they do not fit beside the actions
+  at 1024px), `hero` (+ `hero-iso`: the pipeline diorama, four square stage tags and, from `sm`,
   badges floating in its sky like clouds: Taskforce and Brain OS link to their case studies, "Next
   up: your project?" to the contact; he found the single card too stuck to the top), `trusted` (ruled grid of
   organisations: employer or client, plus a link when there is a case study), `work` + `project-card` (square pastel panel + product window, identical for
@@ -34,7 +35,7 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   `impact` (datasheet led by one big number per column), `skills` (link chips to each official site
   + two rotating wheels of tech logos on the page's right edge, desktop only), `experience` (ruled
   log), `contact` (email, LinkedIn, GitHub; **no form**, his call), `footer` (paper, colour logo +
-  columns; no dark band). Plus `command-menu` (⌘K) and `theme-toggle` (circular reveal via the View Transitions
+  Work / Portfolio / Connect columns; no dark band, no "Elsewhere" column). Plus `command-menu` (⌘K) and `theme-toggle` (circular reveal via the View Transitions
   API, instant fallback). DA primitives: `shapes` (round and square shapes + the `Tone` maps:
   `toneShape/Fill/Tint/Ink`, `toneStrong` for pale tones), `logo` (the "PM" monogram made of
   shapes), `pill` (square tag, round dot, optional index), `marks` (`PlusMark`, `SectionRule`,
@@ -64,7 +65,8 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   (+ `data-tone`); utilities `container-x`, `container-wide`, `eyebrow`, `glass`; the orbit
   animations of the tech wheels; the `::view-transition` rules of the theme switch.
   `src/app/opengraph-image.tsx` and `src/app/icon.svg` mirror the palette in hex (they cannot read
-  CSS variables).
+  CSS variables). The OG card shows the hero's pipeline scene (read from `public/illustrations/`),
+  never a cluster of loose shapes: he found that one "copié-collé sur Dust".
 - `next.config.ts` — `/about` → `/#about`, `/work` → `/#work` redirects (old URLs are indexed).
 - `docs/` — the earlier "Space OS" exploration (01–08). **Superseded** by v2; kept as history.
 - `blender/` — the **3D world workspace** (Blender sources, glTF exports, generator scripts, art
