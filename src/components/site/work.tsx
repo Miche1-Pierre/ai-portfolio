@@ -3,18 +3,23 @@ import { ProjectCard } from "@/components/site/project-card";
 import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { archiveProjects, clientProjects, featuredProjects } from "@/content/projects";
 
-const GRID = "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3";
+// Same grid for every group so every tile is identical (Pierre's rule).
+const GRID = "grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2";
 
 function GroupLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-5 flex items-center gap-3">
+    <div className="mb-8 flex items-center gap-4">
       <span className="eyebrow">{children}</span>
-      <span className="h-px flex-1 bg-border" />
+      <span className="h-px flex-1 bg-rule" />
     </div>
   );
 }
 
 export function Work() {
+  // one running number across the three groups (01 to 09)
+  const numbered = [...featuredProjects, ...clientProjects, ...archiveProjects].map((p, i) => [p.slug, i + 1] as const);
+  const n = Object.fromEntries(numbered);
+
   return (
     <Section
       id="work"
@@ -26,28 +31,28 @@ export function Work() {
       <Stagger className={GRID}>
         {featuredProjects.map((p) => (
           <StaggerItem key={p.slug}>
-            <ProjectCard project={p} />
+            <ProjectCard project={p} index={n[p.slug]} />
           </StaggerItem>
         ))}
       </Stagger>
 
-      <div className="mt-12">
+      <div className="mt-20">
         <GroupLabel>More client work</GroupLabel>
         <Stagger className={GRID}>
           {clientProjects.map((p) => (
             <StaggerItem key={p.slug}>
-              <ProjectCard project={p} />
+              <ProjectCard project={p} index={n[p.slug]} />
             </StaggerItem>
           ))}
         </Stagger>
       </div>
 
-      <div className="mt-12">
+      <div className="mt-20">
         <GroupLabel>Archive</GroupLabel>
         <Stagger className={GRID}>
           {archiveProjects.map((p) => (
             <StaggerItem key={p.slug}>
-              <ProjectCard project={p} />
+              <ProjectCard project={p} index={n[p.slug]} />
             </StaggerItem>
           ))}
         </Stagger>

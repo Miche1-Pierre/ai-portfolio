@@ -1,90 +1,83 @@
-import { Section } from "@/components/site/section";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { Badge } from "@/components/ui/badge";
-import { BorderGlow } from "@/components/reactbits/border-glow";
+import { SectionRule } from "@/components/site/marks";
+import { SectionHeader } from "@/components/site/section";
+import { bulletKinds, ShapeBullet, type Tone } from "@/components/site/shapes";
 import { experiences } from "@/content/experience";
-import { cn } from "@/lib/utils";
+import { site } from "@/content/site";
 
+const BULLET_TONES: Tone[] = ["blue", "red", "yellow", "green", "pink"];
+
+/** Experience as a ruled log: title block on the left, mono datelines and roles on the right. */
 export function Experience() {
   return (
-    <Section
-      id="experience"
-      index="02"
-      eyebrow="Experience"
-      title="From research lab to regulated industry to startup leadership."
-      description="Three years of taking projects from scoping through to production - and progressively owning architecture, applied AI and product decisions."
-    >
-      <ol className="relative">
-        {/* the rail - a single line, centered on the dots */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute bottom-3 left-[10px] top-2 w-px -translate-x-1/2 bg-gradient-to-b from-border via-border to-transparent"
-        />
-        {experiences.map((e, i) => {
-          const rich = e.bullets.length > 0;
-          return (
-            <li key={`${e.company}-${e.role}`} className="relative grid grid-cols-[20px_1fr] gap-x-4 pb-8 last:pb-0 sm:gap-x-6">
-              {/* dot - centered in the 20px gutter, exactly on the rail */}
-              <span className="relative flex justify-center pt-[7px]" aria-hidden>
-                {e.current ? <span className="absolute top-[5px] size-3.5 animate-pulse-ring rounded-full bg-brand/50" /> : null}
-                <span className={cn("relative z-10 size-[9px] rounded-full ring-4 ring-background", e.current ? "bg-brand" : "bg-muted-foreground/40")} />
-              </span>
+    <section id="experience" className="scroll-mt-20 pb-20 pt-4 sm:pb-28">
+      <div className="container-x">
+        <SectionRule className="mb-14 sm:mb-20" />
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.5fr)] lg:gap-16">
+          <Reveal className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHeader
+              index="06"
+              eyebrow="Experience"
+              size="md"
+              title="From research lab to regulated industry to startup leadership."
+              description="Three years of taking projects from scoping through to production - and progressively owning architecture, applied AI and product decisions."
+            />
+            <a
+              href={site.socials.linkedin.href}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex items-center gap-2 text-[15px] font-medium transition-colors hover:text-ink-blue"
+            >
+              More on LinkedIn
+              <ArrowRight className="size-4" />
+            </a>
+          </Reveal>
 
-              <Reveal delay={i * 0.03}>
-                {rich ? (
-                  <BorderGlow className="-mt-1" borderRadius={16} innerClassName="p-5 sm:p-6">
-                    <Head e={e} />
-                    <p className="mt-3 text-sm leading-relaxed text-foreground/90">{e.summary}</p>
-                    <ul className="mt-3 space-y-2">
-                      {e.bullets.map((b) => (
-                        <li key={b} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
-                          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand/80" />
+          <ol className="border-t border-rule">
+            {experiences.map((e, i) => (
+              <li key={`${e.company}-${e.role}`} className="grid grid-cols-[2.5rem_1fr] gap-x-2 border-b border-rule py-7">
+                <span className="num pt-0.5 text-[12px] text-subtle">{String(experiences.length - i).padStart(2, "0")}</span>
+                <Reveal delay={Math.min(i * 0.03, 0.12)}>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.08em]">
+                    <span className="text-ink-blue">{e.company}</span>
+                    <span className="text-muted-foreground">
+                      {"  ·  "}
+                      {e.start} - {e.end}
+                    </span>
+                    {e.current ? (
+                      <span className="ml-3 inline-flex items-center gap-1.5 text-ink-green">
+                        <span className="size-1.5 rounded-full bg-shape-green" />
+                        Now
+                      </span>
+                    ) : null}
+                  </p>
+                  <h3 className="mt-2.5 text-xl font-medium tracking-[-0.02em]">{e.role}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{e.location}</p>
+                  {e.summary ? <p className="mt-3 max-w-2xl leading-relaxed text-foreground/85">{e.summary}</p> : null}
+                  {e.bullets.length ? (
+                    <ul className="mt-4 max-w-2xl space-y-2.5">
+                      {e.bullets.map((b, j) => (
+                        <li key={b} className="flex gap-3 text-[15px] leading-relaxed text-muted-foreground">
+                          <ShapeBullet
+                            kind={bulletKinds[j % bulletKinds.length]}
+                            tone={BULLET_TONES[j % BULLET_TONES.length]}
+                            className="mt-1.5 size-2.5"
+                          />
                           <span>{b}</span>
                         </li>
                       ))}
                     </ul>
-                    <Tags tags={e.tags} />
-                  </BorderGlow>
-                ) : (
-                  <div className="pb-1 pt-0.5">
-                    <Head e={e} />
-                    {e.summary ? <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{e.summary}</p> : null}
-                    <Tags tags={e.tags} compact />
-                  </div>
-                )}
-              </Reveal>
-            </li>
-          );
-        })}
-      </ol>
-    </Section>
-  );
-}
-
-function Head({ e }: { e: (typeof experiences)[number] }) {
-  return (
-    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-      <h3 className="font-heading text-base font-semibold tracking-tight sm:text-lg">
-        {e.role} <span className="text-muted-foreground">·</span> {e.company}
-      </h3>
-      <span className="font-mono text-[11px] text-muted-foreground">
-        {e.start} - {e.end}
-        {e.current ? <span className="ml-2 text-brand">●</span> : null}
-      </span>
-      <p className="w-full text-xs text-muted-foreground">{e.location}</p>
-    </div>
-  );
-}
-
-function Tags({ tags, compact = false }: { tags: readonly string[]; compact?: boolean }) {
-  if (!tags.length) return null;
-  return (
-    <div className={cn("flex flex-wrap gap-1.5", compact ? "mt-2.5" : "mt-4")}>
-      {tags.map((t) => (
-        <Badge key={t} variant="secondary" className="font-normal">
-          {t}
-        </Badge>
-      ))}
-    </div>
+                  ) : null}
+                  {e.tags.length ? (
+                    <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.06em] text-subtle">{e.tags.join("  ·  ")}</p>
+                  ) : null}
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
   );
 }

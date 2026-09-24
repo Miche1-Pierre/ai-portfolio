@@ -1,66 +1,76 @@
-import { Section } from "@/components/site/section";
+import { Reveal } from "@/components/motion/reveal";
+import { CropMarks, SectionRule } from "@/components/site/marks";
+import { SectionHeader } from "@/components/site/section";
+import { cn } from "@/lib/utils";
 
+// The three phases; the checklists restate each blurb, nothing added.
 const phases = [
   {
-    n: "Phase 1",
     title: "Scope & architecture",
     blurb: "We align on the outcome, the constraints and the architecture before a line of code, so the build has a spine.",
-    tint: "#c0392b",
+    checks: ["Outcome", "Constraints", "Architecture"],
+    badge: "bg-shape-blue text-white",
+    dot: "bg-shape-blue",
   },
   {
-    n: "Phase 2",
     title: "Build in the loop",
     blurb: "Ship in governed increments, with the right tools in the loop, human approval at each gate, and a real audit trail.",
-    tint: "#e07b1a",
+    checks: ["Governed increments", "Human approval at each gate", "Audit trail"],
+    badge: "bg-shape-red text-white",
+    dot: "bg-shape-red",
   },
   {
-    n: "Phase 3",
     title: "Harden & launch",
     blurb: "Security, observability and QA through to production, with the documentation that keeps it maintainable.",
-    tint: "#d6a516",
+    checks: ["Security", "Observability", "QA", "Documentation"],
+    badge: "bg-shape-yellow text-night",
+    dot: "bg-shape-yellow",
   },
 ];
 
+/** The approach as a pipeline of three square stages on blueprint paper. */
 export function Approach() {
   return (
-    <Section
-      id="approach"
-      index="04"
-      eyebrow="My approach"
-      title="How I take an idea to something in production."
-      description="Three phases, the same discipline whether it's a startup MVP or a regulated platform."
-    >
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {phases.map((p) => (
-          <div
-            key={p.n}
-            className="group relative flex h-[22rem] items-center justify-center overflow-hidden rounded-3xl border bg-card p-8 lg:h-[26rem]"
-          >
-            {/* revealed on hover: a warm dot field washing in */}
-            <div
-              aria-hidden
-              className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-              style={{ background: `radial-gradient(120% 120% at 50% 0%, ${p.tint} 0%, color-mix(in srgb, ${p.tint} 40%, #140f0c) 45%, #120d0b 100%)` }}
-            />
-            <div
-              aria-hidden
-              className="bg-grid-dots absolute inset-0 opacity-0 mix-blend-overlay transition-opacity duration-500 group-hover:opacity-70"
-            />
-
-            <div className="relative z-10 flex flex-col items-center text-center">
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground opacity-0 transition-all duration-500 group-hover:-translate-y-1 group-hover:text-white/70 group-hover:opacity-100">
-                {p.n}
-              </span>
-              <h3 className="mt-2 font-heading text-2xl font-semibold tracking-tight transition-all duration-500 group-hover:text-white sm:text-3xl">
-                {p.title}
-              </h3>
-              <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-500 group-hover:text-white/85 group-hover:opacity-100">
-                {p.blurb}
-              </p>
-            </div>
+    <section id="approach" className="scroll-mt-20 pb-20 pt-4 sm:pb-28">
+      <div className="container-x">
+        <SectionRule className="mb-14 sm:mb-20" />
+        <Reveal>
+          <SectionHeader
+            index="03"
+            eyebrow="My approach"
+            title="How I take an idea to something in production."
+            description="Three phases, the same discipline whether it's a startup MVP or a regulated platform."
+            className="mb-12 sm:mb-16"
+          />
+        </Reveal>
+        <Reveal delay={0.05}>
+          <div className="relative bg-tint-blue p-4 [background-image:linear-gradient(to_right,color-mix(in_oklch,var(--ink-blue)_10%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklch,var(--ink-blue)_10%,transparent)_1px,transparent_1px)] [background-size:24px_24px] sm:p-8">
+            <CropMarks />
+            <ol className="relative grid gap-4 lg:grid-cols-3 lg:gap-8">
+              {/* the pipeline, visible between the stages on desktop */}
+              <span aria-hidden className="absolute inset-x-0 top-[38px] hidden h-0.5 bg-ink-blue/50 lg:block" />
+              {phases.map((p, i) => (
+                <li key={p.title} className="relative border border-foreground/10 bg-card p-6">
+                  <div className="flex items-center gap-3">
+                    <span className={cn("grid size-7 place-items-center rounded-full font-mono text-[11px]", p.badge)}>{String(i + 1).padStart(2, "0")}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Phase {i + 1}</span>
+                  </div>
+                  <h3 className="mt-5 text-xl font-medium tracking-[-0.02em]">{p.title}</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{p.blurb}</p>
+                  <ul className="mt-5 space-y-2 border-t border-rule pt-4">
+                    {p.checks.map((c) => (
+                      <li key={c} className="flex items-center gap-2.5 font-mono text-[12px] text-foreground/80">
+                        <span className={cn("size-1.5 shrink-0 rounded-full", p.dot)} />
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
           </div>
-        ))}
+        </Reveal>
       </div>
-    </Section>
+    </section>
   );
 }

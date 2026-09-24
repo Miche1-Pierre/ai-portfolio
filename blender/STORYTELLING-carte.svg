@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="860" viewBox="0 0 1600 860" font-family="Poppins, Segoe UI, Arial, sans-serif">
+<rect width="1600" height="860" fill="#fbf6f0"/>
+<text x="80" y="32" font-size="24" font-weight="600" fill="#2b1d16">Marée basse · la carte du parcours (proposition v0.3)</text>
+<text x="80" y="52" font-size="13" fill="#6b5a4e">Profil de la piste : distance parcourue en abscisse, altitude en ordonnée. Une zone = une section du site et une heure du jour. Longueurs et altitudes indicatives ; les points rouges sont les haltes (un carnet chacune).</text>
+<rect x="80.0" y="60" width="156.5" height="630" fill="#f6d9b8" opacity="0.55"/>
+<text x="88.0" y="82" font-size="15" font-weight="600" text-anchor="start" fill="#2b1d16">Z0 · Hangar et Port à sec</text>
+<text x="88.0" y="100" font-size="12" text-anchor="start" fill="#5a4a3f">Hero, About · aube</text>
+<rect x="236.5" y="60" width="455.4" height="630" fill="#f0cfa6" opacity="0.55"/>
+<text x="244.5" y="144" font-size="15" font-weight="600" text-anchor="start" fill="#2b1d16">Z1 · La Voie</text>
+<text x="244.5" y="162" font-size="12" text-anchor="start" fill="#5a4a3f">Experience 2023-2025</text>
+<text x="244.5" y="177" font-size="12" text-anchor="start" fill="#5a4a3f">(Lorraine) · matin</text>
+<rect x="691.9" y="60" width="199.2" height="630" fill="#e9c39c" opacity="0.55"/>
+<text x="699.9" y="82" font-size="15" font-weight="600" text-anchor="start" fill="#2b1d16">Z2 · L&#x27;Atelier</text>
+<text x="699.9" y="100" font-size="12" text-anchor="start" fill="#5a4a3f">Skills, Approach · midi</text>
+<rect x="891.2" y="60" width="398.5" height="630" fill="#dfe7ee" opacity="0.55"/>
+<text x="899.2" y="144" font-size="15" font-weight="600" text-anchor="start" fill="#2b1d16">Z3 · Le Col enneigé</text>
+<text x="899.2" y="162" font-size="12" text-anchor="start" fill="#5a4a3f">Work (clients), Plania ·</text>
+<text x="899.2" y="177" font-size="12" text-anchor="start" fill="#5a4a3f">Montréal 2026 · après-midi</text>
+<text x="899.2" y="192" font-size="12" text-anchor="start" fill="#5a4a3f">d&#x27;hiver</text>
+<rect x="1289.6" y="60" width="199.2" height="630" fill="#f2b98a" opacity="0.55"/>
+<text x="1297.6" y="82" font-size="15" font-weight="600" text-anchor="start" fill="#2b1d16">Z4 · L&#x27;Observatoire</text>
+<text x="1297.6" y="100" font-size="12" text-anchor="start" fill="#5a4a3f">Taskforce, Brain OS · coucher</text>
+<text x="1297.6" y="115" font-size="12" text-anchor="start" fill="#5a4a3f">de soleil</text>
+<rect x="1488.8" y="60" width="71.2" height="630" fill="#4a5a8a" opacity="0.55"/>
+<text x="1554.0" y="144" font-size="15" font-weight="600" text-anchor="end" fill="#fff">Z5 · Le Ciel</text>
+<text x="1554.0" y="162" font-size="12" text-anchor="end" fill="#e8e8f4">Contact · nuit</text>
+<path d="M 80.0,690.0 L 85.7,690.0 L 91.4,690.0 L 97.1,690.0 L 102.8,690.0 L 108.5,690.0 L 114.2,690.0 L 119.8,690.0 L 125.5,690.0 L 131.2,690.0 L 136.9,690.0 L 142.6,690.0 L 148.3,690.0 L 154.0,690.0 L 159.7,690.0 L 165.4,690.0 L 171.1,690.0 L 176.8,690.0 L 182.5,690.0 L 188.2,690.0 L 193.8,690.0 L 199.5,690.0 L 205.2,690.0 L 210.9,690.0 L 216.6,690.0 L 222.3,690.0 L 228.0,690.0 L 233.7,690.0 L 239.4,690.0 L 245.1,689.9 L 250.8,689.6 L 256.5,689.2 L 262.2,688.7 L 267.8,688.1 L 273.5,687.3 L 279.2,686.5 L 284.9,685.5 L 290.6,684.4 L 296.3,683.3 L 302.0,682.0 L 307.7,680.6 L 313.4,679.2 L 319.1,677.6 L 324.8,676.0 L 330.5,674.3 L 336.2,672.5 L 341.8,670.6 L 347.5,668.7 L 353.2,666.7 L 358.9,664.6 L 364.6,662.5 L 370.3,660.3 L 376.0,658.0 L 381.7,655.7 L 387.4,653.4 L 393.1,651.0 L 398.8,648.5 L 404.5,646.1 L 410.2,643.6 L 415.8,641.0 L 421.5,638.4 L 427.2,635.9 L 432.9,633.2 L 438.6,630.6 L 444.3,627.9 L 450.0,625.3 L 455.7,622.6 L 461.4,619.9 L 467.1,617.3 L 472.8,614.6 L 478.5,611.9 L 484.2,609.3 L 489.8,606.6 L 495.5,604.0 L 501.2,601.3 L 506.9,598.8 L 512.6,596.2 L 518.3,593.6 L 524.0,591.1 L 529.7,588.7 L 535.4,586.2 L 541.1,583.8 L 546.8,581.5 L 552.5,579.2 L 558.2,576.9 L 563.8,574.7 L 569.5,572.6 L 575.2,570.5 L 580.9,568.5 L 586.6,566.6 L 592.3,564.7 L 598.0,562.9 L 603.7,561.2 L 609.4,559.6 L 615.1,558.0 L 620.8,556.6 L 626.5,555.2 L 632.2,553.9 L 637.8,552.8 L 643.5,551.7 L 649.2,550.7 L 654.9,549.9 L 660.6,549.1 L 666.3,548.5 L 672.0,548.0 L 677.7,547.6 L 683.4,547.3 L 689.1,547.2 L 694.8,547.2 L 700.5,546.8 L 706.2,546.1 L 711.8,545.1 L 717.5,543.8 L 723.2,542.2 L 728.9,540.3 L 734.6,538.3 L 740.3,536.0 L 746.0,533.5 L 751.7,530.9 L 757.4,528.1 L 763.1,525.2 L 768.8,522.1 L 774.5,519.0 L 780.2,515.9 L 785.8,512.6 L 791.5,509.4 L 797.2,506.2 L 802.9,502.9 L 808.6,499.8 L 814.3,496.7 L 820.0,493.6 L 825.7,490.7 L 831.4,487.9 L 837.1,485.3 L 842.8,482.8 L 848.5,480.5 L 854.2,478.5 L 859.8,476.6 L 865.5,475.0 L 871.2,473.7 L 876.9,472.7 L 882.6,472.0 L 888.3,471.6 L 894.0,471.6 L 899.7,471.4 L 905.4,471.0 L 911.1,470.4 L 916.8,469.6 L 922.5,468.7 L 928.2,467.5 L 933.8,466.2 L 939.5,464.8 L 945.2,463.2 L 950.9,461.4 L 956.6,459.5 L 962.3,457.4 L 968.0,455.3 L 973.7,453.0 L 979.4,450.5 L 985.1,448.0 L 990.8,445.4 L 996.5,442.6 L 1002.2,439.8 L 1007.8,436.8 L 1013.5,433.8 L 1019.2,430.7 L 1024.9,427.5 L 1030.6,424.3 L 1036.3,421.0 L 1042.0,417.6 L 1047.7,414.2 L 1053.4,410.7 L 1059.1,407.2 L 1064.8,403.7 L 1070.5,400.2 L 1076.2,396.6 L 1081.8,393.0 L 1087.5,389.4 L 1093.2,385.8 L 1098.9,382.2 L 1104.6,378.6 L 1110.3,375.0 L 1116.0,371.5 L 1121.7,368.0 L 1127.4,364.5 L 1133.1,361.0 L 1138.8,357.6 L 1144.5,354.2 L 1150.2,350.9 L 1155.8,347.7 L 1161.5,344.5 L 1167.2,341.4 L 1172.9,338.4 L 1178.6,335.4 L 1184.3,332.6 L 1190.0,329.9 L 1195.7,327.2 L 1201.4,324.7 L 1207.1,322.2 L 1212.8,319.9 L 1218.5,317.8 L 1224.2,315.7 L 1229.8,313.8 L 1235.5,312.0 L 1241.2,310.4 L 1246.9,309.0 L 1252.6,307.7 L 1258.3,306.5 L 1264.0,305.6 L 1269.7,304.8 L 1275.4,304.2 L 1281.1,303.8 L 1286.8,303.6 L 1292.5,303.5 L 1298.2,302.9 L 1303.8,301.8 L 1309.5,300.1 L 1315.2,297.9 L 1320.9,295.2 L 1326.6,292.2 L 1332.3,288.7 L 1338.0,284.9 L 1343.7,280.8 L 1349.4,276.4 L 1355.1,271.7 L 1360.8,266.9 L 1366.5,261.8 L 1372.2,256.6 L 1377.8,251.4 L 1383.5,246.0 L 1389.2,240.6 L 1394.9,235.2 L 1400.6,229.8 L 1406.3,224.6 L 1412.0,219.4 L 1417.7,214.3 L 1423.4,209.5 L 1429.1,204.8 L 1434.8,200.4 L 1440.5,196.3 L 1446.2,192.5 L 1451.8,189.0 L 1457.5,186.0 L 1463.2,183.3 L 1468.9,181.1 L 1474.6,179.4 L 1480.3,178.3 L 1486.0,177.7 L 1491.7,177.4 L 1497.4,176.3 L 1503.1,174.1 L 1508.8,171.2 L 1514.5,167.7 L 1520.2,163.8 L 1525.8,159.8 L 1531.5,155.8 L 1537.2,152.1 L 1542.9,148.9 L 1548.6,146.3 L 1554.3,144.6 L 1560.0,144.0 L 1560.0,690 L 80.0,690 Z" fill="#c7a27a" opacity="0.35"/>
+<path d="M 80.0,690.0 L 85.7,690.0 L 91.4,690.0 L 97.1,690.0 L 102.8,690.0 L 108.5,690.0 L 114.2,690.0 L 119.8,690.0 L 125.5,690.0 L 131.2,690.0 L 136.9,690.0 L 142.6,690.0 L 148.3,690.0 L 154.0,690.0 L 159.7,690.0 L 165.4,690.0 L 171.1,690.0 L 176.8,690.0 L 182.5,690.0 L 188.2,690.0 L 193.8,690.0 L 199.5,690.0 L 205.2,690.0 L 210.9,690.0 L 216.6,690.0 L 222.3,690.0 L 228.0,690.0 L 233.7,690.0 L 239.4,690.0 L 245.1,689.9 L 250.8,689.6 L 256.5,689.2 L 262.2,688.7 L 267.8,688.1 L 273.5,687.3 L 279.2,686.5 L 284.9,685.5 L 290.6,684.4 L 296.3,683.3 L 302.0,682.0 L 307.7,680.6 L 313.4,679.2 L 319.1,677.6 L 324.8,676.0 L 330.5,674.3 L 336.2,672.5 L 341.8,670.6 L 347.5,668.7 L 353.2,666.7 L 358.9,664.6 L 364.6,662.5 L 370.3,660.3 L 376.0,658.0 L 381.7,655.7 L 387.4,653.4 L 393.1,651.0 L 398.8,648.5 L 404.5,646.1 L 410.2,643.6 L 415.8,641.0 L 421.5,638.4 L 427.2,635.9 L 432.9,633.2 L 438.6,630.6 L 444.3,627.9 L 450.0,625.3 L 455.7,622.6 L 461.4,619.9 L 467.1,617.3 L 472.8,614.6 L 478.5,611.9 L 484.2,609.3 L 489.8,606.6 L 495.5,604.0 L 501.2,601.3 L 506.9,598.8 L 512.6,596.2 L 518.3,593.6 L 524.0,591.1 L 529.7,588.7 L 535.4,586.2 L 541.1,583.8 L 546.8,581.5 L 552.5,579.2 L 558.2,576.9 L 563.8,574.7 L 569.5,572.6 L 575.2,570.5 L 580.9,568.5 L 586.6,566.6 L 592.3,564.7 L 598.0,562.9 L 603.7,561.2 L 609.4,559.6 L 615.1,558.0 L 620.8,556.6 L 626.5,555.2 L 632.2,553.9 L 637.8,552.8 L 643.5,551.7 L 649.2,550.7 L 654.9,549.9 L 660.6,549.1 L 666.3,548.5 L 672.0,548.0 L 677.7,547.6 L 683.4,547.3 L 689.1,547.2 L 694.8,547.2 L 700.5,546.8 L 706.2,546.1 L 711.8,545.1 L 717.5,543.8 L 723.2,542.2 L 728.9,540.3 L 734.6,538.3 L 740.3,536.0 L 746.0,533.5 L 751.7,530.9 L 757.4,528.1 L 763.1,525.2 L 768.8,522.1 L 774.5,519.0 L 780.2,515.9 L 785.8,512.6 L 791.5,509.4 L 797.2,506.2 L 802.9,502.9 L 808.6,499.8 L 814.3,496.7 L 820.0,493.6 L 825.7,490.7 L 831.4,487.9 L 837.1,485.3 L 842.8,482.8 L 848.5,480.5 L 854.2,478.5 L 859.8,476.6 L 865.5,475.0 L 871.2,473.7 L 876.9,472.7 L 882.6,472.0 L 888.3,471.6 L 894.0,471.6 L 899.7,471.4 L 905.4,471.0 L 911.1,470.4 L 916.8,469.6 L 922.5,468.7 L 928.2,467.5 L 933.8,466.2 L 939.5,464.8 L 945.2,463.2 L 950.9,461.4 L 956.6,459.5 L 962.3,457.4 L 968.0,455.3 L 973.7,453.0 L 979.4,450.5 L 985.1,448.0 L 990.8,445.4 L 996.5,442.6 L 1002.2,439.8 L 1007.8,436.8 L 1013.5,433.8 L 1019.2,430.7 L 1024.9,427.5 L 1030.6,424.3 L 1036.3,421.0 L 1042.0,417.6 L 1047.7,414.2 L 1053.4,410.7 L 1059.1,407.2 L 1064.8,403.7 L 1070.5,400.2 L 1076.2,396.6 L 1081.8,393.0 L 1087.5,389.4 L 1093.2,385.8 L 1098.9,382.2 L 1104.6,378.6 L 1110.3,375.0 L 1116.0,371.5 L 1121.7,368.0 L 1127.4,364.5 L 1133.1,361.0 L 1138.8,357.6 L 1144.5,354.2 L 1150.2,350.9 L 1155.8,347.7 L 1161.5,344.5 L 1167.2,341.4 L 1172.9,338.4 L 1178.6,335.4 L 1184.3,332.6 L 1190.0,329.9 L 1195.7,327.2 L 1201.4,324.7 L 1207.1,322.2 L 1212.8,319.9 L 1218.5,317.8 L 1224.2,315.7 L 1229.8,313.8 L 1235.5,312.0 L 1241.2,310.4 L 1246.9,309.0 L 1252.6,307.7 L 1258.3,306.5 L 1264.0,305.6 L 1269.7,304.8 L 1275.4,304.2 L 1281.1,303.8 L 1286.8,303.6 L 1292.5,303.5 L 1298.2,302.9 L 1303.8,301.8 L 1309.5,300.1 L 1315.2,297.9 L 1320.9,295.2 L 1326.6,292.2 L 1332.3,288.7 L 1338.0,284.9 L 1343.7,280.8 L 1349.4,276.4 L 1355.1,271.7 L 1360.8,266.9 L 1366.5,261.8 L 1372.2,256.6 L 1377.8,251.4 L 1383.5,246.0 L 1389.2,240.6 L 1394.9,235.2 L 1400.6,229.8 L 1406.3,224.6 L 1412.0,219.4 L 1417.7,214.3 L 1423.4,209.5 L 1429.1,204.8 L 1434.8,200.4 L 1440.5,196.3 L 1446.2,192.5 L 1451.8,189.0 L 1457.5,186.0 L 1463.2,183.3 L 1468.9,181.1 L 1474.6,179.4 L 1480.3,178.3 L 1486.0,177.7 L 1491.7,177.4 L 1497.4,176.3 L 1503.1,174.1 L 1508.8,171.2 L 1514.5,167.7 L 1520.2,163.8 L 1525.8,159.8 L 1531.5,155.8 L 1537.2,152.1 L 1542.9,148.9 L 1548.6,146.3 L 1554.3,144.6 L 1560.0,144.0" fill="none" stroke="#7a4a2a" stroke-width="3"/>
+<line x1="80" y1="690" x2="1560" y2="690" stroke="#7a4a2a" stroke-width="1"/>
+<line x1="80" y1="438.0" x2="1560" y2="438.0" stroke="#8fa8c0" stroke-dasharray="6 6"/>
+<text x="697.9" y="432.0" font-size="12" fill="#5f7a94">ligne de neige</text>
+<line x1="80.0" y1="690.0" x2="80.0" y2="664.0" stroke="#b3402a" stroke-width="1"/>
+<circle cx="80.0" cy="690.0" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="80.0" y="654.0" font-size="13" font-weight="600" text-anchor="start" fill="#2b1d16">Le garage</text>
+<text x="80.0" y="669.0" font-size="11" text-anchor="start" fill="#6b5a4e">hero : nom, titre, disponibilité</text>
+<line x1="102.8" y1="690.0" x2="102.8" y2="724.0" stroke="#b3402a" stroke-width="1"/>
+<circle cx="102.8" cy="690.0" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="102.8" y="738.0" font-size="13" font-weight="600" text-anchor="start" fill="#2b1d16">La sortie du hangar</text>
+<text x="102.8" y="753.0" font-size="11" text-anchor="start" fill="#6b5a4e">la révélation du port, le phare éteint</text>
+<line x1="205.2" y1="690.0" x2="205.2" y2="626.0" stroke="#b3402a" stroke-width="1"/>
+<circle cx="205.2" cy="690.0" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="205.2" y="616.0" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Le phare éteint</text>
+<text x="205.2" y="631.0" font-size="11" text-anchor="middle" fill="#6b5a4e">teaser : il se rallume au sommet</text>
+<line x1="250.8" y1="689.6" x2="250.8" y2="761.6" stroke="#b3402a" stroke-width="1"/>
+<circle cx="250.8" cy="689.6" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="250.8" y="775.6" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Borne 2023 · MNS</text>
+<text x="250.8" y="790.6" font-size="11" text-anchor="middle" fill="#6b5a4e">bachelor, Admin MNS (2024)</text>
+<line x1="350.4" y1="667.7" x2="350.4" y2="565.7" stroke="#b3402a" stroke-width="1"/>
+<circle cx="350.4" cy="667.7" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="350.4" y="555.7" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Borne 2024 · LORIA</text>
+<text x="350.4" y="570.7" font-size="11" text-anchor="middle" fill="#6b5a4e">stage full-stack, Nancy</text>
+<line x1="464.2" y1="618.6" x2="464.2" y2="728.6" stroke="#b3402a" stroke-width="1"/>
+<circle cx="464.2" cy="618.6" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="464.2" y="742.6" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Borne 2025 · SYNAPSIA</text>
+<text x="464.2" y="757.6" font-size="11" text-anchor="middle" fill="#6b5a4e">SpeedReporting</text>
+<line x1="563.8" y1="574.7" x2="563.8" y2="548.7" stroke="#b3402a" stroke-width="1"/>
+<circle cx="563.8" cy="574.7" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="563.8" y="538.7" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Le poste de contrôle</text>
+<text x="563.8" y="553.7" font-size="11" text-anchor="middle" fill="#6b5a4e">Nancyclotep : LIMS, 21 CFR Part 11</text>
+<line x1="663.5" y1="548.8" x2="663.5" y2="582.8" stroke="#b3402a" stroke-width="1"/>
+<circle cx="663.5" cy="548.8" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="663.5" y="596.8" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Borne déc. 2025 · PeeL</text>
+<text x="663.5" y="611.8" font-size="11" text-anchor="middle" fill="#6b5a4e">statut étudiant-entrepreneur</text>
+<line x1="791.5" y1="509.4" x2="791.5" y2="445.4" stroke="#b3402a" stroke-width="1"/>
+<circle cx="791.5" cy="509.4" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="791.5" y="435.4" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">L&#x27;atelier</text>
+<text x="791.5" y="450.4" font-size="11" text-anchor="middle" fill="#6b5a4e">4 familles de compétences, OCI AI 2025</text>
+<line x1="933.8" y1="466.2" x2="933.8" y2="538.2" stroke="#b3402a" stroke-width="1"/>
+<circle cx="933.8" cy="466.2" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="933.8" y="552.2" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Le col : la neige</text>
+<text x="933.8" y="567.2" font-size="11" text-anchor="middle" fill="#6b5a4e">le Canada, février 2026</text>
+<line x1="1047.7" y1="414.2" x2="1047.7" y2="312.2" stroke="#b3402a" stroke-width="1"/>
+<circle cx="1047.7" cy="414.2" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="1047.7" y="302.2" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">La gare</text>
+<text x="1047.7" y="317.2" font-size="11" text-anchor="middle" fill="#6b5a4e">TechGuys · à terme les passagers</text>
+<line x1="1147.3" y1="352.6" x2="1147.3" y2="462.6" stroke="#b3402a" stroke-width="1"/>
+<circle cx="1147.3" cy="352.6" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="1147.3" y="476.6" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">Les trois maisons</text>
+<text x="1147.3" y="491.6" font-size="11" text-anchor="middle" fill="#6b5a4e">Safex · Communauto · Laplante</text>
+<line x1="1246.9" y1="309.0" x2="1246.9" y2="283.0" stroke="#b3402a" stroke-width="1"/>
+<circle cx="1246.9" cy="309.0" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="1246.9" y="273.0" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">L&#x27;auberge Plania</text>
+<text x="1246.9" y="288.0" font-size="11" text-anchor="middle" fill="#6b5a4e">Head of Engineering, 13 000 utilisateurs</text>
+<line x1="1389.2" y1="240.6" x2="1389.2" y2="274.6" stroke="#b3402a" stroke-width="1"/>
+<circle cx="1389.2" cy="240.6" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="1389.2" y="288.6" font-size="13" font-weight="600" text-anchor="middle" fill="#2b1d16">L&#x27;observatoire</text>
+<text x="1389.2" y="303.6" font-size="11" text-anchor="middle" fill="#6b5a4e">Taskforce (faisceau), Brain OS (constellation)</text>
+<line x1="1537.2" y1="152.1" x2="1537.2" y2="224.1" stroke="#b3402a" stroke-width="1"/>
+<circle cx="1537.2" cy="152.1" r="6.5" fill="#b3402a" stroke="#fbf6f0" stroke-width="2"/>
+<text x="1537.2" y="238.1" font-size="13" font-weight="600" text-anchor="end" fill="#2b1d16">Le bout de la piste</text>
+<text x="1537.2" y="253.1" font-size="11" text-anchor="end" fill="#6b5a4e">contact : send a signal, oct. 2026</text>
+<text x="80.0" y="684" font-size="11" text-anchor="middle" fill="#8a7a6e">0 m</text>
+<text x="364.6" y="684" font-size="11" text-anchor="middle" fill="#8a7a6e">100 m</text>
+<text x="649.2" y="684" font-size="11" text-anchor="middle" fill="#8a7a6e">200 m</text>
+<text x="933.8" y="684" font-size="11" text-anchor="middle" fill="#8a7a6e">300 m</text>
+<text x="1218.5" y="684" font-size="11" text-anchor="middle" fill="#8a7a6e">400 m</text>
+<text x="1503.1" y="684" font-size="11" text-anchor="middle" fill="#8a7a6e">500 m</text>
+<text x="80" y="832" font-size="12" fill="#6b5a4e">Tranche verticale actuelle : 0 → 203 m (hangar, port, phare, première montée, lacet). Le reste se construit zone par zone, après validation de cette carte.</text>
+<text x="80" y="850" font-size="12" fill="#6b5a4e">Plus tard : arrêt en gare, flèches gauche / droite, passagers (les rencontres au Canada).</text>
+</svg>

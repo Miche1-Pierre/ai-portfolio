@@ -1,0 +1,6 @@
+blender/references/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+blender/references/**/*.png filter=lfs diff=lfs merge=lfs -text
+blender/references/**/*.webp filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+blender/references/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+blender/references/models/** filter=lfs diff=lfs merge=lfs -text

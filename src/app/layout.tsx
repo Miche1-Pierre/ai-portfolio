@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Poppins, IBM_Plex_Mono, Libre_Baskerville } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const poppins = Poppins({ variable: "--font-poppins", subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap" });
-const ibmPlexMono = IBM_Plex_Mono({ variable: "--font-ibm-plex-mono", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
-const libreBaskerville = Libre_Baskerville({ variable: "--font-libre-baskerville", subsets: ["latin"], weight: ["400", "700"], display: "swap" });
+// DA v3.1: Geist for everything, Geist Mono for labels, numbers and the terminal card.
+// Self-hosted by next/font; variables consumed in globals.css.
+const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
 
 const title = `${site.name} - ${site.title}`;
 const description =
-  "Full-stack software engineer moving into applied AI. Architecture, LLM agents and product design - from scoping to production. Relocating to Montréal, available from October 2026.";
+  "Full-stack software engineer moving into applied AI. Architecture, LLM agents and product design - from scoping to production. Open to remote and relocation, available from October 2026.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -26,7 +27,6 @@ export const metadata: Metadata = {
     "RAG",
     "Next.js",
     "Spring Boot",
-    "Montréal",
   ],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
@@ -58,7 +58,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${poppins.variable} ${ibmPlexMono.variable} ${libreBaskerville.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable}`}>
       <head>
         <meta name="google-site-verification" content="9Vx6J3GIbxluE2__kWAbog-U-gc3-PSfxNK0OZFKSSo" />
         <script
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
       </head>
       <body className="min-h-dvh">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <TooltipProvider>{children}</TooltipProvider>
         </ThemeProvider>
         <Analytics />

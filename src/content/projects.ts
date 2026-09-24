@@ -1,3 +1,4 @@
+import type { Tone } from "@/components/site/shapes";
 import { site } from "./site";
 
 const client = (name: string, generic: string) =>
@@ -16,10 +17,8 @@ export type Project = {
   /** Short blurb used on the card. */
   description: string;
 
-  /** Accent hex used for the LaserFlow beam + page accents. Ignored when beamMode is "adaptive". */
-  accent: string;
-  /** Taskforce beam is white on dark / near-black on light, following the theme. */
-  beamMode?: "adaptive";
+  /** Palette tone of the project (DA v3): pastel panel behind its screenshots, bullets, pill. */
+  tone: Tone;
 
   /** Long-form content for the dedicated project page. */
   overview?: string;
@@ -49,11 +48,10 @@ export const projects: Project[] = [
     slug: "taskforce",
     name: "Taskforce",
     kind: "flagship",
+    tone: "blue",
     tagline: "Describe the outcome. Taskforce runs the delivery.",
     description:
       "An AI delivery operating system that turns an outcome into specs, plans and prompts coding agents execute - with human approval and a full audit trail at every checkpoint. Solo project and RNCP final thesis, built in the open.",
-    accent: "#cbb6a3",
-    beamMode: "adaptive",
     overview:
       "Teams don't lose time building - they lose it transferring context. Taskforce replaces the handoffs of a normal delivery (vision → spec → architecture → API → breakdown → implementation → QA) with one governed run where every decision, constraint and model call is attributed and preserved. Its intelligence core, Brain OS, is built to remember the why - “Git remembers what changed. Taskforce remembers why.”",
     problem:
@@ -105,10 +103,10 @@ export const projects: Project[] = [
     slug: "brain-os",
     name: "Brain OS",
     kind: "flagship",
+    tone: "pink",
     tagline: "Your project's reference memory, readable by your AI.",
     description:
       "A reference memory for a whole project, kept fresh, navigable and readable by both people and AI, so an assistant works on the real state of the product instead of re-scanning everything on each conversation.",
-    accent: "#2dd4bf",
     overview:
       "Documentation drifts and scatters; AI assistants lose the thread and start from scratch every conversation. Brain OS keeps a project's decisions, constraints and architecture as a single, versioned source of truth, a “neural Ctrl+F” an agent can query for exactly what it needs. Battle-tested in production on Plania.",
     problem:
@@ -139,10 +137,10 @@ export const projects: Project[] = [
     slug: "plania",
     name: "Plania",
     kind: "product",
+    tone: "green",
     tagline: "A 13,000-user SaaS, rebuilt from the architecture up.",
     description:
       "Plania is an AI platform that generates a complete, bank-ready business plan in under 30 minutes. As Head of Engineering I rebuilt its architecture, closed security flaws, reworked pricing, then added an agentic layer over 10+ business tools and rebuilt the purchase-and-payments funnel end to end.",
-    accent: "#10b981",
     overview:
       "Plania turns a founder's idea into a 30-page business plan, 5-year financial projections and a market analysis, formatted for banks and investors. I inherited it as a live SaaS with 13,000 registered users and rebuilt it under load: foundations first (architecture, security, pricing), then an agentic layer over the business and a rebuilt purchase funnel, all while keeping revenue flat through the migration.",
     problem:
@@ -175,10 +173,10 @@ export const projects: Project[] = [
     slug: "ai-sales-agent",
     name: `AI sales agent - ${client("Safex Transport", "North American carrier")}`,
     kind: "client",
+    tone: "yellow",
     tagline: "60% of traffic; 1 conversation in 4 becomes a quote request.",
     description:
       "Designed and shipped to production the on-site AI sales agent for Safex Transport, an asset-based North American freight carrier (full- and less-than-truckload, cross-border). It now handles the majority of inbound traffic and converts a quarter of conversations into spot-quote requests.",
-    accent: "#fb923c",
     cover: "/images/projects/ai-sales-agent/safex.png",
     overview:
       "An “Ask AI” assistant embedded on Safex Transport's site, taken from scoping to production in weeks. It answers inbound prospects, qualifies them and pushes qualified intent straight into the spot-quote funnel.",
@@ -207,10 +205,10 @@ export const projects: Project[] = [
     slug: "incident-triage",
     name: `AI incident triage - ${client("Communauto", "car-sharing operator")}`,
     kind: "client",
+    tone: "lime",
     tagline: "$1.93 → ~$0 per report; ~100 hours a month freed.",
     description:
       "AI-automated triage of vehicle incident reports for Communauto, a car-sharing operator active in four countries - built on Power Automate and the Microsoft 365 suite, cutting unit cost to near zero and redeploying about 100 hours of manual processing every month ($29k a year) to higher-value work.",
-    accent: "#39f06a",
     cover: "/images/projects/incident-triage/incident-triage_1.jpg",
     coverBare: true,
     overview:
@@ -239,10 +237,10 @@ export const projects: Project[] = [
     slug: "lease-financing",
     name: `Regulated fintech scoping - ${client("Groupe Laplante", "lease-financing group")}`,
     kind: "client",
+    tone: "sky",
     tagline: "Feasibility, architecture and compliance for 5 dealerships.",
     description:
       "Feasibility study, architecture and scoping for Groupe Laplante, a lease-financing group with five dealerships, including Law 25 and FINTRAC compliance and banking integrations. Development under way.",
-    accent: "#3450d4",
     cover: "/images/projects/lease-financing/laplante.png",
     overview:
       "Groupe Laplante, with five dealerships, needed a regulated platform. I ran the feasibility study, set the architecture and scoped delivery - with compliance (Québec's Law 25, FINTRAC) and banking integrations designed in from the start rather than bolted on.",
@@ -267,10 +265,10 @@ export const projects: Project[] = [
     slug: "pharma-lims",
     name: "Pharmaceutical LIMS - Nancyclotep",
     kind: "client",
+    tone: "pink",
     tagline: "Traceability under 21 CFR Part 11 and GAMP 5.",
     description:
       "Built the core of a pharmaceutical laboratory information management system at Nancyclotep (a molecular-imaging & radiopharmaceutical platform): inventory, industrial process and traceability, designed to 21 CFR Part 11 (electronic signatures, audit trails) and GAMP 5.",
-    accent: "#10e6c0",
     cover: "/images/projects/pharma-lims/nancyclotep.png",
     overview:
       "At Nancyclotep I built the core of a laboratory information management system for a regulated pharmaceutical environment - inventory, industrial process and traceability - with electronic signatures and audit trails designed to the standards that govern the domain.",
@@ -298,10 +296,10 @@ export const projects: Project[] = [
     slug: "speedreporting",
     name: "SpeedReporting",
     kind: "archive",
+    tone: "yellow",
     tagline: "Internal reporting, project and team management.",
     description:
       "Internal application built for SynapsIA: reporting, project management and team management with custom statistics.",
-    accent: "#f97316",
     overview:
       "An internal tool for SynapsIA bringing reporting, project management and team management together, with custom statistics for the team.",
     approach: [
@@ -324,10 +322,10 @@ export const projects: Project[] = [
     slug: "admin-mns",
     name: "Admin MNS",
     kind: "archive",
+    tone: "red",
     tagline: "School administration: absences, EDM and chat.",
     description:
       "Administration tool built as an R&D project at Metz Numeric School: administrator management, online absence and lateness tracking, electronic document management and chat.",
-    accent: "#b3261e",
     overview:
       "An R&D administration tool for Metz Numeric School: managing administrators, tracking absences and lateness online, electronic document management and an internal chat.",
     approach: [

@@ -1,102 +1,111 @@
-import fs from "fs";
-import path from "path";
+"use client";
+
 import Image from "next/image";
-import { GraduationCap, Languages, MapPin, ShieldCheck } from "lucide-react";
-import { Section } from "@/components/site/section";
+import { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { AIPortrait } from "@/components/site/ai-portrait";
-import { certifications, education } from "@/content/experience";
+import { CropMarks, SectionRule } from "@/components/site/marks";
+import { Pill } from "@/components/site/pill";
+import { QuoteShapes } from "@/components/site/shapes";
 import { site } from "@/content/site";
+import { cn } from "@/lib/utils";
 
-// Drop a portrait at public/images/about.png to use it; otherwise the abstract AI visual shows.
-const hasPhoto = fs.existsSync(path.join(process.cwd(), "public", "images", "about.png"));
+// Pierre's own lines from the site and the Taskforce docs (nothing invented).
+const STATEMENTS = [
+  {
+    quote: "I ship the whole path: architecture, applied AI where it earns its place, and the product around it.",
+    context: "Startups, a 13k-user SaaS, a research lab and a regulated pharma environment.",
+  },
+  {
+    quote: "Git remembers what changed. Taskforce remembers why.",
+    context: "On Taskforce, the AI delivery OS I build in the open.",
+  },
+  {
+    quote: "An engineer first, going deeper into applied AI and the life sciences.",
+    context: "Where I am heading next.",
+  },
+] as const;
 
+/**
+ * A statement card (crop-marked, with a counter) next to the portrait. Every statement is stacked
+ * in the same grid cell, so the card keeps the height of the longest one and never jumps.
+ */
 export function About() {
+  const [i, setI] = useState(0);
+  const go = (d: number) => setI((v) => (v + d + STATEMENTS.length) % STATEMENTS.length);
+  const layer = (k: number) =>
+    cn(
+      "[grid-area:1/1] transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none",
+      k === i ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0"
+    );
+
   return (
-    <Section
-      id="about"
-      index="04"
-      eyebrow="About"
-      title="Engineer first. Increasingly the person who decides what to build."
-    >
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border bg-card">
-            <div className="relative aspect-[4/5] w-full overflow-hidden" style={{ backgroundColor: "var(--stage)" }}>
-              {hasPhoto ? (
-                <Image src="/images/about.png" alt={site.name} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" priority={false} />
-              ) : (
-                <AIPortrait />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-              <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white/70 backdrop-blur">
-                Applied AI
+    <section id="about" className="scroll-mt-20 pb-20 pt-4 sm:pb-28">
+      <div className="container-x">
+        <SectionRule className="mb-14 sm:mb-20" />
+        <Reveal className="grid gap-5 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+          <div className="relative flex min-h-[26rem] flex-col bg-tint-blue p-6 sm:p-12 lg:min-h-[34rem]">
+            <CropMarks />
+            <div className="flex items-center justify-between gap-4">
+              <Pill index="02">About</Pill>
+              <span className="font-mono text-[11px] tracking-[0.1em] text-ink-blue" aria-live="polite">
+                {String(i + 1).padStart(2, "0")} / {String(STATEMENTS.length).padStart(2, "0")}
               </span>
             </div>
-            <ul className="grid gap-2 p-5 text-sm">
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="size-4 text-brand" />
-                {site.location}
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <Languages className="size-4 text-brand" />
-                {site.languages.join(" · ")}
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <span className="size-4 rounded-full bg-brand/20 ring-1 ring-brand/50" />
-                {site.availability}
-              </li>
-            </ul>
+            <QuoteShapes className="mt-10" />
+            <div className="mt-6 grid flex-1">
+              {STATEMENTS.map((s, k) => (
+                <blockquote key={s.quote} aria-hidden={k !== i} className={cn("title text-[clamp(1.8rem,3.6vw,3.25rem)] leading-[1.08]", layer(k))}>
+                  {s.quote}
+                </blockquote>
+              ))}
+            </div>
+            <div className="mt-10 flex flex-wrap items-end justify-between gap-6 border-t border-foreground/10 pt-6">
+              <div className="min-w-0 flex-1">
+                <p className="text-lg font-medium tracking-[-0.01em]">{site.name}</p>
+                <div className="grid">
+                  {STATEMENTS.map((s, k) => (
+                    <p key={s.context} aria-hidden={k !== i} className={cn("text-sm text-muted-foreground", layer(k))}>
+                      {s.context}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => go(-1)}
+                  aria-label="Previous statement"
+                  className="grid size-12 place-items-center rounded-full border border-foreground/20 bg-card/70 text-foreground transition-colors hover:bg-card"
+                >
+                  <ArrowLeft className="size-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => go(1)}
+                  aria-label="Next statement"
+                  className="grid size-12 place-items-center rounded-full border border-foreground/20 bg-card/70 text-foreground transition-colors hover:bg-card"
+                >
+                  <ArrowRight className="size-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative min-h-[22rem] overflow-hidden bg-muted">
+            <Image
+              src="/images/about.png"
+              alt="Pierre Michel at his desk"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-[50%_30%]"
+            />
+            <p className="absolute bottom-0 left-0 bg-card px-3 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-foreground/80">
+              {site.location}
+            </p>
           </div>
         </Reveal>
-
-        <div className="flex flex-col gap-6">
-          <Reveal delay={0.05}>
-            <div className="space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              <p>
-                I have progressively been given responsibilities beyond development - <span className="text-foreground">architecture, applied AI and product design</span>. Over the past three years, in startups and established companies, in a research lab and in a regulated environment, I have taken projects from scoping through to production.
-              </p>
-              <p>
-                Today I lead engineering at Plania while shipping enterprise AI systems at TechGuys, and I spend the rest of my time on <span className="text-foreground">Taskforce</span> and <span className="text-foreground">Brain OS</span> - an execution layer and a memory substrate for agents. I care about systems that stay correct, traceable and explainable, which is also why regulated environments never scared me off.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {education.map((ed) => (
-                <div key={ed.school} className="rounded-2xl border bg-card p-5">
-                  <div className="flex items-center gap-2 text-brand">
-                    <GraduationCap className="size-4" />
-                    <span className="eyebrow text-brand">Education</span>
-                  </div>
-                  <p className="mt-3 font-medium">{ed.degree}</p>
-                  <p className="text-sm text-muted-foreground">{ed.school}</p>
-                  <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-                    {ed.detail} · {ed.start} - {ed.end}
-                  </p>
-                </div>
-              ))}
-              {certifications.map((c) => (
-                <div key={c.title} className="flex gap-4 rounded-2xl border bg-card p-5">
-                  <div className="relative size-14 shrink-0 overflow-hidden rounded-lg border bg-muted/40">
-                    <Image src={c.image} alt={c.title} fill sizes="56px" className="object-contain p-1" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 text-brand">
-                      <ShieldCheck className="size-4" />
-                      <span className="eyebrow text-brand">Certification</span>
-                    </div>
-                    <p className="mt-2 font-medium">{c.title}</p>
-                    <p className="text-sm text-muted-foreground">{c.issuer}</p>
-                    <p className="mt-1 font-mono text-[11px] text-muted-foreground">{c.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
       </div>
-    </Section>
+    </section>
   );
 }
