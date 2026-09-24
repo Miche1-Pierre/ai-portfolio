@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, Github, Linkedin, Send } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Github, Linkedin, Mail } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { CropMarks, SectionRule } from "@/components/site/marks";
 import { SectionHeader } from "@/components/site/section";
@@ -9,13 +9,8 @@ import { Shape } from "@/components/site/shapes";
 import { cta } from "@/components/site/cta";
 import { site } from "@/content/site";
 
-const FORMSPREE = "https://formspree.io/f/xanjrryq";
-
-const field =
-  "w-full rounded-none border border-input bg-background px-3.5 text-[15px] outline-none transition-[border-color,box-shadow] placeholder:text-subtle focus:border-ring focus:ring-3 focus:ring-ring/25";
-
+/** Contact without a form: email first (send or copy), then LinkedIn and GitHub. */
 export function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
@@ -26,25 +21,10 @@ export function Contact() {
     } catch {}
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    setStatus("sending");
-    try {
-      const res = await fetch(FORMSPREE, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(form),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (res.ok && (json as { ok?: boolean }).ok !== false) {
-        setStatus("success");
-        form.reset();
-      } else setStatus("error");
-    } catch {
-      setStatus("error");
-    }
-  };
+  const social = [
+    { href: site.socials.linkedin.href, label: "LinkedIn", handle: "pierre-michel-work", hint: "Let's connect", Icon: Linkedin },
+    { href: site.socials.github.href, label: "GitHub", handle: "Miche1-Pierre", hint: "See the code", Icon: Github },
+  ];
 
   return (
     <section id="contact" className="scroll-mt-20 pb-20 pt-4 sm:pb-28">
@@ -60,74 +40,60 @@ export function Contact() {
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-          <Reveal className="min-w-0">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,1fr)]">
+          <Reveal className="min-w-0 md:col-span-2 lg:col-span-1">
             <div className="relative flex h-full flex-col justify-between gap-10 bg-tint-lime p-6 sm:p-10">
               <CropMarks />
-              <span aria-hidden className="absolute right-8 top-8 flex items-end gap-1">
-                <Shape kind="square" className="size-5 text-shape-green" />
-                <Shape kind="step" className="size-5 text-shape-yellow" />
+              <span aria-hidden className="absolute right-6 top-6 flex items-center gap-1 sm:right-8 sm:top-8">
+                <Shape kind="circle" className="size-5 text-shape-green" />
+                <Shape kind="quarter" className="size-5 text-shape-yellow" />
               </span>
               <div>
-                <p className="eyebrow text-ink-lime">Direct</p>
-                <button
-                  type="button"
-                  onClick={copy}
-                  className="group mt-5 flex max-w-full flex-wrap items-center gap-x-3 gap-y-2 text-left text-[clamp(0.85rem,4.2vw,1.5rem)] font-medium tracking-[-0.02em] sm:text-[clamp(1.05rem,2.1vw,1.5rem)]"
-                >
-                  <span className="whitespace-nowrap">{site.email}</span>
-                  <span className="grid size-8 shrink-0 place-items-center border border-foreground/15 bg-card/70 text-muted-foreground transition-colors group-hover:text-foreground">
-                    {copied ? <Check className="size-4 text-ink-green" /> : <Copy className="size-4" />}
-                  </span>
-                </button>
+                <p className="eyebrow text-ink-lime">Email</p>
+                <p className="mt-5 whitespace-nowrap text-[clamp(0.85rem,4.2vw,1.5rem)] font-medium tracking-[-0.02em] sm:text-[clamp(1.05rem,2.1vw,1.5rem)]">
+                  {site.email}
+                </p>
                 <p className="mt-2 text-sm text-muted-foreground" aria-live="polite">
-                  {copied ? "Copied to clipboard." : "Click to copy. I reply within a day."}
+                  {copied ? "Copied to clipboard." : "The fastest way to reach me. I reply within a day."}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <a href={site.socials.linkedin.href} target="_blank" rel="noreferrer" className={cta({ variant: "secondary", size: "md", className: "bg-card" })}>
-                  <Linkedin />
-                  LinkedIn
+                <a href={`mailto:${site.email}`} className={cta({ size: "md" })}>
+                  <Mail />
+                  Send an email
                 </a>
-                <a href={site.socials.github.href} target="_blank" rel="noreferrer" className={cta({ variant: "secondary", size: "md", className: "bg-card" })}>
-                  <Github />
-                  GitHub
-                </a>
+                <button type="button" onClick={copy} className={cta({ variant: "secondary", size: "md", className: "bg-card" })}>
+                  {copied ? <Check className="text-ink-green" /> : <Copy />}
+                  {copied ? "Copied" : "Copy address"}
+                </button>
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={0.06} className="min-w-0">
-            <form onSubmit={onSubmit} className="grid gap-4 border border-rule bg-card p-6 sm:p-8">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-                  Name
-                  <input name="name" required autoComplete="name" className={`${field} h-11 font-sans normal-case tracking-normal`} placeholder="Ada Lovelace" />
-                </label>
-                <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-                  Email
-                  <input name="email" type="email" required autoComplete="email" className={`${field} h-11 font-sans normal-case tracking-normal`} placeholder="ada@company.com" />
-                </label>
-              </div>
-              <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-                Message
-                <textarea name="message" required rows={6} className={`${field} resize-y py-3 font-sans normal-case tracking-normal`} placeholder="What are you building?" />
-              </label>
-              <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                <p className="text-sm text-muted-foreground" aria-live="polite">
-                  {status === "success"
-                    ? "Sent - I'll get back to you shortly."
-                    : status === "error"
-                      ? "Something went wrong. Email me directly instead."
-                      : "Replies within a day, usually faster."}
-                </p>
-                <button type="submit" disabled={status === "sending"} className={cta({ size: "md" })}>
-                  {status === "sending" ? "Sending…" : "Send message"}
-                  <Send />
-                </button>
-              </div>
-            </form>
-          </Reveal>
+          {social.map(({ href, label, handle, hint, Icon }, k) => (
+            <Reveal key={label} delay={0.05 * (k + 1)} className="min-w-0">
+              <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex h-full min-h-56 flex-col justify-between gap-8 border border-rule bg-card p-6 transition-colors hover:border-foreground/35 sm:p-8"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <p className="eyebrow">{label}</p>
+                  <span className="grid size-11 place-items-center rounded-full bg-muted text-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Icon className="size-5" />
+                  </span>
+                </div>
+                <div>
+                  <p className="truncate text-lg font-medium tracking-[-0.02em]">{handle}</p>
+                  <p className="mt-1 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors group-hover:text-ink-blue">
+                    {hint}
+                    <ArrowUpRight className="size-4" />
+                  </p>
+                </div>
+              </a>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ import { cta } from "@/components/site/cta";
 import { featuredProjects } from "@/content/projects";
 import { navigation, site } from "@/content/site";
 
-/** Closing dark band: a square tag, one highlighted word, a blinking cursor, one cobalt action. */
+/** Closing dark band: a square tag, one accent word, a live dot, one cobalt action. */
 function CtaBand() {
   return (
     <section className="relative overflow-hidden bg-night text-night-foreground">
@@ -16,8 +16,11 @@ function CtaBand() {
         <PlusMark className="right-5 top-8 text-night-foreground/40 sm:right-8" />
         <Pill tone="night">Open to new teams</Pill>
         <h2 className="display mt-8 max-w-4xl text-[clamp(2.5rem,5.6vw,4.9rem)]">
-          Good products aren&apos;t just prototyped. They&apos;re <span className="mark">shipped</span>.
-          <span aria-hidden className="ml-3 inline-block h-[0.72em] w-[0.42em] translate-y-[0.06em] animate-blink bg-shape-lime" />
+          Good products aren&apos;t just prototyped. They&apos;re <span className="text-shape-lime">shipped</span>.
+          <span aria-hidden className="relative ml-3 inline-flex size-[0.32em] -translate-y-[0.08em]">
+            <span className="absolute inline-flex size-full animate-pulse-ring rounded-full bg-shape-lime" />
+            <span className="relative inline-flex size-full rounded-full bg-shape-lime" />
+          </span>
         </h2>
         <div className="mt-10 flex flex-col gap-8 border-t border-night-line pt-8 sm:flex-row sm:items-end sm:justify-between">
           <p className="max-w-xl text-lg leading-relaxed text-night-muted">

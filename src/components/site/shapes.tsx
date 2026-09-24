@@ -2,13 +2,30 @@ import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Filled square shapes: the graphic vocabulary of DA v3.1 (no curves anywhere).
- * Square, rectangle, tall bar, step (L), notch, plus, bar. Colour = `currentColor`
- * (e.g. `text-shape-red`). Always decorative (aria-hidden).
+ * Filled shapes, the graphic vocabulary of the DA. The layout is square (cards, panels, buttons,
+ * tags); the small details are round on purpose, for contrast: logo, card corners, bullets, dots.
+ * Colour = `currentColor` (e.g. `text-shape-red`). Always decorative (aria-hidden).
  */
-export type ShapeKind = "square" | "rect" | "tall" | "step" | "notch" | "plus" | "bar";
+export type ShapeKind =
+  | "circle"
+  | "half"
+  | "quarter"
+  | "dee"
+  | "pill"
+  | "square"
+  | "rect"
+  | "tall"
+  | "step"
+  | "notch"
+  | "plus"
+  | "bar";
 
 const PATHS: Record<ShapeKind, { viewBox: string; d: string }> = {
+  circle: { viewBox: "0 0 100 100", d: "M50 0a50 50 0 1 1 0 100a50 50 0 1 1 0-100Z" },
+  half: { viewBox: "0 0 100 50", d: "M0 50A50 50 0 0 1 100 50Z" },
+  quarter: { viewBox: "0 0 100 100", d: "M0 100V0a100 100 0 0 1 100 100Z" },
+  dee: { viewBox: "0 0 100 100", d: "M0 0h50a50 50 0 0 1 0 100H0Z" },
+  pill: { viewBox: "0 0 100 40", d: "M20 0h60a20 20 0 0 1 0 40H20A20 20 0 0 1 20 0Z" },
   square: { viewBox: "0 0 100 100", d: "M0 0H100V100H0Z" },
   rect: { viewBox: "0 0 100 50", d: "M0 0H100V50H0Z" },
   tall: { viewBox: "0 0 50 100", d: "M0 0H50V100H0Z" },
@@ -102,25 +119,25 @@ export function ShapeBullet({
   return <Shape kind={kind} rotate={rotate} className={cn("size-3", toneShape[tone], className)} />;
 }
 
-/** Two stacked blocks: the graphic "quote mark" of statement cards. */
-export function QuoteBlocks({ className }: { className?: string }) {
+/** Circle + dee pair: the graphic "quote marks" of statement cards. */
+export function QuoteShapes({ className }: { className?: string }) {
   return (
-    <span aria-hidden="true" className={cn("inline-flex items-end gap-1", className)}>
-      <Shape kind="square" className="size-5 text-shape-blue" />
-      <Shape kind="step" className="size-5 text-shape-yellow" />
+    <span aria-hidden="true" className={cn("inline-flex items-center gap-1", className)}>
+      <Shape kind="circle" className="size-6 text-shape-lime" />
+      <Shape kind="dee" className="size-6 text-shape-pink" />
     </span>
   );
 }
 
-/** A bar over a square (a stacked module): section icons of the impact datasheet. */
+/** Two-shape badge (a half disc over a square): section icons of the impact datasheet. */
 export function ShapeBadge({ top, bottom, className }: { top: Tone; bottom: Tone; className?: string }) {
   return (
-    <span aria-hidden="true" className={cn("inline-flex h-9 w-8 flex-col items-center gap-0.5", className)}>
-      <Shape kind="bar" className={cn("h-2 w-6", toneShape[top])} />
-      <Shape kind="square" className={cn("size-7", toneShape[bottom])} />
+    <span aria-hidden="true" className={cn("relative inline-flex h-9 w-8 flex-col items-center", className)}>
+      <Shape kind="half" className={cn("h-3.5 w-6", toneShape[top])} />
+      <Shape kind="square" className={cn("-mt-px size-7", toneShape[bottom])} />
     </span>
   );
 }
 
-/** Cycle of kinds for bullets. */
-export const bulletKinds: ShapeKind[] = ["square", "step", "notch", "plus", "tall"];
+/** Cycle of kinds for bullets: round and square mixed, for rhythm. */
+export const bulletKinds: ShapeKind[] = ["circle", "quarter", "dee", "square", "half"];

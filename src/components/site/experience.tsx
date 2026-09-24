@@ -47,7 +47,7 @@ export function Experience() {
                     </span>
                     {e.current ? (
                       <span className="ml-3 inline-flex items-center gap-1.5 text-ink-green">
-                        <span className="size-1.5 bg-shape-green" />
+                        <span className="size-1.5 rounded-full bg-shape-green" />
                         Now
                       </span>
                     ) : null}

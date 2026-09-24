@@ -28,10 +28,10 @@ export function ProjectCard({ project, index, className }: { project: Project; i
       aria-label={`${project.name} - read the case study`}
     >
       <div className={cn("relative aspect-[16/11] overflow-hidden", toneTint[project.tone])}>
-        {/* two square blocks in the panel's corner */}
-        <span aria-hidden className="absolute left-5 top-5 flex items-end gap-1">
-          <Shape kind="square" className={cn("size-3.5", toneShape[strong])} />
-          <Shape kind="step" className={cn("size-3.5 opacity-60", toneShape[strong])} />
+        {/* two small round shapes in the panel's corner (round details on a square layout) */}
+        <span aria-hidden className="absolute left-5 top-5 flex items-center gap-1">
+          <Shape kind="circle" className={cn("size-3.5", toneShape[strong])} />
+          <Shape kind="dee" className={cn("size-3.5 opacity-60", toneShape[strong])} />
         </span>
         {index !== undefined ? (
           <span className={cn("absolute right-5 top-4 font-mono text-[11px] tracking-[0.1em]", toneShape[strong])}>
@@ -42,9 +42,9 @@ export function ProjectCard({ project, index, className }: { project: Project; i
         <div className="absolute bottom-[-10%] left-[10%] right-[-8%] top-[16%] overflow-hidden bg-card shadow-window transition-transform duration-500 ease-out group-hover:-translate-y-1.5">
           {!project.coverBare && cover ? (
             <div className="flex h-6 items-center gap-1.5 border-b bg-paper-soft px-3">
-              <span className="size-2 bg-shape-red/80" />
-              <span className="size-2 bg-shape-yellow/80" />
-              <span className="size-2 bg-shape-green/80" />
+              <span className="size-2 rounded-full bg-shape-red/80" />
+              <span className="size-2 rounded-full bg-shape-yellow/80" />
+              <span className="size-2 rounded-full bg-shape-green/80" />
             </div>
           ) : null}
           <div className="relative h-full w-full">
@@ -65,7 +65,7 @@ export function ProjectCard({ project, index, className }: { project: Project; i
 
       <div className="flex flex-1 flex-col border-b border-rule px-1 pb-5 pt-5">
         <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-          <span className={cn("size-2", toneFill[strong])} />
+          <span className={cn("size-2 rounded-full", toneFill[strong])} />
           {kindLabel[project.kind]}
           <span className="text-border">/</span>
           {project.period}

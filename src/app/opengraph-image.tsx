@@ -5,7 +5,7 @@ export const alt = `${site.name} - ${site.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// DA v3.1 palette (mirrors globals.css; next/og cannot read CSS variables).
+// DA v3.2 palette (mirrors globals.css; next/og cannot read CSS variables).
 const C = {
   paper: "#ffffff",
   ink: "#191715",
@@ -39,16 +39,15 @@ async function inter(weight: number): Promise<ArrayBuffer | null> {
   }
 }
 
-/** The pixel "PM" monogram (same geometry as <PMMark />, at 2x; counters painted in paper). */
+/** The "PM" monogram made of shapes (same geometry as <PMMark />, at 2x). */
 function Mark() {
   return (
     <div style={{ position: "relative", width: 104, height: 48, display: "flex" }}>
-      <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 48, background: C.blue }} />
-      <div style={{ position: "absolute", left: 16, top: 0, width: 24, height: 28, background: C.yellow }} />
-      <div style={{ position: "absolute", left: 16, top: 10, width: 10, height: 8, background: C.paper }} />
-      <div style={{ position: "absolute", left: 46, top: 0, width: 58, height: 48, background: C.red }} />
-      <div style={{ position: "absolute", left: 62, top: 12, width: 26, height: 36, background: C.paper }} />
-      <div style={{ position: "absolute", left: 70, top: 12, width: 10, height: 20, background: C.green }} />
+      <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 48, borderRadius: 2, background: C.green }} />
+      <div style={{ position: "absolute", left: 16, top: 0, width: 24, height: 28, borderTopRightRadius: 14, borderBottomRightRadius: 14, background: C.yellow }} />
+      <div style={{ position: "absolute", left: 46, top: 0, width: 16, height: 48, borderRadius: 2, background: C.red }} />
+      <div style={{ position: "absolute", left: 62, top: 0, width: 26, height: 13, borderBottomLeftRadius: 13, borderBottomRightRadius: 13, background: C.pink }} />
+      <div style={{ position: "absolute", left: 88, top: 0, width: 16, height: 48, borderRadius: 2, background: C.blue }} />
     </div>
   );
 }
@@ -61,7 +60,7 @@ export default async function OpenGraphImage() {
     ...(regular ? [{ name: "Inter", data: regular, weight: 400 as const, style: "normal" as const }] : []),
     ...(semibold ? [{ name: "Inter", data: semibold, weight: 600 as const, style: "normal" as const }] : []),
   ];
-  // the last word of the headline gets the cobalt highlight block, as on the site
+  // the last word of the headline takes the accent colour, as on the site
   const words = site.headline.replace(/\.$/, "").split(" ");
   const last = words.pop();
 
@@ -82,16 +81,16 @@ export default async function OpenGraphImage() {
           border: `1px solid ${C.rule}`,
         }}
       >
-        {/* decorative blocks, top right (the hero's architecture, seen from above) */}
+        {/* decorative blocks, top right: square volumes with round details, like the hero */}
         <div style={{ position: "absolute", right: 72, top: 64, display: "flex", gap: 12, alignItems: "flex-end" }}>
-          <div style={{ width: 88, height: 88, background: C.lime }} />
+          <div style={{ width: 88, height: 88, borderRadius: 9999, background: C.lime }} />
           <div style={{ width: 88, height: 88, background: C.blue }} />
-          <div style={{ width: 44, height: 88, background: C.pink }} />
+          <div style={{ width: 44, height: 88, borderTopRightRadius: 44, borderBottomRightRadius: 44, background: C.pink }} />
         </div>
         <div style={{ position: "absolute", right: 72, top: 164, display: "flex", gap: 12 }}>
-          <div style={{ width: 144, height: 44, background: C.sky }} />
+          <div style={{ width: 144, height: 44, borderRadius: 22, background: C.sky }} />
           <div style={{ width: 44, height: 44, background: C.yellow, alignSelf: "flex-end" }} />
-          <div style={{ width: 44, height: 44, background: C.green }} />
+          <div style={{ width: 44, height: 44, borderTopRightRadius: 44, background: C.green }} />
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
@@ -108,7 +107,7 @@ export default async function OpenGraphImage() {
               <span key={`${w}-${i}`}>{w}</span>
             ))}
             <span style={{ display: "flex" }}>
-              <span style={{ background: C.blue, color: C.paper, padding: "0 10px" }}>{last}</span>
+              <span style={{ color: C.blue }}>{last}</span>
               <span>.</span>
             </span>
           </div>
@@ -129,7 +128,7 @@ export default async function OpenGraphImage() {
               textTransform: "uppercase",
             }}
           >
-            <div style={{ width: 10, height: 10, background: C.blue }} />
+            <div style={{ width: 10, height: 10, borderRadius: 10, background: C.blue }} />
             {site.availability}
           </div>
           <div style={{ display: "flex", flexShrink: 0, color: C.muted }}>{site.url.replace("https://", "")}</div>

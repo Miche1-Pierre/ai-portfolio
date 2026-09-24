@@ -7,7 +7,7 @@ import { Pill } from "@/components/site/pill";
 import { cta } from "@/components/site/cta";
 import { site } from "@/content/site";
 
-// The last word of the headline gets the highlight block (DA v3.1's accent device).
+// The last word of the headline takes the accent colour.
 function splitLast(text: string) {
   const i = text.lastIndexOf(" ");
   const last = text.slice(i + 1).replace(/\.$/, "");
@@ -31,7 +31,7 @@ export function Hero() {
 
           <motion.h1 {...fade(0.06)} className="display mt-7 text-[clamp(2.9rem,6.4vw,5.6rem)]">
             {h.lead}
-            <span className="mark">{h.last}</span>
+            <span className="accent-word">{h.last}</span>
             {h.dot}
           </motion.h1>
 

@@ -52,7 +52,7 @@ export function Approach() {
               {phases.map((p, i) => (
                 <li key={p.title} className="relative border border-foreground/10 bg-card p-6">
                   <div className="flex items-center gap-3">
-                    <span className={cn("grid size-7 place-items-center font-mono text-[11px]", p.badge)}>{String(i + 1).padStart(2, "0")}</span>
+                    <span className={cn("grid size-7 place-items-center rounded-full font-mono text-[11px]", p.badge)}>{String(i + 1).padStart(2, "0")}</span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Phase {i + 1}</span>
                   </div>
                   <h3 className="mt-5 text-xl font-medium tracking-[-0.02em]">{p.title}</h3>
@@ -60,7 +60,7 @@ export function Approach() {
                   <ul className="mt-5 space-y-2 border-t border-rule pt-4">
                     {p.checks.map((c) => (
                       <li key={c} className="flex items-center gap-2.5 font-mono text-[12px] text-foreground/80">
-                        <span className={cn("size-1.5 shrink-0", p.dot)} />
+                        <span className={cn("size-1.5 shrink-0 rounded-full", p.dot)} />
                         {c}
                       </li>
                     ))}

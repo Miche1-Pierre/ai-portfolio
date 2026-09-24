@@ -79,7 +79,7 @@ export function Impact() {
                   <ul className="mt-8 space-y-3 border-t border-foreground/10 pt-6">
                     {c.points.map((pt) => (
                       <li key={pt} className="flex gap-3 text-[15px] leading-snug">
-                        <span className={cn("mt-[6px] size-1.5 shrink-0", toneFill[c.badge[0]])} />
+                        <span className={cn("mt-[6px] size-1.5 shrink-0 rounded-full", toneFill[c.badge[0]])} />
                         <span>{pt}</span>
                       </li>
                     ))}

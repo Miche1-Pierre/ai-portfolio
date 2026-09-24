@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Generates the home hero illustration (DA v3.1): an isometric architecture diagram. Square
-blocks, one per area of Pierre's work (api, agents, web, data, CI/CD, observability), wired by
-right-angle cables on a faded grid floor. No curves anywhere.
+"""Generates the home hero illustration (DA v3.2): an abstract isometric composition of building
+blocks, square and round volumes stacked on a faded grid floor. A staircase climbs to the main
+block ("from scoping to production"), a round tower, a rounded tower on top, a few slabs. No
+labels, no cables: it stays friendly rather than technical.
 
 Output: public/illustrations/hero-iso.svg (light) and hero-iso-dark.svg (dark theme), and the chip
 anchors (in % of the view box) to copy into src/components/site/hero-iso.tsx (stdout).
@@ -22,13 +23,14 @@ COLORS = {
     "sky": "#a9c6ff",
     "yellow": "#ffc94d",
     "green": "#6fbf8f",
+    "red": "#ef6a4c",
 }
-# Surfaces per theme (the block tops keep the same vivid colours in both).
+# Surfaces per theme (the tops keep the same vivid colours in both).
 THEMES = {
     "hero-iso.svg": dict(wall_light="#ffffff", wall_dark="#efeeea", wall_line="#e2e0db", wall_edge="#d4d2cd",
-                         grid="#e8e7e3", floor="#fbfaf9", cable="#cfccc6", rim=0.45),
+                         grid="#e8e7e3", floor="#fbfaf9", rim=0.45),
     "hero-iso-dark.svg": dict(wall_light="#232a41", wall_dark="#1a2034", wall_line="#2b334d", wall_edge="#323b58",
-                              grid="#1c2237", floor="#0f1322", cable="#39425f", rim=0.22),
+                              grid="#1c2237", floor="#0f1322", rim=0.22),
 }
 T = THEMES["hero-iso.svg"]
 
@@ -37,8 +39,32 @@ def iso(x, y, z=0.0):
     return ((x - y) * C30 * UNIT, ((x + y) * S30 - z) * UNIT)
 
 
+def arc(cx, cy, r, a0, a1, n):
+    return [(cx + r * math.cos(math.radians(a0 + (a1 - a0) * k / n)), cy + r * math.sin(math.radians(a0 + (a1 - a0) * k / n))) for k in range(n + 1)]
+
+
 def rect(x0, y0, x1, y1):
     return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+
+
+def circle(cx, cy, r, n=72):
+    return arc(cx, cy, r, 0, 360, n)[:-1]
+
+
+def dee(x0, y0, x1, y1, n=28):
+    """Half stadium: flat on the -x side, round on the +x side."""
+    r = (y1 - y0) / 2
+    return [(x0, y0)] + arc(x1 - r, y0 + r, r, -90, 90, n) + [(x0, y1)]
+
+
+def pill(x0, y0, x1, y1, n=20):
+    r = (y1 - y0) / 2
+    return arc(x1 - r, y0 + r, r, -90, 90, n) + arc(x0 + r, y0 + r, r, 90, 270, n)
+
+
+def quarter(cx, cy, r, a0, n=24):
+    """Quarter disc: the corner at (cx, cy), the arc from a0 to a0 + 90."""
+    return [(cx, cy)] + arc(cx, cy, r, a0, a0 + 90, n)
 
 
 def path(points, close=True):
@@ -50,8 +76,8 @@ def signed_area(pts):
     return 0.5 * sum(pts[i][0] * pts[(i + 1) % len(pts)][1] - pts[(i + 1) % len(pts)][0] * pts[i][1] for i in range(len(pts)))
 
 
-def block(pts, h, color):
-    """Visible side faces (facing the viewer = +X+Y), then the top. Returns (depth, svg)."""
+def block(pts, h, color, z0=0.0, courses=False):
+    """Visible side faces (facing the viewer = +X+Y), then the top, from z0 to z0 + h."""
     ccw = signed_area(pts) > 0
     faces = []
     n = len(pts)
@@ -67,106 +93,77 @@ def block(pts, h, color):
         mx, my = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
         faces.append((mx + my, a, b, light))
     faces.sort()
-    out = []
+    z1 = z0 + h
+    # the base outline goes first: the walls then hide its back half
+    base = [iso(x, y, z0) for x, y in pts]
+    out = [f'<path d="{path(base)}" fill="none" stroke="{T["wall_edge"]}" stroke-width="0.8" stroke-opacity="0.7"/>']
     for _, a, b, light in faces:
-        quad = [iso(a[0], a[1], h), iso(b[0], b[1], h), iso(b[0], b[1], 0), iso(a[0], a[1], 0)]
+        quad = [iso(a[0], a[1], z1), iso(b[0], b[1], z1), iso(b[0], b[1], z0), iso(a[0], a[1], z0)]
         fill = T["wall_light"] if light > 0.55 else T["wall_dark"]
         out.append(f'<path d="{path(quad)}" fill="{fill}" stroke="{fill}" stroke-width="0.6"/>')
-    # horizontal courses on the walls (a stacked, engineered look instead of vertical ribs)
     lines = []
-    for _, a, b, _light in faces:
-        z = 1.5
-        while z < h - 0.4:
-            (x0, y0), (x1, y1) = iso(a[0], a[1], z), iso(b[0], b[1], z)
-            lines.append(f"M{x0:.2f} {y0:.2f}L{x1:.2f} {y1:.2f}")
-            z += 1.5
+    if courses:  # horizontal courses on square blocks
+        for _, a, b, _light in faces:
+            z = z0 + 1.5
+            while z < z1 - 0.4:
+                (x0, y0), (x1, y1) = iso(a[0], a[1], z), iso(b[0], b[1], z)
+                lines.append(f"M{x0:.2f} {y0:.2f}L{x1:.2f} {y1:.2f}")
+                z += 1.5
+    else:  # vertical ribs on round volumes
+        for _, a, b, _light in faces:
+            seg = math.hypot(b[0] - a[0], b[1] - a[1])
+            steps = max(1, int(seg / 1.6))
+            for k in range(steps):
+                t = (k + 0.5) / steps
+                px, py = a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t
+                (x0, y0), (x1, y1) = iso(px, py, z1 - 0.35), iso(px, py, z0 + 0.2)
+                lines.append(f"M{x0:.2f} {y0:.2f}L{x1:.2f} {y1:.2f}")
     if lines:
         out.append(f'<path d="{" ".join(lines)}" stroke="{T["wall_line"]}" stroke-width="0.7" fill="none"/>')
-    base = [iso(x, y, 0) for x, y in pts]
-    out.append(f'<path d="{path(base)}" fill="none" stroke="{T["wall_edge"]}" stroke-width="0.8" stroke-opacity="0.7"/>')
-    top = [iso(x, y, h) for x, y in pts]
+    top = [iso(x, y, z1) for x, y in pts]
     out.append(f'<path d="{path(top)}" fill="{color}"/>')
     out.append(f'<path d="{path(top)}" fill="none" stroke="#ffffff" stroke-opacity="{T["rim"]}" stroke-width="1.2"/>')
     cx = sum(p[0] for p in pts) / n
     cy = sum(p[1] for p in pts) / n
-    return cx + cy, "\n".join(out)
-
-
-def cable(points, w=0.9):
-    """A flat right-angle cable on the floor: one thin rectangle per segment + square joints."""
-    out = []
-    for (x0, y0), (x1, y1) in zip(points, points[1:]):
-        if abs(x1 - x0) >= abs(y1 - y0):
-            poly = rect(min(x0, x1) - w, y0 - w, max(x0, x1) + w, y0 + w)
-        else:
-            poly = rect(x0 - w, min(y0, y1) - w, x0 + w, max(y0, y1) + w)
-        out.append(f'<path d="{path([iso(x, y, 0.02) for x, y in poly])}" fill="{T["cable"]}"/>')
-    for x, y in points[1:-1]:
-        joint = rect(x - 1.6, y - 1.6, x + 1.6, y + 1.6)
-        out.append(f'<path d="{path([iso(px, py, 0.03) for px, py in joint])}" fill="{T["cable"]}"/>')
-    return "\n".join(out)
+    return (cx + cy, z0), "\n".join(out)
 
 
 # --------------------------------------------------------------------------- the scene (plan units)
+# (name, footprint, height, colour, base z, square courses?)
 BLOCKS = [
-    ("web", rect(2, -16, 24, 2), 6.0, "lime"),
-    ("api", rect(28, 12, 52, 34), 12.0, "blue"),
-    ("agents", rect(60, -4, 80, 16), 9.0, "pink"),
-    ("data", rect(26, 44, 48, 58), 4.0, "green"),
-    ("ci", rect(-2, 28, 14, 48), 7.0, "yellow"),
-    ("obs", rect(62, 30, 72, 40), 15.0, "sky"),
+    ("pill", pill(8, 8, 30, 18), 4.0, "sky", 0.0, False),
+    ("step-1", rect(4, 30, 12, 46), 3.0, "yellow", 0.0, True),
+    ("step-2", rect(12, 30, 20, 46), 6.0, "yellow", 0.0, True),
+    ("step-3", rect(20, 30, 28, 46), 9.0, "yellow", 0.0, True),
+    ("cube", rect(28, 26, 48, 48), 12.0, "blue", 0.0, True),
+    ("tower", dee(31, 29, 45, 43), 7.0, "pink", 12.0, False),
+    ("round", circle(60, 24, 8), 18.0, "lime", 0.0, False),
+    ("cap", circle(60, 24, 4.5), 3.0, "red", 18.0, False),
+    ("slab", quarter(50, 60, 14, 270), 3.0, "green", 0.0, False),
 ]
-# Cables between blocks (plan points, right angles only).
-CABLES = [
-    [(13, 2), (13, 23), (28, 23)],  # web -> api
-    [(60, 8), (56, 8), (56, 20), (52, 20)],  # agents -> api
-    [(37, 34), (37, 44)],  # api -> data
-    [(14, 38), (20, 38), (20, 30), (28, 30)],  # ci -> api
-    [(62, 36), (56, 36), (56, 30), (52, 30)],  # obs -> api
-]
-# Chips: (id, x, y, block). z = the block height.
+# Chips: (id, x, y, block). z = the block top.
 CHIPS = [
-    ("pierre", 44, 20, "api"),
-    ("api", 36, 27, "api"),
-    ("agents", 70, 6, "agents"),
-    ("web", 13, -7, "web"),
-    ("data", 37, 51, "data"),
-    ("ci", 6, 38, "ci"),
-    ("obs", 67, 35, "obs"),
+    ("pierre", 38, 36, "tower"),
+    ("round", 60, 24, "cap"),
+    ("steps", 24, 38, "step-3"),
+    ("pill", 19, 13, "pill"),
+    ("slab", 56, 54, "slab"),
 ]
-FLOOR = (-12, -24, 90, 70)
-
-
-def inside(pt, poly):
-    x, y = pt
-    c = False
-    for i in range(len(poly)):
-        (x1, y1), (x2, y2) = poly[i], poly[(i + 1) % len(poly)]
-        if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
-            c = not c
-    return c
-
-
-def check_overlaps():
-    for i, (na, pa, _, _) in enumerate(BLOCKS):
-        for nb, pb, _, _ in BLOCKS[i + 1:]:
-            hits = sum(inside(p, pb) for p in pa) + sum(inside(p, pa) for p in pb)
-            if hits:
-                print(f"WARNING overlap {na} / {nb}: {hits} vertices")
+FLOOR = (-6, -10, 78, 70)
 
 
 def build(name):
     global T
     T = THEMES[name]
     out_path = OUT_DIR / name
-    heights = {n: h for n, _, h, _ in BLOCKS}
-    items = [block(pts, h, COLORS[c]) for _, pts, h, c in BLOCKS]
+    tops = {n: z0 + h for n, _, h, _, z0, _ in BLOCKS}
+    items = [block(pts, h, COLORS[c], z0, courses) for _, pts, h, c, z0, courses in BLOCKS]
     items.sort(key=lambda t: t[0])
 
     xs, ys = [], []
-    for _, pts, h, _ in BLOCKS:
+    for _, pts, h, _, z0, _ in BLOCKS:
         for x, y in pts:
-            for z in (0, h):
+            for z in (z0, z0 + h):
                 sx, sy = iso(x, y, z)
                 xs.append(sx)
                 ys.append(sy)
@@ -180,15 +177,15 @@ def build(name):
     vw, vh = max(xs) - min(xs) + 2 * pad, max(ys) - min(ys) + 2 * pad + 40
 
     grid = []
-    for gx in range(int(fx0), int(fx1) + 1, 4):
+    for gx in range(int(fx0), int(fx1) + 1, 6):
         (a, b), (c, d) = iso(gx, fy0), iso(gx, fy1)
         grid.append(f"M{a:.2f} {b:.2f}L{c:.2f} {d:.2f}")
-    for gy in range(int(fy0), int(fy1) + 1, 4):
+    for gy in range(int(fy0), int(fy1) + 1, 6):
         (a, b), (c, d) = iso(fx0, gy), iso(fx1, gy)
         grid.append(f"M{a:.2f} {b:.2f}L{c:.2f} {d:.2f}")
     mx, my = iso((fx0 + fx1) / 2, (fy0 + fy1) / 2)
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vx0:.1f} {vy0:.1f} {vw:.1f} {vh:.1f}" role="img" aria-label="An isometric architecture diagram: api, agents, web, data, CI/CD and observability blocks wired together">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vx0:.1f} {vy0:.1f} {vw:.1f} {vh:.1f}" role="img" aria-label="Isometric building blocks: a staircase climbing to a blue block with a pink tower, a round lime tower and a few slabs">
 <defs>
   <radialGradient id="fade" cx="{mx:.1f}" cy="{my:.1f}" r="{vw * 0.5:.1f}" gradientUnits="userSpaceOnUse">
     <stop offset="0.5" stop-color="#fff" stop-opacity="1"/>
@@ -198,9 +195,8 @@ def build(name):
 </defs>
 <g mask="url(#floor-mask)">
   <path d="{path([iso(fx0, fy0), iso(fx1, fy0), iso(fx1, fy1), iso(fx0, fy1)])}" fill="{T["floor"]}"/>
-  <path d="{" ".join(grid)}" stroke="{T["grid"]}" stroke-width="0.7" fill="none"/>
+  <path d="{" ".join(grid)}" stroke="{T["grid"]}" stroke-width="0.8" fill="none"/>
 </g>
-{chr(10).join(cable(c) for c in CABLES)}
 {chr(10).join(s for _, s in items)}
 </svg>
 '''
@@ -211,13 +207,11 @@ def build(name):
         return
     print("// chip anchors (% of the view), copy into hero-iso.tsx")
     for cid, x, y, blk in CHIPS:
-        z = heights[blk] if blk else 0.0
-        sx, sy = iso(x, y, z)
+        sx, sy = iso(x, y, tops[blk])
         print(f'  {cid}: {{ left: {100 * (sx - vx0) / vw:.1f}, top: {100 * (sy - vy0) / vh:.1f} }},')
     print(f"// aspect ratio: {vw:.1f} / {vh:.1f}")
 
 
 if __name__ == "__main__":
-    check_overlaps()
     for theme in THEMES:
         build(theme)

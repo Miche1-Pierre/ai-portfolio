@@ -10,7 +10,7 @@ export function Trusted() {
       <div className="container-x">
         <Reveal className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
           <h2 id="trusted-title" className="title text-[clamp(1.7rem,2.8vw,2.3rem)]">
-            Trusted by teams at <span className="mark">{organizations.length}</span> organizations
+            Trusted by teams at <span className="accent-word">{organizations.length}</span> organizations
           </h2>
           <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Employers and clients · 2024 - 2026</p>
         </Reveal>
