@@ -25,8 +25,9 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   projects, skills). Source of truth = the CV in `C:\Users\pierr\OneDrive\Desktop\Candidature\CV`
   (extract with `pdftotext -layout`). Never invent facts.
 - `src/components/site/*` — home sections in page order (numbered 01 to 07 by their tags):
-  `navbar`, `hero` (+ `hero-iso`: the pipeline diorama, four square stage tags from `sm`, and a
-  "right now" card that follows the theme, shown from `xl`), `trusted` (ruled grid of
+  `navbar`, `hero` (+ `hero-iso`: the pipeline diorama, four square stage tags and, from `sm`,
+  badges floating in its sky like clouds: Taskforce and Brain OS link to their case studies, "Next
+  up: your project?" to the contact; he found the single card too stuck to the top), `trusted` (ruled grid of
   organisations: employer or client, plus a link when there is a case study), `work` + `project-card` (square pastel panel + product window, identical for
   every project), `about` (crop-marked statement card + portrait; every statement is stacked in one
   grid cell so the card never changes height), `approach` (three-stage pipeline on blueprint paper),
