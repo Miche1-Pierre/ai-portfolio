@@ -13,7 +13,8 @@ import { navigation, site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 /**
- * Dust-style top bar: full width, transparent over the hero, paper + hairline once scrolled.
+ * Top bar: full width, transparent over the hero, paper + hairline once scrolled. From xl the
+ * section links sit in the centre (a 1fr / auto / 1fr grid); below, they live in the menu.
  * `base="/"` on sub-pages so the section anchors point back to the home page.
  */
 export function Navbar({ base = "" }: { base?: "" | "/" }) {
@@ -36,12 +37,16 @@ export function Navbar({ base = "" }: { base?: "" | "/" }) {
         solid ? "glass border-border" : "border-transparent"
       )}
     >
-      <div className="container-wide flex h-16 items-center gap-6 lg:gap-10">
-        <Link href={base ? "/" : "#top"} className="rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50" aria-label={base ? "Home" : "Back to top"}>
+      <div className="container-wide flex h-16 items-center gap-6 xl:grid xl:grid-cols-[1fr_auto_1fr]">
+        <Link
+          href={base ? "/" : "#top"}
+          className="rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50 xl:justify-self-start"
+          aria-label={base ? "Home" : "Back to top"}
+        >
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Primary">
           {navigation.map((n) => (
             <a
               key={n.href}
@@ -53,7 +58,7 @@ export function Navbar({ base = "" }: { base?: "" | "/" }) {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2 xl:ml-0 xl:justify-self-end">
           <CommandMenu />
           <ThemeToggle />
           <a
@@ -72,7 +77,7 @@ export function Navbar({ base = "" }: { base?: "" | "/" }) {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="xl:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
@@ -89,7 +94,7 @@ export function Navbar({ base = "" }: { base?: "" | "/" }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.16 }}
-            className="container-wide flex flex-col pb-4 lg:hidden"
+            className="container-wide flex flex-col pb-4 xl:hidden"
             aria-label="Mobile"
           >
             {navigation.map((n) => (

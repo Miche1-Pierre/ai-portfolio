@@ -32,7 +32,7 @@ export function Footer() {
     <footer className="border-t border-rule bg-paper-soft">
       <div className="container-wide py-16">
         <PMMark className="h-8" />
-        <div className="mt-12 grid grid-cols-2 gap-10 sm:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-10 sm:grid-cols-3">
           <Column title="Work" links={featuredProjects.map((p) => ({ href: `/work/${p.slug}`, label: p.name.split(" - ")[0] }))} />
           <Column title="Portfolio" links={navigation.map((n) => ({ href: `/${n.href}`, label: n.label }))} />
           <Column
@@ -41,15 +41,6 @@ export function Footer() {
               { href: site.socials.github.href, label: "GitHub", external: true },
               { href: site.socials.linkedin.href, label: "LinkedIn", external: true },
               { href: `mailto:${site.email}`, label: "Email", external: true },
-            ]}
-          />
-          <Column
-            title="Elsewhere"
-            links={[
-              { href: "https://www.taskforce-project.fr", label: "Taskforce", external: true },
-              { href: "https://docs.taskforce-project.fr/guides/bienvenue", label: "Taskforce docs", external: true },
-              { href: "https://bos-landing.onrender.com", label: "Brain OS", external: true },
-              { href: "https://www.plania.ai", label: "Plania", external: true },
             ]}
           />
         </div>
