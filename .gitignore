@@ -43,3 +43,21 @@ next-env.d.ts
 # local tooling
 .claude/
 .mcp.json
+
+# blender workspace (see blender/CLAUDE.md)
+/blender/renders/*
+!/blender/renders/.gitkeep
+/blender/exports/_smoke*
+*.blend1
+*.blend2
+*.blend@
+__pycache__/
+
+# third-party reference images and example models: copyrighted, public repo -> local only
+# (blender/references/README.md + INDEX.md stay versioned)
+/blender/references/**/*.jpg
+/blender/references/**/*.jpeg
+/blender/references/**/*.png
+/blender/references/**/*.webp
+/blender/references/models/**
+!/blender/references/models/.gitkeep

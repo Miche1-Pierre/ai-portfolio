@@ -1,0 +1,174 @@
+// Généré depuis blender/palette.json par blender/scripts/lib/webexport.py : ne pas éditer à la main.
+export const worldPalette = {
+  "site": {
+    "background_light": "#faf7f5",
+    "foreground_light": "#1a1a1a",
+    "secondary_light": "#fdf2d6",
+    "primary_light": "#9b2c2c",
+    "brand2_light": "#b45309",
+    "stage_light": "#f2ede6",
+    "background_dark": "#1c1917",
+    "card_dark": "#292524",
+    "foreground_dark": "#f5f5f4",
+    "primary_dark": "#b91c1c",
+    "brand2_dark": "#fbbf24",
+    "stage_dark": "#17120e",
+    "stage_fg_dark": "#f7f4ee"
+  },
+  "accents": {
+    "taskforce_dark": "#f7f4ee",
+    "taskforce_light": "#2f6bf6",
+    "brain_os": "#2dd4bf",
+    "plania": "#10b981",
+    "safex": "#fb923c",
+    "communauto": "#39f06a",
+    "laplante": "#3450d4",
+    "nancyclotep": "#10e6c0",
+    "synapsia": "#f97316",
+    "admin_mns": "#b3261e"
+  },
+  "zones": {
+    "z0_port": {
+      "heure": "aube",
+      "sky": "#f6d9b8",
+      "horizon": "#f2b98a",
+      "ground": "#e8d5b5",
+      "primary": "#c2703e",
+      "secondary": "#7fb2a8",
+      "dark": "#4a3226",
+      "fog": "#f3dcc4"
+    },
+    "z1_voie": {
+      "heure": "matin",
+      "sky": "#dfe7ea",
+      "horizon": "#f0cfae",
+      "ground": "#c9a67c",
+      "primary": "#b9865a",
+      "secondary": "#8b9b7e",
+      "dark": "#5a3f2e",
+      "fog": "#e9dccb"
+    },
+    "z1_sable": {
+      "heure": "matin clair",
+      "sky": "#dfe7ea",
+      "horizon": "#f0cfae",
+      "ground": "#e8d5b5",
+      "primary": "#c9a67c",
+      "secondary": "#7fb2a8",
+      "dark": "#5a3f2e",
+      "fog": "#e9dccb"
+    },
+    "z2_foret": {
+      "heure": "fin de matinée",
+      "sky": "#d3dfe4",
+      "horizon": "#e2e6d8",
+      "ground": "#6b7a5a",
+      "primary": "#4f6a3f",
+      "secondary": "#b9865a",
+      "dark": "#2f3a2a",
+      "fog": "#dde2d8"
+    },
+    "z2_atelier": {
+      "heure": "apres-midi",
+      "sky": "#c4d2d8",
+      "horizon": "#e0d3bf",
+      "ground": "#8d7c6c",
+      "primary": "#2b241f",
+      "secondary": "#b45309",
+      "dark": "#1f1a16",
+      "fog": "#d5cfc4"
+    },
+    "z3_desert": {
+      "heure": "après-midi chaud",
+      "sky": "#e3e6ea",
+      "horizon": "#f0d9c0",
+      "ground": "#c98a5a",
+      "primary": "#c2703e",
+      "secondary": "#5f8a47",
+      "dark": "#5a3f2e",
+      "fog": "#eadbc8"
+    },
+    "z3_col": {
+      "heure": "après-midi d'hiver",
+      "sky": "#cfdde8",
+      "horizon": "#e9eef2",
+      "ground": "#e6ecf1",
+      "primary": "#5b7f9a",
+      "secondary": "#c25a3a",
+      "dark": "#2e3a48",
+      "fog": "#dfe7ee"
+    },
+    "z4_observatoire": {
+      "heure": "coucher de soleil",
+      "sky": "#6f6484",
+      "horizon": "#f0a06a",
+      "ground": "#d9cfc1",
+      "primary": "#f2ede6",
+      "secondary": "#8b9b7e",
+      "dark": "#3b3340",
+      "fog": "#b8a9b2"
+    },
+    "z5_ciel": {
+      "heure": "nuit",
+      "sky": "#17120e",
+      "horizon": "#2a2f4f",
+      "ground": "#1d2340",
+      "primary": "#f7f4ee",
+      "secondary": "#fbbf24",
+      "dark": "#0f0c0a",
+      "fog": "#1b1a2b"
+    }
+  },
+  "materials": {
+    "wood_dark": "#4a3226",
+    "wood_light": "#b98a5e",
+    "rope": "#c9a97a",
+    "canvas": "#efe3cf",
+    "brass": "#d6a516",
+    "copper": "#b45309",
+    "steel": "#6b7a86",
+    "rail_steel": "#5a6068",
+    "iron_dark": "#2b241f",
+    "rust": "#8c4a2b",
+    "glass": "#9fd3d0",
+    "glass_clear": "#dedede",
+    "hull_teal": "#7fb2a8",
+    "sand": "#e8d5b5",
+    "terracotta": "#c2703e",
+    "plaster": "#f3e6d3",
+    "roof_red": "#9b2c2c",
+    "rock_warm": "#b9865a",
+    "rock_dark": "#8a5a3b",
+    "rock_cold": "#8d8f96",
+    "stone_quay": "#a89a86",
+    "dirt_track": "#c7a27a",
+    "lichen": "#8b9b7e",
+    "moss": "#6f8a5a",
+    "snow": "#f2ede6",
+    "charcoal": "#2b241f",
+    "night": "#17120e",
+    "indigo": "#1d2340",
+    "star": "#f7f4ee",
+    "grass": "#7da55b",
+    "grass_dark": "#5f8a47",
+    "water": "#3d8db3",
+    "water_deep": "#2a6f96",
+    "field_a": "#c2b76a",
+    "field_b": "#8fb063"
+  },
+  "avatar": {
+    "body": "#9b2c2c",
+    "trim": "#f3e6d3",
+    "chassis": "#2b241f",
+    "wheels": "#2b241f",
+    "accent": "#d6a516",
+    "headlight": "#ffd2a1"
+  },
+  "lights": {
+    "key_dawn": "#ffd2a1",
+    "key_noon": "#fff4e6",
+    "key_sunset": "#ffb070",
+    "fill_sky": "#b9cfe0",
+    "fill_night": "#4a5a8a"
+  }
+} as const;
