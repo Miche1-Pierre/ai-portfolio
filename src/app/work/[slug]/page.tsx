@@ -218,7 +218,7 @@ export default async function ProjectPage({ params }: Params) {
         {/* prev / next */}
         <nav aria-label="More case studies" className="container-x grid gap-4 border-t py-12 sm:grid-cols-2">
           {prev ? (
-            <Link href={`/work/${prev.slug}`} className="group flex items-center gap-4 rounded-3xl border p-6 transition-colors hover:bg-paper-soft">
+            <Link href={`/work/${prev.slug}`} className="group flex min-w-0 items-center gap-4 border p-6 transition-colors hover:bg-paper-soft">
               <ArrowLeft className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-x-0.5" />
               <span className="min-w-0">
                 <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
@@ -232,7 +232,7 @@ export default async function ProjectPage({ params }: Params) {
             <span />
           )}
           {next ? (
-            <Link href={`/work/${next.slug}`} className="group flex items-center justify-end gap-4 rounded-3xl border p-6 text-right transition-colors hover:bg-paper-soft">
+            <Link href={`/work/${next.slug}`} className="group flex min-w-0 items-center justify-end gap-4 border p-6 text-right transition-colors hover:bg-paper-soft">
               <span className="min-w-0">
                 <span className="flex items-center justify-end gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
                   Next

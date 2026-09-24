@@ -61,8 +61,8 @@ export function Contact() {
         </Reveal>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-          <Reveal>
-            <div className="relative flex h-full flex-col justify-between gap-10 bg-tint-lime p-8 sm:p-10">
+          <Reveal className="min-w-0">
+            <div className="relative flex h-full flex-col justify-between gap-10 bg-tint-lime p-6 sm:p-10">
               <CropMarks />
               <span aria-hidden className="absolute right-8 top-8 flex items-end gap-1">
                 <Shape kind="square" className="size-5 text-shape-green" />
@@ -73,7 +73,7 @@ export function Contact() {
                 <button
                   type="button"
                   onClick={copy}
-                  className="group mt-5 flex max-w-full items-center gap-3 text-left text-[clamp(1.05rem,2.1vw,1.5rem)] font-medium tracking-[-0.02em]"
+                  className="group mt-5 flex max-w-full flex-wrap items-center gap-x-3 gap-y-2 text-left text-[clamp(0.85rem,4.2vw,1.5rem)] font-medium tracking-[-0.02em] sm:text-[clamp(1.05rem,2.1vw,1.5rem)]"
                 >
                   <span className="whitespace-nowrap">{site.email}</span>
                   <span className="grid size-8 shrink-0 place-items-center border border-foreground/15 bg-card/70 text-muted-foreground transition-colors group-hover:text-foreground">
@@ -97,7 +97,7 @@ export function Contact() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.06}>
+          <Reveal delay={0.06} className="min-w-0">
             <form onSubmit={onSubmit} className="grid gap-4 border border-rule bg-card p-6 sm:p-8">
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">

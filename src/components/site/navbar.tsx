@@ -65,7 +65,8 @@ export function Navbar({ base = "" }: { base?: "" | "/" }) {
             <Github />
             GitHub
           </a>
-          <a href={`${base}#contact`} className={cta({ variant: "primary", size: "sm" })}>
+          {/* below 400px the header only keeps its icons; the hero and the menu still offer contact */}
+          <a href={`${base}#contact`} className={cta({ variant: "primary", size: "sm", className: "hidden min-[400px]:inline-flex" })}>
             Get in touch
           </a>
           <Button
