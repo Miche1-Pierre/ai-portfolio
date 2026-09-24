@@ -20,17 +20,19 @@ export function Trusted() {
               <span className="font-mono text-[10px] tracking-[0.1em] text-subtle">{String(i + 1).padStart(2, "0")}</span>
               <div>
                 <p className="text-lg font-semibold tracking-[-0.03em] sm:text-xl">{o.name}</p>
-                {o.slug ? (
-                  <Link
-                    href={`/work/${o.slug}`}
-                    className="mt-1 inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-blue hover:underline"
-                  >
-                    Case study
-                    <ArrowUpRight className="size-3" />
-                  </Link>
-                ) : (
-                  <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground">{o.kind === "employer" ? "Employer" : "Client"}</p>
-                )}
+                {/* what the organisation was to Pierre, and the case study when there is one */}
+                <p className="mt-1 flex flex-col items-start gap-1 font-mono text-[11px] uppercase tracking-[0.06em] lg:flex-row lg:items-center lg:gap-2">
+                  <span className="text-muted-foreground">{o.kind === "employer" ? "Employer" : "Client"}</span>
+                  {o.slug ? (
+                    <>
+                      <span aria-hidden="true" className="hidden size-1 rounded-full bg-foreground/25 lg:block" />
+                      <Link href={`/work/${o.slug}`} className="inline-flex items-center gap-1 text-ink-blue hover:underline">
+                        Case study
+                        <ArrowUpRight className="size-3" />
+                      </Link>
+                    </>
+                  ) : null}
+                </p>
               </div>
             </li>
           ))}

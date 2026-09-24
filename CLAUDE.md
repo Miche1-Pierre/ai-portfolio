@@ -1,14 +1,16 @@
 # CLAUDE.md — Pierre Michel's portfolio (v2)
 
 Developer portfolio of Pierre Michel — **Full-Stack Software Engineer · Applied AI**.
-Single-page Next.js app. **DA v3.2 (2026-09-24)**: it started from [dust.tt](https://dust.tt/home), then
+Single-page Next.js app. **DA v3.3 (2026-09-24)**: it started from [dust.tt](https://dust.tt/home), then
 Pierre found v3 too close to Dust ("copier-collé"), so it was made his own. The layout is
 **square** (cards, panels, buttons, tags, inputs) and the **small details are round on purpose,
 for contrast** (his call: the "PM" logo made of shapes, card-corner shapes, bullets, dots, chips).
 Taskforce cobalt `#2F6BF6` is the one action colour; blueprint rules with plus marks and crop marks;
-one accent word per statement in the accent colour (no highlight block, he rejected it); abstract
-isometric building blocks in the hero (not a tech diagram, he found that too technical). Light
-theme by default, dark kept, switched with a circular reveal. **All user-facing copy is in English.**
+one accent word per statement in the accent colour (no highlight block, he rejected it); in the
+hero, the whole pipeline as an isometric diorama (scope, build, ship, launch), without Pierre on it
+and without tech diagrams (both his calls). No dark closing band and a colour logo in the footer:
+those read as copied from Dust. Light theme by default, dark kept, switched with a circular
+reveal. **All user-facing copy is in English.**
 
 ## Stack
 Next.js 15 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 · **shadcn/ui
@@ -23,15 +25,15 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   projects, skills). Source of truth = the CV in `C:\Users\pierr\OneDrive\Desktop\Candidature\CV`
   (extract with `pdftotext -layout`). Never invent facts.
 - `src/components/site/*` — home sections in page order (numbered 01 to 07 by their tags):
-  `navbar`, `hero` (+ `hero-iso`: isometric building blocks, round icon chips, Pierre's avatar and
-  a "right now" card that follows the theme, shown from `xl`), `trusted` (ruled grid of
-  organisations), `work` + `project-card` (square pastel panel + product window, identical for
+  `navbar`, `hero` (+ `hero-iso`: the pipeline diorama, four square stage tags from `sm`, and a
+  "right now" card that follows the theme, shown from `xl`), `trusted` (ruled grid of
+  organisations: employer or client, plus a link when there is a case study), `work` + `project-card` (square pastel panel + product window, identical for
   every project), `about` (crop-marked statement card + portrait; every statement is stacked in one
   grid cell so the card never changes height), `approach` (three-stage pipeline on blueprint paper),
   `impact` (datasheet led by one big number per column), `skills` (link chips to each official site
   + two rotating wheels of tech logos on the page's right edge, desktop only), `experience` (ruled
-  log), `contact` (email, LinkedIn, GitHub; **no form**, his call), `footer` (dark CTA band +
-  columns). Plus `command-menu` (⌘K) and `theme-toggle` (circular reveal via the View Transitions
+  log), `contact` (email, LinkedIn, GitHub; **no form**, his call), `footer` (paper, colour logo +
+  columns; no dark band). Plus `command-menu` (⌘K) and `theme-toggle` (circular reveal via the View Transitions
   API, instant fallback). DA primitives: `shapes` (round and square shapes + the `Tone` maps:
   `toneShape/Fill/Tint/Ink`, `toneStrong` for pale tones), `logo` (the "PM" monogram made of
   shapes), `pill` (square tag, round dot, optional index), `marks` (`PlusMark`, `SectionRule`,
@@ -40,8 +42,10 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
 - `src/content/skills.ts` — every skill has an `href` (official site, or a reference page for a
   concept) and a `logo` (brand SVG in `public/tech/`, from Simple Icons, CC0; the brands belong to
   their owners) or a generic `glyph`. Links were checked on 2026-09-24.
-- `scripts/gen-hero-iso.py` — generates `public/illustrations/hero-iso.svg` (+ `-dark`): stacked
-  square and round volumes; prints the chip anchors to copy into `hero-iso.tsx`.
+- `scripts/gen-hero-iso.py` — generates `public/illustrations/hero-iso.svg` (+ `-dark`): a blueprint
+  and a pencil, a sawtooth workshop with gears and a chimney, a conveyor of crates to a loading dock
+  and a van, a rocket on its pad; lit windows in the dark theme; prints the tag anchors and the
+  aspect ratio to copy into `hero-iso.tsx`.
 - `src/app/work/[slug]/page.tsx` — one **dedicated case-study page per project** (SSG via
   `generateStaticParams` + per-project `generateMetadata`). Hero = `ProjectHero`: back link, tone
   tag, display title, actions, then the product as a square window standing in a large

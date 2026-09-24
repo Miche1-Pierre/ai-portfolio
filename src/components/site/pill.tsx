@@ -3,7 +3,7 @@ import type { Tone } from "@/components/site/shapes";
 import { cn } from "@/lib/utils";
 
 /**
- * Eyebrow tag: square, pastel, mono uppercase, with a square marker and an optional section
+ * Eyebrow tag: square, pastel, mono uppercase, with a round marker and an optional section
  * index ("01"). Styles in globals.css (.pill).
  */
 export function Pill({
@@ -13,7 +13,7 @@ export function Pill({
   className,
 }: {
   children: ReactNode;
-  tone?: Tone | "night";
+  tone?: Tone;
   index?: string;
   className?: string;
 }) {
