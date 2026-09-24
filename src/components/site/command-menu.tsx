@@ -61,8 +61,12 @@ export function CommandMenu() {
     setOpen(false);
     fn();
   };
-  const go = (id: string) => () =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  // On the home page, scroll; on a case-study page the section lives on "/", so navigate there.
+  const go = (id: string) => () => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    else router.push(`/#${id}`);
+  };
   const openUrl = (url: string) => () => window.open(url, "_blank", "noopener,noreferrer");
 
   return (
@@ -70,7 +74,7 @@ export function CommandMenu() {
       <Button
         variant="outline"
         size="sm"
-        className="hidden gap-2 rounded-full pr-1.5 text-muted-foreground md:inline-flex"
+        className="hidden h-9 gap-2 rounded-[10px] bg-paper-soft pr-1.5 pl-3 text-muted-foreground md:inline-flex"
         onClick={() => setOpen(true)}
         aria-label="Open command menu"
       >

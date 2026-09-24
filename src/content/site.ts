@@ -32,6 +32,24 @@ export const metrics = [
   { value: 100, prefix: "~", suffix: "h", label: "of manual work freed every month by AI triage" },
 ] as const;
 
+type Organization = { name: string; kind: "employer" | "client"; slug?: string };
+
+/**
+ * Teams Pierre has shipped with (employers and, through TechGuys, clients), for the "trusted by"
+ * row. `slug` links the matching case study. Client names follow `site.showClientNames`.
+ */
+const allOrganizations: Organization[] = [
+  { name: "TechGuys", kind: "employer" },
+  { name: "Plania", kind: "employer", slug: "plania" },
+  { name: "Safex Transport", kind: "client", slug: "ai-sales-agent" },
+  { name: "Communauto", kind: "client", slug: "incident-triage" },
+  { name: "Groupe Laplante", kind: "client", slug: "lease-financing" },
+  { name: "Nancyclotep", kind: "employer", slug: "pharma-lims" },
+  { name: "SynapsIA", kind: "employer", slug: "speedreporting" },
+  { name: "LORIA", kind: "employer" },
+];
+export const organizations = allOrganizations.filter((o) => site.showClientNames || o.kind === "employer");
+
 export const navigation = [
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },

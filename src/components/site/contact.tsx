@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, Github, Linkedin, Mail, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Section } from "@/components/site/section";
+import { Check, Copy, Github, Linkedin, Send } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import { SectionHeader } from "@/components/site/section";
+import { Shape } from "@/components/site/shapes";
+import { cta } from "@/components/site/cta";
 import { site } from "@/content/site";
 
 const FORMSPREE = "https://formspree.io/f/xanjrryq";
+
+const field =
+  "w-full rounded-xl border border-input bg-background px-3.5 text-[15px] outline-none transition-[border-color,box-shadow] placeholder:text-subtle focus:border-ring focus:ring-3 focus:ring-ring/25";
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -41,76 +45,87 @@ export function Contact() {
     }
   };
 
-  const field =
-    "w-full rounded-lg border bg-background/60 px-3.5 py-2.5 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-brand/50 focus:ring-2 focus:ring-ring";
-
   return (
-    <Section
-      id="contact"
-      index="05"
-      eyebrow="Contact"
-      title="Building something with AI, or hiring for it? Let's talk."
-      description={`${site.availability}. Open to remote roles and collaborations, anywhere.`}
-    >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+    <section id="contact" className="scroll-mt-20 py-20 sm:py-28">
+      <div className="container-x">
         <Reveal>
-          <div className="flex h-full flex-col justify-between gap-6 rounded-2xl border bg-card p-6">
-            <div>
-              <p className="eyebrow">Direct</p>
-              <button
-                type="button"
-                onClick={copy}
-                className="group mt-3 flex items-center gap-3 text-left font-heading text-sm font-semibold tracking-tight sm:text-lg md:text-xl"
-              >
-                <Mail className="size-5 shrink-0 text-brand" />
-                <span className="whitespace-nowrap">{site.email}</span>
-                <span className="grid size-7 place-items-center rounded-md border text-muted-foreground transition-colors group-hover:text-foreground">
-                  {copied ? <Check className="size-3.5 text-brand" /> : <Copy className="size-3.5" />}
-                </span>
-              </button>
-              <p className="mt-2 text-xs text-muted-foreground">{copied ? "Copied to clipboard." : "Click to copy."}</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="outline" render={<a href={site.socials.linkedin.href} target="_blank" rel="noreferrer" />}>
-                <Linkedin />
-                LinkedIn
-              </Button>
-              <Button variant="outline" render={<a href={site.socials.github.href} target="_blank" rel="noreferrer" />}>
-                <Github />
-                GitHub
-              </Button>
-            </div>
-          </div>
+          <SectionHeader
+            eyebrow="Contact"
+            tone="pink"
+            title="Building something with AI, or hiring for it? Let's talk."
+            description={`${site.availability}. Open to remote roles and collaborations, anywhere.`}
+          />
         </Reveal>
 
-        <Reveal delay={0.06}>
-          <form onSubmit={onSubmit} className="grid gap-3 rounded-2xl border bg-card p-6">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <label className="grid gap-1.5 text-xs text-muted-foreground">
-                Name
-                <input name="name" required autoComplete="name" className={field} placeholder="Ada Lovelace" />
-              </label>
-              <label className="grid gap-1.5 text-xs text-muted-foreground">
-                Email
-                <input name="email" type="email" required autoComplete="email" className={field} placeholder="ada@company.com" />
-              </label>
+        <div className="mt-12 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+          <Reveal>
+            <div className="relative flex h-full flex-col justify-between gap-10 overflow-hidden rounded-3xl bg-tint-lime p-8 sm:p-10">
+              <span aria-hidden className="absolute right-8 top-8 flex items-center gap-1">
+                <Shape kind="circle" className="size-5 text-shape-green" />
+                <Shape kind="quarter" className="size-5 text-shape-yellow" />
+              </span>
+              <div>
+                <p className="eyebrow text-ink-lime">Direct</p>
+                <button
+                  type="button"
+                  onClick={copy}
+                  className="group mt-5 flex max-w-full items-center gap-3 text-left text-[clamp(1.05rem,2.1vw,1.5rem)] font-medium tracking-[-0.02em]"
+                >
+                  <span className="whitespace-nowrap">{site.email}</span>
+                  <span className="grid size-8 shrink-0 place-items-center rounded-lg border border-foreground/10 bg-card/70 text-muted-foreground transition-colors group-hover:text-foreground">
+                    {copied ? <Check className="size-4 text-ink-green" /> : <Copy className="size-4" />}
+                  </span>
+                </button>
+                <p className="mt-2 text-sm text-muted-foreground" aria-live="polite">
+                  {copied ? "Copied to clipboard." : "Click to copy. I reply within a day."}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <a href={site.socials.linkedin.href} target="_blank" rel="noreferrer" className={cta({ variant: "secondary", size: "md", className: "bg-card" })}>
+                  <Linkedin />
+                  LinkedIn
+                </a>
+                <a href={site.socials.github.href} target="_blank" rel="noreferrer" className={cta({ variant: "secondary", size: "md", className: "bg-card" })}>
+                  <Github />
+                  GitHub
+                </a>
+              </div>
             </div>
-            <label className="grid gap-1.5 text-xs text-muted-foreground">
-              Message
-              <textarea name="message" required rows={5} className={field} placeholder="What are you building?" />
-            </label>
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-              <p className="text-xs text-muted-foreground" aria-live="polite">
-                {status === "success" ? "Sent - I'll get back to you shortly." : status === "error" ? "Something went wrong. Email me directly instead." : "Replies within a day, usually faster."}
-              </p>
-              <Button type="submit" disabled={status === "sending"} className="h-10 rounded-full px-5">
-                {status === "sending" ? "Sending…" : "Send message"}
-                <Send className="size-4" />
-              </Button>
-            </div>
-          </form>
-        </Reveal>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <form onSubmit={onSubmit} className="grid gap-4 rounded-3xl border bg-card p-6 sm:p-8">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-2 text-sm text-muted-foreground">
+                  Name
+                  <input name="name" required autoComplete="name" className={`${field} h-11`} placeholder="Ada Lovelace" />
+                </label>
+                <label className="grid gap-2 text-sm text-muted-foreground">
+                  Email
+                  <input name="email" type="email" required autoComplete="email" className={`${field} h-11`} placeholder="ada@company.com" />
+                </label>
+              </div>
+              <label className="grid gap-2 text-sm text-muted-foreground">
+                Message
+                <textarea name="message" required rows={6} className={`${field} resize-y py-3`} placeholder="What are you building?" />
+              </label>
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <p className="text-sm text-muted-foreground" aria-live="polite">
+                  {status === "success"
+                    ? "Sent - I'll get back to you shortly."
+                    : status === "error"
+                      ? "Something went wrong. Email me directly instead."
+                      : "Replies within a day, usually faster."}
+                </p>
+                <button type="submit" disabled={status === "sending"} className={cta({ size: "md" })}>
+                  {status === "sending" ? "Sending…" : "Send message"}
+                  <Send />
+                </button>
+              </div>
+            </form>
+          </Reveal>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

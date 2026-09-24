@@ -1,72 +1,77 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
 import { IconCover } from "@/components/site/icon-cover";
+import { Shape, toneFill, toneShape, toneStrong, toneTint } from "@/components/site/shapes";
 import type { Project } from "@/content/projects";
 import { cn } from "@/lib/utils";
 
-const kindLabel: Record<Project["kind"], string> = {
+export const kindLabel: Record<Project["kind"], string> = {
   flagship: "Flagship",
   product: "Product",
   client: "Client work",
   archive: "Archive",
 };
 
-// One uniform card for every project (Huly-style): identical thumbnail framing (16/10) and body,
-// so the grid reads as a consistent set of tiles rather than mismatched sizes.
+/**
+ * One uniform card for every project (his rule: identical tiles across groups). DA v3: a pastel
+ * panel in the project's tone holding the product as a window, like Dust's feature mocks.
+ */
 export function ProjectCard({ project, className }: { project: Project; className?: string }) {
   const cover = project.cover ?? project.images?.[0];
 
   return (
     <Link
       href={`/work/${project.slug}`}
-      className={cn(
-        "group card-hover relative flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-card text-left outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        className
-      )}
-      aria-label={`${project.name} - open case study`}
+      className={cn("group flex h-full flex-col rounded-3xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50", className)}
+      aria-label={`${project.name} - read the case study`}
     >
-      <div className="relative aspect-[16/10] w-full overflow-hidden border-b bg-muted/20">
-        {cover ? (
-          <Image
-            src={cover}
-            alt=""
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-          />
-        ) : (
-          <IconCover project={project} />
-        )}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/70 to-transparent" />
+      <div className={cn("relative aspect-[16/11] overflow-hidden rounded-3xl", toneTint[project.tone])}>
+        {/* two quiet shapes in the panel's corner */}
+        <span aria-hidden className="absolute left-5 top-5 flex items-center gap-1">
+          <Shape kind="circle" className={cn("size-3.5", toneShape[toneStrong(project.tone)])} />
+          <Shape kind="dee" className={cn("size-3.5 opacity-60", toneShape[toneStrong(project.tone)])} />
+        </span>
+        {/* the product window, bleeding off the bottom-right like Dust's mocks */}
+        <div className="absolute bottom-[-10%] left-[10%] right-[-8%] top-[16%] overflow-hidden rounded-xl bg-card shadow-window transition-transform duration-500 ease-out group-hover:-translate-y-1.5">
+          {!project.coverBare && cover ? (
+            <div className="flex h-6 items-center gap-1.5 border-b bg-paper-soft px-3">
+              <span className="size-2 rounded-full bg-shape-red/80" />
+              <span className="size-2 rounded-full bg-shape-yellow/80" />
+              <span className="size-2 rounded-full bg-shape-green/80" />
+            </div>
+          ) : null}
+          <div className="relative h-full w-full">
+            {cover ? (
+              <Image
+                src={cover}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1152px) 50vw, 560px"
+                className="object-cover object-top"
+              />
+            ) : (
+              <IconCover project={project} />
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-center justify-between gap-3">
-          <Badge variant="outline" className="text-[10px] uppercase tracking-wider">
-            {kindLabel[project.kind]}
-          </Badge>
-          <span className="font-mono text-[11px] text-muted-foreground">{project.period}</span>
-        </div>
-        <h3 className="font-heading text-lg font-semibold tracking-tight">{project.name}</h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">{project.tagline}</p>
-        <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-2">
-          {project.stack.slice(0, 4).map((s) => (
-            <span key={s} className="rounded-md border bg-muted/40 px-2 py-0.5 text-[11px] text-muted-foreground">
-              {s}
-            </span>
-          ))}
-        </div>
-        <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground">
-          View case study
-          <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      <div className="flex flex-1 flex-col px-1 pt-5">
+        <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+          <span className={cn("size-2 rounded-full", toneFill[toneStrong(project.tone)])} />
+          {kindLabel[project.kind]}
+          <span className="text-border">/</span>
+          {project.period}
+        </p>
+        <h3 className="mt-2.5 text-xl font-medium tracking-[-0.02em] sm:text-[1.35rem]">{project.name}</h3>
+        <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{project.tagline}</p>
+        <p className="mt-3 font-mono text-[11px] leading-relaxed text-subtle">{project.stack.slice(0, 4).join(" · ")}</p>
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-medium text-foreground transition-colors group-hover:text-ink-blue">
+          Read the case study
+          <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>
-
-      <span className="absolute right-4 top-4 grid size-8 place-items-center rounded-full border bg-background/70 text-muted-foreground opacity-0 backdrop-blur transition-all group-hover:opacity-100">
-        <ArrowUpRight className="size-4" />
-      </span>
     </Link>
   );
 }

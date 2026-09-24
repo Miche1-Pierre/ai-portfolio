@@ -1,47 +1,34 @@
-import { Server, ShieldCheck, Sparkles, Wrench } from "lucide-react";
+import { Reveal } from "@/components/motion/reveal";
 import { Section } from "@/components/site/section";
-import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { skillGroups } from "@/content/skills";
+import { cn } from "@/lib/utils";
 
-const icons = [Server, Sparkles, ShieldCheck, Wrench];
+// Dust numbers its pillars in mono, each in its own colour.
+const INK = ["text-ink-blue", "text-ink-red", "text-ink-yellow", "text-ink-green"];
 
+/** Dust's numbered 2x2 pillars ("01 ----"), one per skill group. */
 export function Skills() {
   return (
     <Section
       id="skills"
-      index="03"
       eyebrow="Skills"
       title="A full-stack core with an applied-AI edge."
       description="Backend systems that hold in production, frontends people actually use, and agents with guardrails - in environments where compliance is not optional."
+      align="center"
     >
-      <Stagger className="grid gap-4 md:grid-cols-2">
-        {skillGroups.map((g, i) => {
-          const Icon = icons[i % icons.length];
-          return (
-            <StaggerItem key={g.title}>
-              <div className="card-hover group h-full rounded-2xl border bg-card p-6">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-9 place-items-center rounded-lg border bg-muted/40 text-brand">
-                    <Icon className="size-4" />
-                  </span>
-                  <h3 className="font-heading text-lg font-semibold tracking-tight">{g.title}</h3>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{g.blurb}</p>
-                <ul className="mt-5 flex flex-wrap gap-1.5">
-                  {g.items.map((s) => (
-                    <li
-                      key={s}
-                      className="rounded-md border bg-background/60 px-2.5 py-1 text-xs text-foreground/90 transition-colors group-hover:border-brand/30"
-                    >
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </StaggerItem>
-          );
-        })}
-      </Stagger>
+      <div className="mx-auto grid max-w-5xl gap-x-16 gap-y-14 md:grid-cols-2">
+        {skillGroups.map((g, i) => (
+          <Reveal key={g.title} delay={i * 0.04}>
+            <div className="flex items-center gap-5">
+              <span className={cn("num text-[2rem] leading-none", INK[i % INK.length])}>{String(i + 1).padStart(2, "0")}</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+            <h3 className="mt-7 text-2xl font-medium tracking-[-0.02em]">{g.title}</h3>
+            <p className="mt-3 leading-relaxed text-muted-foreground">{g.blurb}</p>
+            <p className="mt-5 text-[15px] leading-relaxed text-foreground/80">{g.items.join("  ·  ")}</p>
+          </Reveal>
+        ))}
+      </div>
     </Section>
   );
 }

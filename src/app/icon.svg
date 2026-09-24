@@ -1,12 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#b5302e"/>
-      <stop offset="1" stop-color="#e6a33a"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="#17120e"/>
-  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="url(#g)" stroke-opacity="0.95" stroke-width="2"/>
-  <text x="32" y="40" text-anchor="middle" font-family="Poppins, Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#f7f4ee">PM</text>
-  <circle cx="50" cy="14" r="5" fill="#b5302e"/>
+  <rect width="64" height="64" rx="14" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="13.5" fill="none" stroke="#ecebe8"/>
+  <g transform="translate(6 20)">
+    <rect x="0" y="0" width="8" height="24" rx="1" fill="#418b5c"/>
+    <path d="M8 0h5a7 7 0 0 1 0 14H8Z" fill="#ffaa0d"/>
+    <rect x="23" y="0" width="8" height="24" rx="1" fill="#e14322"/>
+    <path d="M31 0h13a6.5 6.5 0 0 1-13 0Z" fill="#f99bc3"/>
+    <rect x="44" y="0" width="8" height="24" rx="1" fill="#1c91ff"/>
+  </g>
 </svg>

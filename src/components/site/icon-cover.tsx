@@ -1,10 +1,9 @@
 import { Bot, Car, FlaskConical, Landmark, LayoutDashboard, type LucideIcon } from "lucide-react";
+import { toneInk, toneTint } from "@/components/site/shapes";
 import type { Project } from "@/content/projects";
+import { cn } from "@/lib/utils";
 
-/**
- * Clean cover for projects without a real screenshot (anonymised client work):
- * a large themed icon on an accent wash. Replaces the old workflow diagrams.
- */
+/** Fallback cover when a project has no screenshot: a themed icon on the project's tint. */
 const ICONS: Record<string, LucideIcon> = {
   "ai-sales-agent": Bot,
   "incident-triage": Car,
@@ -14,29 +13,11 @@ const ICONS: Record<string, LucideIcon> = {
 
 export function IconCover({ project, className }: { project: Project; className?: string }) {
   const Icon = ICONS[project.slug] ?? LayoutDashboard;
-  const accent = project.beamMode === "adaptive" ? "var(--stage-fg)" : project.accent;
   return (
-    <div
-      className={className}
-      style={{
-        position: "absolute",
-        inset: 0,
-        display: "grid",
-        placeItems: "center",
-        background: `radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, ${accent} 22%, transparent), transparent 70%)`,
-      }}
-    >
-      <div style={{ display: "grid", placeItems: "center", gap: 14, color: accent }}>
-        <Icon strokeWidth={1.25} style={{ width: 64, height: 64, opacity: 0.9 }} />
-        <span
-          style={{
-            fontFamily: "var(--font-mono, monospace)",
-            fontSize: 11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            opacity: 0.6,
-          }}
-        >
+    <div className={cn("absolute inset-0 grid place-items-center", toneTint[project.tone], className)}>
+      <div className={cn("grid place-items-center gap-3", toneInk[project.tone])}>
+        <Icon strokeWidth={1.25} className="size-16 opacity-90" />
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] opacity-70">
           {project.kind === "client" ? "Client work" : project.name}
         </span>
       </div>
