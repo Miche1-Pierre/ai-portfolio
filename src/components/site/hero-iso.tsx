@@ -48,7 +48,7 @@ const NOW = [
 const BADGE =
   "animate-float absolute hidden -translate-x-1/2 items-center gap-2 whitespace-nowrap border px-2.5 py-1.5 text-xs shadow-lg transition-colors sm:inline-flex xl:text-[13px]";
 
-function SkyBadges() {
+export function SkyBadges() {
   return (
     <>
       {NOW.map((b) => (

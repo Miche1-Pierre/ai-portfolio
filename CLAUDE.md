@@ -10,13 +10,15 @@ one accent word per statement in the accent colour (no highlight block, he rejec
 hero, the whole pipeline as an isometric diorama (scope, build, ship, launch), without Pierre on it
 and without tech diagrams (both his calls). No dark closing band and a colour logo in the footer:
 those read as copied from Dust. Light theme by default, dark kept, switched with a circular
-reveal. **All user-facing copy is in English.**
+reveal. **Intro (2026-10-07)**: the home page opens on a 3D version of that diorama and a scroll
+tour of how Pierre works as a forward deployed engineer (embed, scope, build, ship, launch), after
+vectrfl.com. **All user-facing copy is in English.**
 
 ## Stack
 Next.js 15 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 · **shadcn/ui
 (`base-nova` style on `@base-ui/react` — use the `render` prop, not `asChild`)** · `motion` 13
 (`motion/react`) · `next-themes` (light by default) · `lucide-react` · `three` + React Three
-Fiber (the `/journey` prototype) · `next-sitemap` · Vercel Analytics. Fonts: **Geist** (`--font-sans`
+Fiber (the home intro and the `/journey` prototype) · `next-sitemap` · Vercel Analytics. Fonts: **Geist** (`--font-sans`
 + headings, variable: titles 450, display 550), **Geist Mono** (`--font-mono`: labels, numbers,
 datelines, the terminal card), both self-hosted via `next/font/google`.
 
@@ -41,6 +43,19 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   shapes), `pill` (square tag, round dot, optional index), `marks` (`PlusMark`, `SectionRule`,
   `CropMarks`), `cta` (square button styles for links). `project-hero` is the case-study hero.
   `src/components/motion/reveal.tsx` — scroll-reveal helpers (no `filter: blur`).
+- `src/components/intro/*` — the **home intro**: `intro.tsx` (a pinned 620vh section: the hero text
+  and badges over the 3D world, then the steps on the left or a card on phones, a "Skip the tour"
+  link; reduced motion or no WebGL2 falls back to the 2D `Hero` + a static step list),
+  `intro-scene.tsx` (orthographic R3F canvas, lazy-loaded, and the camera rig), `timeline.ts` (the
+  scroll timeline shared by the HTML and the scene: hold on a station, travel to the next, the step
+  text switches mid-travel), `look.ts` (the drawing-style shader: no lights, colour from the face
+  normal, courses/ribs, palette per theme), `kit.tsx` (primitives), `stations.tsx` (offices,
+  blueprint + the pencil that draws it, workshop, belt, dock + forklift, van, launch site with the
+  rocket, tower, countdown, mission control), `props.tsx` (trees, pines, lamps, cars, pond, flag,
+  clouds, walkers), `world.tsx` (trail, halos, floor, layout). Steps copy: `src/content/intro.ts`.
+  Gotchas: use function transforms (`useTransform(p, v => ...)`) on the pinned scroll progress
+  (range transforms got turned into a native ViewTimeline with the wrong range), and
+  `frustumCulled={false}` on geometry rewritten every frame.
 - `src/content/skills.ts` — every skill has an `href` (official site, or a reference page for a
   concept) and a `logo` (brand SVG in `public/tech/`, from Simple Icons, CC0; the brands belong to
   their owners) or a generic `glyph`. Links were checked on 2026-09-24.
@@ -83,8 +98,9 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
 - Commit only when asked; **never push/merge to `master` without explicit OK** (Vercel deploys it).
 
 ## Dev
-- Branch: `feat/portfolio-v3` (DA v3 + `/journey`, PR into `master`; merge only on Pierre's
-  explicit OK). `feat/portfolio-v2` == the v2 shipped on 2026-09-04.
+- Work on a feature branch from `master`, PR into `master` (merge commit), merge only on Pierre's
+  explicit OK. History: `feat/portfolio-v2` (2026-09-04), `feat/portfolio-v3` (DA v3, 2026-09-24),
+  `feat/intro-journey` (the 3D intro, 2026-10-07).
 - Dev server: `npm run dev -- -p 3010` → http://localhost:3010 (3000/3001 are taken on this machine).
 - Checks: `npx tsc --noEmit`, `npx next lint`, `npm run build` (postbuild regenerates the sitemap).
 - Git identity: `Miche1-Pierre <pierre.michel.work@gmail.com>`.
