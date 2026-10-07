@@ -62,12 +62,13 @@ export function Cyl({ at, r, rTop, h, look, segments = 40, rim }: { at: V3; r: n
   return <Solid geometry={geometry} look={look} rim={rim} position={[at[0], at[1] + h / 2, at[2]]} />;
 }
 
+const FACING: Record<"x" | "y" | "z", V3> = { x: [0, Math.PI / 2, 0], y: [-Math.PI / 2, 0, 0], z: [0, 0, 0] };
+
 /** A flat panel on a wall, the floor or a top ("x": facing +X, "z": facing +Z, "y": lying flat). */
 export function Panel({ at, w, h, face, color, stripes, spacing, line }: { at: V3; w: number; h: number; face: "x" | "z" | "y"; color: string; stripes?: Look["stripes"]; spacing?: number; line?: string }) {
   const geometry = useMemo(() => new THREE.PlaneGeometry(w, h), [w, h]);
   const material = useLook({ top: color, mode: "flat", stripes, spacing, line });
-  const rotation: V3 = face === "x" ? [0, Math.PI / 2, 0] : face === "y" ? [-Math.PI / 2, 0, 0] : [0, 0, 0];
-  return <mesh geometry={geometry} material={material} position={at} rotation={rotation} />;
+  return <mesh geometry={geometry} material={material} position={at} rotation={FACING[face]} />;
 }
 
 /** A disc lying on the ground (shadows, plazas, ponds), optionally stretched into an ellipse. */
@@ -127,6 +128,6 @@ export function makeRoute(points: [number, number][], loop: boolean) {
       }
       d -= lengths[i];
     }
-    return pts[pts.length - 1];
+    return pts.at(-1) ?? pts[0];
   };
 }

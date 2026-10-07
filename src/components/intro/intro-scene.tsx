@@ -68,7 +68,10 @@ function Rig({ progress }: { progress: MotionValue<number> }) {
     const p = progress.get();
     // on the last station the camera rises a little with the rocket
     const lift = 14 * smooth(between(p, stepStart(STEPS - 1) + 0.3 * SLICE, END));
-    const frame = (i: number) => (i < 0 ? hero : station(i, i === STEPS - 1 ? lift : 0));
+    const frame = (i: number): Frame => {
+      if (i < 0) return hero;
+      return station(i, i === STEPS - 1 ? lift : 0);
+    };
     let target: Frame;
     if (p >= END) target = mix(station(STEPS - 1, lift), overview, smooth(between(p, END, 1)));
     else {

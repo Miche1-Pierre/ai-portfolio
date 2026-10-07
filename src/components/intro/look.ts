@@ -86,7 +86,7 @@ export const surfaces = (theme: ThemeName): Surfaces => SURFACES[theme];
 
 /** Darken a #rrggbb colour (k < 1). */
 export function shade(hex: string, k: number) {
-  const n = parseInt(hex.slice(1), 16);
+  const n = Number.parseInt(hex.slice(1), 16);
   const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => Math.max(0, Math.min(255, Math.round(v * k))));
   return `#${c.map((v) => v.toString(16).padStart(2, "0")).join("")}`;
 }
@@ -176,7 +176,10 @@ export function lookMaterial(look: Look, theme: ThemeName) {
   if (hit) return hit;
   const s = SURFACES[theme];
   const mode = look.mode ?? "block";
-  const dark = mode === "ball" || mode === "flat" ? shade(look.top, 0.86) : look.wall ? shade(look.wall, 0.86) : s.wallDark;
+  // the shaded tone: of the colour itself for spheres and flat panels, of the walls otherwise
+  let dark: string = s.wallDark;
+  if (mode === "ball" || mode === "flat") dark = shade(look.top, 0.86);
+  else if (look.wall) dark = shade(look.wall, 0.86);
   const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,

@@ -118,8 +118,8 @@ export function Blueprint() {
     g.setDrawRange(0, 0);
     const lengths = SKETCH.map(([a, b]) => Math.hypot(b[0] - a[0], b[1] - a[1]));
     const cum = [0];
-    lengths.forEach((l) => cum.push(cum[cum.length - 1] + l));
-    return { geometry: g, cumulative: cum, total: cum[cum.length - 1] };
+    lengths.forEach((l) => cum.push((cum.at(-1) ?? 0) + l));
+    return { geometry: g, cumulative: cum, total: cum.at(-1) ?? 0 };
   }, []);
   useFrame(({ clock }) => {
     // the sheet is drawn while the camera holds on the scope station
@@ -165,12 +165,13 @@ function useGear(rOut: number, rIn: number, teeth: number) {
   return useMemo(() => {
     const shape = new THREE.Shape();
     const pitch = (Math.PI * 2) / teeth;
+    const profile = [[-0.27, rIn], [-0.13, rOut], [0.13, rOut], [0.27, rIn]] as const;
     for (let k = 0; k < teeth; k++) {
-      for (const [off, r] of [[-0.27, rIn], [-0.13, rOut], [0.13, rOut], [0.27, rIn]] as const) {
+      profile.forEach(([off, r], j) => {
         const a = k * pitch + off * pitch;
-        if (k === 0 && off === -0.27) shape.moveTo(r * Math.cos(a), r * Math.sin(a));
+        if (k === 0 && j === 0) shape.moveTo(r * Math.cos(a), r * Math.sin(a));
         else shape.lineTo(r * Math.cos(a), r * Math.sin(a));
-      }
+      });
     }
     shape.closePath();
     const hole = new THREE.Path();
