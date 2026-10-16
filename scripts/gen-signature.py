@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Generates the Gmail signature assets in public/signature/: the hero diorama as a small looping GIF
-(the gears turn, crates ride the belt into the dock, the chimney smokes) and the square portrait.
+(the gears turn, crates ride the belt into the dock, the chimney smokes) and the square portrait (from the LinkedIn profile photo).
 Same geometry as the hero (scripts/gen-hero-iso.py), light theme only: an email is read on white.
 
     python scripts/gen-signature.py        # writes the frames + portrait, then:
@@ -137,9 +137,9 @@ def view_box():
 
 
 def portrait():
-    """The about portrait, cropped square on the face: 192 px for a 96 px slot (retina)."""
-    src = Image.open(ROOT / "public" / "images" / "about.png").convert("RGB")
-    face = src.crop((455, 70, 975, 590)).resize((192, 192), Image.LANCZOS)
+    """The LinkedIn profile photo, cropped square on the face: 160 px for an 80 px slot (retina)."""
+    src = Image.open(ROOT / "public" / "images" / "profile-linkedin.jpg").convert("RGB")
+    face = src.crop((50, 10, 410, 370)).resize((160, 160), Image.LANCZOS)
     face.save(OUT_DIR / "pierre-michel.jpg", quality=90, optimize=True, progressive=True)
 
 
