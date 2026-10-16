@@ -10,7 +10,7 @@ import { join, resolve } from "node:path";
 const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const FRAMES = resolve(".signature-frames");
 const OUT = resolve("public/signature/scene.gif");
-const WIDTH = 480; // shown at 240 px in the signature: 2x for retina screens
+const WIDTH = 480; // shown at 200 px in the signature: 2x for retina screens
 const FPS = 20;
 const PORT = 9534;
 
