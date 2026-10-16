@@ -1,13 +1,13 @@
-// Renders the signature diorama frames (written by scripts/gen-signature.py) in headless Chrome and
+﻿// Renders the signature diorama frames (written by scripts/gen-signature.py) in headless Chrome and
 // assembles public/signature/scene.gif with ffmpeg (one palette for the whole loop, no dithering:
 // the scene is flat colours). Needs Chrome and ffmpeg on the PATH.
-//   node scripts/capture-signature.mjs [chromePath]
+//   node scripts/capture-signature.mjs
 import { spawn, spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
-const CHROME = process.argv[2] || "C:/Program Files/Google/Chrome/Application/chrome.exe";
+const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const FRAMES = resolve(".signature-frames");
 const OUT = resolve("public/signature/scene.gif");
 const WIDTH = 480; // shown at 240 px in the signature: 2x for retina screens
