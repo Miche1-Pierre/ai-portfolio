@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Generates the Gmail signature assets in public/signature/: the hero diorama as a small looping GIF
-(the gears turn, crates ride the belt into the dock, the chimney smokes) and the square portrait (from the LinkedIn profile photo).
+(the gears turn, crates ride the belt into the dock, the chimney smokes, the rocket takes off and lands back) and the square portrait (from the LinkedIn profile photo).
 Same geometry as the hero (scripts/gen-hero-iso.py), light theme only: an email is read on white.
 
     python scripts/gen-signature.py        # writes the frames + portrait, then:
@@ -22,11 +22,11 @@ H = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(H)
 H.T = H.THEMES["hero-iso.svg"]
 
-N = 72  # frames: 3.6 s at 20 fps
+N = 144  # frames: 7.2 s at 20 fps
 BELT = (34.0, 46.0)  # the belt runs from the workshop opening to the dock
 CRATE, SPACING = 2.8, 6.0
 
-state = {"t": 0.0}
+state = {"t": 0.0, "r": 0.0}  # t: factory cycle, r: rocket flight (the whole loop)
 _face_gear = H.face_gear
 
 
@@ -92,8 +92,80 @@ def smoke():
     return out
 
 
-def frame(t, view):
-    state["t"] = t
+PAD = (76.0, 30.0)
+LIFT_TOP = 90.0  # high enough to leave the view
+
+
+def rocket_flight(r):
+    """Over the whole loop: on the pad, ignition, lift-off out of the view, then it lands back.
+    Returns (lift in plan units, flame 0..1, exhaust clouds 0..1)."""
+    if r < 0.30:
+        return 0.0, 0.0, 0.0
+    if r < 0.38:  # ignition, still on the pad
+        k = (r - 0.30) / 0.08
+        return 0.0, k, k
+    if r < 0.60:  # lift-off, accelerating
+        u = (r - 0.38) / 0.22
+        return LIFT_TOP * u * u, 1.0, 1.0 - u
+    if r < 0.70:  # out of the view
+        return LIFT_TOP, 0.0, 0.0
+    if r < 0.92:  # landing, slowing down
+        u = (r - 0.70) / 0.22
+        return LIFT_TOP * (1 - u) ** 2, 1.0, u
+    k = (r - 0.92) / 0.08  # engine off, the exhaust settles
+    return 0.0, max(0.0, 1.0 - 3 * k), 1.0 - k
+
+
+def flame(cx, cy, z, power):
+    """The exhaust: three nested flames under the nozzle, flickering with the frame."""
+    if power <= 0.01:
+        return ""
+    sx, sy = H.iso(cx, cy, z)
+    flicker = 1.0 + 0.12 * math.sin(state["r"] * 2 * math.pi * 23)
+    out = []
+    for w, length, color in ((2.2, 7.5, H.COLORS["red"]), (1.6, 5.4, H.COLORS["yellow"]), (0.9, 3.2, "#fff6de")):
+        hw, ln = w * H.UNIT, length * H.UNIT * power * flicker
+        out.append(f'<path d="M{sx - hw:.2f} {sy:.2f} Q{sx - hw * 0.7:.2f} {sy + ln * 0.55:.2f} {sx:.2f} {sy + ln:.2f} '
+                   f'Q{sx + hw * 0.7:.2f} {sy + ln * 0.55:.2f} {sx + hw:.2f} {sy:.2f} Z" fill="{color}"/>')
+    return "\n".join(out)
+
+
+def launch_pad():
+    """The hero's pad and rocket, with the rocket on its own altitude (see rocket_flight)."""
+    cx, cy = PAD
+    r, zb = 2.9, 1.8
+    lift, power, puff = rocket_flight(state["r"])
+    zr = zb + lift
+    out = [H.block(H.circle(cx, cy, 6.5), zb, H.COLORS["yellow"], texture="ribs")]
+    ring = [H.iso(cx + 5.2 * math.cos(2 * math.pi * i / 72), cy + 5.2 * math.sin(2 * math.pi * i / 72), zb) for i in range(72)]
+    out.append(f'<path d="{H.path(ring)}" fill="none" stroke="#ffffff" stroke-width="1.1" stroke-opacity="0.9"/>')
+    out.append(flame(cx, cy, zr + 1.0, power))
+    out.append(H.fin(cx, cy, r, 240, zr, H.COLORS["red"]))
+    body0, body1 = zr + 1.0, zr + 14.5
+    out.append(H.block(H.circle(cx, cy, r, 48), body1 - body0, H.COLORS["red"], body0, texture="ribs", top=False))
+    out.append(H.block(H.circle(cx, cy, r + 0.02, 48), 1.2, H.COLORS["blue"], zr + 11.2, texture=None, wall=H.COLORS["blue"], top=False))
+    a = math.radians(45)
+    px, py = cx + r * math.cos(a), cy + r * math.sin(a)
+    ux, uy = -math.sin(a), math.cos(a)
+    for rad, fill in ((1.3, H.COLORS["blue"]), (0.9, H.T["glass"])):
+        pts = [(px + rad * math.cos(t) * ux, py + rad * math.cos(t) * uy, zr + 8.2 + rad * math.sin(t)) for t in (2 * math.pi * i / 40 for i in range(40))]
+        out.append(H.poly(pts, fill))
+    out.append(H.cone(cx, cy, r, body1, body1 + 6.5, H.COLORS["red"]))
+    out.append(H.fin(cx, cy, r, 120, zr, H.COLORS["red"]))
+    out.append(H.fin(cx, cy, r, 0, zr, H.COLORS["red"]))
+    # the vapour at its feet, swelling into an exhaust cloud while the engine pushes on the pad
+    grow = 1.0 + 0.7 * puff
+    out.append(H.cloud(80.2 + 1.2 * puff, 31.4, zb + 0.6, 0.95 * grow))
+    out.append(H.cloud(73.6 - 1.2 * puff, 34.4, zb + 0.6, 0.9 * grow))
+    out.append(H.cloud(77.4, 34.0 + 0.8 * puff, zb + 0.8, 1.25 * grow))
+    return "\n".join(out)
+
+
+H.launch_pad = launch_pad
+
+
+def frame(T, view):
+    state["t"], state["r"] = (2 * T) % 1.0, T  # the factory runs two cycles per rocket flight
     vx0, vy0, vw, vh = view
     objects = H.scene()
     marks = H.floor_marks()
@@ -129,7 +201,7 @@ def view_box():
     """Tight around the scene and every smoke puff of the loop, with a little room."""
     parts = []
     for i in range(0, N, 6):
-        state["t"] = i / N
+        state["t"], state["r"] = i / N, 0.0  # the rocket on its pad: in flight it may leave the view
         parts += H.scene() + smoke()
     x0, y0, x1, y1 = H.extents(parts)
     pad = 14
