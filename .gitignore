@@ -61,3 +61,6 @@ __pycache__/
 /blender/references/**/*.webp
 /blender/references/models/**
 !/blender/references/models/.gitkeep
+
+# gen-signature.py scratch frames (removed by capture-signature.mjs)
+/.signature-frames/
