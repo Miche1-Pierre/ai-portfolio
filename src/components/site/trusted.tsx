@@ -1,9 +1,31 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import type { Tone } from "@/components/site/shapes";
 import { organizations } from "@/content/site";
 
-/** Who Pierre shipped with: a ruled spec-sheet grid, one numbered cell per organisation. */
+// one colour per field, the same in every cell, so the spread of fields reads at a glance
+const FIELD_TONE: Record<string, Tone> = {
+  AI: "blue",
+  Consulting: "yellow",
+  SaaS: "green",
+  Finance: "green",
+  Freight: "red",
+  Logistics: "red",
+  Automotive: "sky",
+  Mobility: "sky",
+  "Nuclear medicine": "pink",
+  Pharma: "pink",
+  GxP: "pink",
+  "Research lab": "lime",
+  CNRS: "lime",
+  Inria: "lime",
+};
+
+/**
+ * Who Pierre shipped with: a ruled spec-sheet grid, one numbered cell per organisation, with his
+ * role there and the organisation's field (up to three tags).
+ */
 export function Trusted() {
   return (
     <section aria-labelledby="trusted-title" className="pb-16 pt-6 sm:pb-24">
@@ -16,12 +38,20 @@ export function Trusted() {
         </Reveal>
         <ul className="mt-8 grid grid-cols-2 border-l border-t border-rule sm:grid-cols-4">
           {organizations.map((o, i) => (
-            <li key={o.name} className="flex min-h-32 flex-col justify-between gap-6 border-b border-r border-rule p-5">
+            <li key={o.name} className="flex min-h-40 flex-col justify-between gap-6 border-b border-r border-rule p-5">
               <span className="font-mono text-[10px] tracking-[0.1em] text-subtle">{String(i + 1).padStart(2, "0")}</span>
               <div>
                 <p className="text-lg font-semibold tracking-[-0.03em] sm:text-xl">{o.name}</p>
+                <p className="mt-0.5 text-sm text-foreground/75">{o.role}</p>
+                <ul aria-label={`${o.name}, field`} className="mt-3 flex flex-wrap gap-1">
+                  {o.domains.slice(0, 3).map((d) => (
+                    <li key={d} className="pill" data-size="sm" data-tone={FIELD_TONE[d] === "blue" ? undefined : FIELD_TONE[d]}>
+                      {d}
+                    </li>
+                  ))}
+                </ul>
                 {/* what the organisation was to Pierre, and the case study when there is one */}
-                <p className="mt-1 flex flex-col items-start gap-1 font-mono text-[11px] uppercase tracking-[0.06em] lg:flex-row lg:items-center lg:gap-2">
+                <p className="mt-3 flex flex-col items-start gap-1 font-mono text-[11px] uppercase tracking-[0.06em] lg:flex-row lg:items-center lg:gap-2">
                   <span className="text-muted-foreground">{o.kind === "employer" ? "Employer" : "Client"}</span>
                   {o.slug ? (
                     <>

@@ -168,7 +168,7 @@ export function Intro() {
 
   const heroGone = active >= 0;
   return (
-    <section id="top" ref={ref} className="relative h-[620vh]" aria-label="Introduction and how I work">
+    <section id="top" ref={ref} className="relative h-[1000vh]" aria-label="Introduction and how I work">
       <div className="sticky top-0 h-svh overflow-hidden">
         {ready ? (
           <motion.div className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>

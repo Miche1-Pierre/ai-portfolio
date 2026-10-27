@@ -16,8 +16,8 @@ export const HERO_END = 0.05;
 export const START = 0.12;
 export const END = 0.92;
 export const SLICE = (END - START) / STEPS;
-/** Share of a slice spent travelling to the next station. */
-export const TRAVEL = 0.35;
+/** Share of a slice spent travelling to the next station (the rest holds, so the words can be read). */
+export const TRAVEL = 0.3;
 
 export const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 export const smooth = (v: number) => {

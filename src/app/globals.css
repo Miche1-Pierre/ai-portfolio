@@ -383,6 +383,17 @@
   .pill[data-tone="pink"]::before { background-color: var(--shape-pink); }
   .pill[data-tone="sky"] { background-color: var(--tint-sky); color: var(--ink-sky); }
   .pill[data-tone="sky"]::before { background-color: var(--shape-sky); }
+  /* the small one: a field tag in the trusted-by grid */
+  .pill[data-size="sm"] {
+    gap: 0.4rem;
+    padding: 0.2rem 0.45rem;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .pill[data-size="sm"]::before {
+    width: 5px;
+    height: 5px;
+  }
 }
 
 /* ---------- utilities ---------- */
