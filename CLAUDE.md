@@ -43,9 +43,10 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   shapes), `pill` (square tag, round dot, optional index), `marks` (`PlusMark`, `SectionRule`,
   `CropMarks`), `cta` (square button styles for links). `project-hero` is the case-study hero.
   `src/components/motion/reveal.tsx` — scroll-reveal helpers (no `filter: blur`).
-- `src/components/intro/*` — the **home intro**: `intro.tsx` (a pinned 620vh section: the hero text
-  and badges over the 3D world, then the steps on the left or a card on phones, a "Skip the tour"
-  link; reduced motion or no WebGL2 falls back to the 2D `Hero` + a static step list),
+- `src/components/intro/*` — the **home intro**: `intro.tsx` (a pinned 1000vh section, about 1.4
+  screens of scroll per step so the words can be read: the hero text and badges over the 3D world,
+  then the steps on the left or a card on phones, a "Skip the tour" link; reduced motion or no
+  WebGL2 falls back to the 2D `Hero` + a static step list),
   `intro-scene.tsx` (orthographic R3F canvas, lazy-loaded, and the camera rig), `timeline.ts` (the
   scroll timeline shared by the HTML and the scene: hold on a station, travel to the next, the step
   text switches mid-travel), `look.ts` (the drawing-style shader: no lights, colour from the face
