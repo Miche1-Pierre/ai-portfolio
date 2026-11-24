@@ -56,7 +56,7 @@ export const experiences: Experience[] = [
     location: "Metz, France",
     current: true,
     summary:
-      "National student-entrepreneur status supporting Taskforce and Brain OS as a founder-led R&D effort.",
+      "National student-entrepreneur status supporting TaskForce and Brain OS as a founder-led R&D effort.",
     bullets: [],
     tags: ["Entrepreneurship", "R&D"],
   },

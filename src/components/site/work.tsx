@@ -16,7 +16,7 @@ function GroupLabel({ children }: { children: React.ReactNode }) {
 }
 
 export function Work() {
-  // one running number across the three groups (01 to 09)
+  // one running number across the three groups (01 to 10)
   const numbered = [...featuredProjects, ...clientProjects, ...archiveProjects].map((p, i) => [p.slug, i + 1] as const);
   const n = Object.fromEntries(numbered);
 
@@ -26,7 +26,7 @@ export function Work() {
       index="01"
       eyebrow="Selected work"
       title="Products, agents and platforms - shipped, not just prototyped."
-      description="A flagship execution layer, an LLM memory substrate, a 13,000-user SaaS rebuilt under load, and AI systems in production for enterprise clients."
+      description="Desktop tools I ship on the Microsoft Store, a memory layer for AI, a 13,000-user SaaS rebuilt under load, and AI systems in production for enterprise clients."
     >
       <Stagger className={GRID}>
         {featuredProjects.map((p) => (
@@ -37,7 +37,7 @@ export function Work() {
       </Stagger>
 
       <div className="mt-20">
-        <GroupLabel>More client work</GroupLabel>
+        <GroupLabel>Client work</GroupLabel>
         <Stagger className={GRID}>
           {clientProjects.map((p) => (
             <StaggerItem key={p.slug}>

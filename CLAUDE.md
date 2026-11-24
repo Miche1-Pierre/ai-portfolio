@@ -70,6 +70,16 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   crop-marked pastel panel of the project's `tone` (chrome bar hidden when `project.coverBare`).
   The v2 LaserFlow beam and the Aceternity/React Bits effects were removed with DA v3
   (recoverable from commit `10721ee`).
+- **Tool pages** (2026-11-24): a project with a `tool` field in `src/content/projects.ts` (TaskForce,
+  Career OS: the tools Pierre ships on the Microsoft Store, each with its own site) gets a product
+  page in the tool's own design instead of the case study: `src/components/site/tool-page.tsx`
+  (strip, hero with the Store button, launch film, steps, features, screens, privacy band, how it is
+  built, references), themed by `.tool[data-tool="..."]` in globals.css with the tokens of the
+  tool's own site (light and dark). A new tool = one `tool` entry + one token block. Assets in
+  `public/images/projects/<tool>/`, films in `public/videos/` (re-encoded with ffmpeg, CRF 27,
+  faststart, captions `.vtt`). `store.live: false` shows "Coming soon to the Microsoft Store"
+  while the listing is in certification (Career OS, Store ID 9NCQ7PFQVM2Q): flip it once the
+  listing is public. JSON-LD is a `SoftwareApplication`.
 - `src/components/ui/*` — shadcn primitives. `Button` sets `nativeButton={false}` automatically when
   rendered as a link.
 - `src/app/globals.css` — **single source of truth for the theme** (his rule): DA v3.1 tokens for

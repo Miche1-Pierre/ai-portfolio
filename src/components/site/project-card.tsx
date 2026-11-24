@@ -25,7 +25,7 @@ export function ProjectCard({ project, index, className }: { project: Project; i
     <Link
       href={`/work/${project.slug}`}
       className={cn("group flex h-full flex-col outline-none focus-visible:ring-3 focus-visible:ring-ring/50", className)}
-      aria-label={`${project.name} - read the case study`}
+      aria-label={`${project.name} - ${project.tool ? "see the product page" : "read the case study"}`}
     >
       <div className={cn("relative aspect-[16/11] overflow-hidden", toneTint[project.tone])}>
         {/* two small round shapes in the panel's corner (round details on a square layout) */}
@@ -74,7 +74,7 @@ export function ProjectCard({ project, index, className }: { project: Project; i
         <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{project.tagline}</p>
         <p className="mt-3 font-mono text-[11px] leading-relaxed text-subtle">{project.stack.slice(0, 4).join(" · ")}</p>
         <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-medium text-foreground transition-colors group-hover:text-ink-blue">
-          Read the case study
+          {project.tool ? "See the product page" : "Read the case study"}
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>

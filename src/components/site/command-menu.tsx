@@ -136,7 +136,7 @@ export function CommandMenu() {
               </CommandItem>
               <CommandItem value="taskforce" onSelect={() => run(openUrl(site.socials.taskforce.href))}>
                 <Sparkles />
-                Taskforce on GitHub
+                TaskForce on GitHub
               </CommandItem>
               <CommandItem
                 value="toggle theme"

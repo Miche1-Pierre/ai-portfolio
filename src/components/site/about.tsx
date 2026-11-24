@@ -10,15 +10,15 @@ import { QuoteShapes } from "@/components/site/shapes";
 import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-// Pierre's own lines from the site and the Taskforce docs (nothing invented).
+// Pierre's own lines from the site and the TaskForce docs (nothing invented).
 const STATEMENTS = [
   {
     quote: "I ship the whole path: architecture, applied AI where it earns its place, and the product around it.",
     context: "Startups, a 13k-user SaaS, a research lab and a regulated pharma environment.",
   },
   {
-    quote: "Git remembers what changed. Taskforce remembers why.",
-    context: "On Taskforce, the AI delivery OS I build in the open.",
+    quote: "Git remembers what changed. TaskForce remembers why.",
+    context: "On TaskForce, the desktop app I build in the open to work with coding agents.",
   },
   {
     quote: "An engineer first, going deeper into applied AI and the life sciences.",
