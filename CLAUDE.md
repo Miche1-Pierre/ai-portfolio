@@ -73,8 +73,13 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
 - **Tool pages** (2026-11-24): a project with a `tool` field in `src/content/projects.ts` (TaskForce,
   Career OS: the tools Pierre ships on the Microsoft Store, each with its own site) gets a product
   page in the tool's own design instead of the case study: `src/components/site/tool-page.tsx`
-  (strip, hero with the Store button, launch film, steps, features, screens, privacy band, how it is
-  built, references), themed by `.tool[data-tool="..."]` in globals.css with the tokens of the
+  composes one distinct device per section, never a row of cards (his verdict on v1: "que des
+  cartes, ça va pas"; inspiration Relevance AI's section orchestration): the app tilting up under
+  floating callouts, a without / with case, the steps scrolling past a sticky picture (a zoomed
+  screenshot or a small drawn moment), one ruled grid with details of the app, a tabbed look inside,
+  a map of where the data lives on the night band, the stack as a staircase of layers with the
+  milestones, a closing band; the motion parts are in `tool-motion.tsx` (motion/react, all of
+  them still under reduced motion). Themed by `.tool[data-tool="..."]` in globals.css with the tokens of the
   tool's own site (light and dark). A new tool = one `tool` entry + one token block. Assets in
   `public/images/projects/<tool>/`, films in `public/videos/` (re-encoded with ffmpeg, CRF 27,
   faststart, captions `.vtt`). `store.live: false` shows "Coming soon to the Microsoft Store"
