@@ -66,17 +66,28 @@ export type Tool = {
   store: { id: string; live: boolean };
   /** every other way in, in order (site, download, docs, source, privacy) */
   links: ProjectLink[];
-  /** the screenshot in the hero, and an optional painted backdrop behind it */
+  /** the screenshot in the hero, an optional painted backdrop, and the labels floating around it */
   heroShot: string;
   heroBackdrop?: string;
+  callouts: ToolCallout[];
   video?: { src: string; poster: string; captions: string; title: string };
-  steps: { title: string; body: string }[];
-  features: { title: string; body: string }[];
+  /** the case for the tool: how it goes without it, then what changes with it */
+  why: { title: [string, string]; without: string[]; with: { title: string; body: string }[] };
+  /** how it works, one visual per step (a screenshot, or a small drawn moment of the flow) */
+  steps: { title: string; body: string; visual: ToolVisual }[];
+  /** what it does, as one ruled grid: `wide` cells span two columns, `shot` shows a detail of the app */
+  features: { title: string; body: string; wide?: boolean; shot?: ToolShot; visual?: "prompt" | "log" }[];
   screens: { src: string; title: string; caption: string }[];
-  privacy: { title: string; points: string[] };
-  /** how it is built, in a few sentences */
+  /** privacy: the promises, what stays on the computer, and what only connects if you choose */
+  privacy: { title: string; tagline: string; points: string[]; local: string[]; outside: string[] };
+  /** how it is built, in a few sentences (the layers are the project's stackGroups) */
   build: string;
 };
+
+export type ToolCallout = { label: string; tone: "accent" | "green" | "amber" };
+/** a detail of a screenshot: the point to centre (CSS object-position) and how far to zoom in */
+export type ToolShot = { src: string; focus: string; zoom: number };
+export type ToolVisual = { kind: "shot"; shot: ToolShot } | { kind: "approval" } | { kind: "pull-request" };
 
 export const projects: Project[] = [
   {
@@ -138,34 +149,94 @@ export const projects: Project[] = [
       ],
       heroShot: "/images/projects/taskforce/v2/dashboard.webp",
       heroBackdrop: "/images/projects/taskforce/v2/hero-bg.webp",
+      callouts: [
+        { label: "Claude Code is working on its own branch", tone: "accent" },
+        { label: "Waiting for you: run the tests?", tone: "amber" },
+        { label: "Pull request ready for review", tone: "green" },
+      ],
+      why: {
+        title: ["Coding agents are fast.", "Working with them is still messy."],
+        without: ["Context gets lost between tools", "You can't see what an agent is doing", "Its results land unchecked"],
+        with: [
+          { title: "Context comes with the task", body: "Agents look up your decisions and conventions in Brain OS before they start, so they never begin from a blank page." },
+          { title: "Every step in plain sight", body: "Follow each file an agent reads, each edit and each command, live, on the issue it is working on." },
+          { title: "Nothing ships without you", body: "Risky actions wait for your answer, and the work comes back as a pull request for you to review." },
+        ],
+      },
       steps: [
-        { title: "Write the issue", body: "Plan it on the board or in a cycle. The decisions you keep in Brain OS travel with it." },
-        { title: "Assign it to an agent", body: "Pick Claude Code or GitHub Copilot in the assignee menu, the way you assign a teammate." },
-        { title: "Answer when it asks", body: "The run shows up live on the issue. Anything outside the agent's limits waits for you to allow or deny it." },
-        { title: "Review the pull request", body: "TaskForce pushes the agent's branch and opens the pull request. Nothing is merged without you." },
+        {
+          title: "Write the issue",
+          body: "Plan it on the board or in a cycle. The decisions you keep in Brain OS travel with it.",
+          visual: { kind: "shot", shot: { src: "/images/projects/taskforce/v2/board.webp", focus: "35% 30%", zoom: 1.35 } },
+        },
+        {
+          title: "Assign it to an agent",
+          body: "Pick Claude Code or GitHub Copilot in the assignee menu, the way you assign a teammate.",
+          visual: { kind: "shot", shot: { src: "/images/projects/taskforce/v2/delegate.webp", focus: "88% 22%", zoom: 1.7 } },
+        },
+        {
+          title: "Answer when it asks",
+          body: "The run shows up live on the issue. Anything outside the agent's limits waits for you to allow or deny it, and is denied after ten minutes without an answer.",
+          visual: { kind: "approval" },
+        },
+        {
+          title: "Review the pull request",
+          body: "TaskForce pushes the agent's branch and opens the pull request. Nothing is merged without you.",
+          visual: { kind: "pull-request" },
+        },
       ],
       features: [
-        { title: "Plan the work", body: "Board, list, backlog, cycles and roadmap over one set of issues, with subtasks, relations, checklists, story points and time tracking. A command palette gets you anywhere." },
-        { title: "Keep the project's memory", body: "Brain OS holds specs, decisions and notes as linked Markdown pages with wikilinks and tags. Agents read it before they start, so they never begin from a blank page." },
-        { title: "Delegate to coding agents", body: "Claude Code runs on your computer with your own installation and account; the GitHub Copilot coding agent works in GitHub's cloud. TaskForce never sees your Claude credentials." },
-        { title: "Every step in plain sight", body: "Follow each file an agent reads, each edit and each command, live, on the issue it is working on." },
-        { title: "Connect your tools", body: "GitHub, Slack and Plane built in, any other tool through its MCP server: 25 official servers listed, with one-click OAuth or a token." },
-        { title: "Use the AI you choose", body: "A local model through Ollama, or any OpenAI-compatible API with your own key. Without AI, the board, Brain OS and analytics keep working." },
+        {
+          title: "Plan the work",
+          body: "Board, list, backlog, cycles and roadmap over one set of issues, with subtasks, relations, checklists, story points and time tracking.",
+          wide: true,
+          shot: { src: "/images/projects/taskforce/v2/board.webp", focus: "40% 35%", zoom: 1.5 },
+        },
+        {
+          title: "Keep the project's memory",
+          body: "Brain OS holds specs, decisions and notes as linked Markdown pages with wikilinks and tags.",
+          shot: { src: "/images/projects/taskforce/v2/brain-os.webp", focus: "18% 45%", zoom: 1.9 },
+        },
+        {
+          title: "Delegate to coding agents",
+          body: "Claude Code runs on your computer with your own installation and account; TaskForce never sees your Claude credentials.",
+          shot: { src: "/images/projects/taskforce/v2/delegate.webp", focus: "88% 22%", zoom: 1.9 },
+        },
+        {
+          title: "Connect your tools",
+          body: "GitHub, Slack and Plane built in, any other tool through its MCP server: 25 official servers listed, with one-click OAuth or a token.",
+          wide: true,
+          shot: { src: "/images/projects/taskforce/v2/integrations.webp", focus: "50% 40%", zoom: 1.25 },
+        },
+        {
+          title: "Every step in plain sight",
+          body: "Follow each file an agent reads, each edit and each command, live, on the issue it is working on.",
+          wide: true,
+          visual: "log",
+        },
+        {
+          title: "Use the AI you choose",
+          body: "A local model through Ollama, or any OpenAI-compatible API with your own key. Without AI, the board, Brain OS and analytics keep working.",
+        },
       ],
       screens: [
         { src: "/images/projects/taskforce/v2/dashboard.webp", title: "Dashboard", caption: "Your operations, what needs you next and how the work moves, on one screen." },
         { src: "/images/projects/taskforce/v2/board.webp", title: "Board", caption: "One set of issues, seen as a board, a list, a backlog or a roadmap." },
         { src: "/images/projects/taskforce/v2/delegate.webp", title: "Delegate", caption: "Hand an issue to Claude Code from the assignee menu." },
         { src: "/images/projects/taskforce/v2/brain-os.webp", title: "Brain OS", caption: "Specs, decisions and notes in linked Markdown pages, read by people and agents alike." },
+        { src: "/images/projects/taskforce/v2/integrations.webp", title: "Integrations", caption: "GitHub, Slack and Plane built in, any other tool through its MCP server." },
       ],
       privacy: {
-        title: "Private by design",
+        title: "Your work stays on your computer",
+        tagline: "Private by design.",
         points: [
-          "Your projects, Brain OS pages, attachments and settings live in the app's folder on your computer. The server only keeps your free account.",
+          "Your work stays on your computer: the server only keeps your free account.",
           "Nothing leaves unless you connect it, and the app sends no usage data.",
           "API keys and tokens stay in your system's keychain, never in plain text.",
-          "Each agent run works on its own branch: anything risky waits for your approval, and pushing is always refused.",
+          "Each agent run works on its own branch: anything risky waits for you, and pushing is always refused.",
         ],
+        local: ["Projects and issues", "Brain OS pages", "Attachments", "Settings", "Keys, in the keychain"],
+        outside: ["Your TaskForce account", "Claude Code, your login", "GitHub and Copilot", "MCP servers", "Your AI provider"],
       },
       build:
         "The desktop app is the whole product, packed for one person. Its Electron shell starts a complete local stack at each launch: a Next.js 16 and React 19 interface, a Spring Boot 4 API on Java 21 and PostgreSQL 18 with pgvector. A runner drives Claude Code with your own installation and login, and an AI relay talks to Ollama or any OpenAI-compatible API. The same app runs as a self-hosted web app with Docker.",
@@ -224,25 +295,81 @@ export const projects: Project[] = [
         { label: "Privacy policy (French)", href: "https://get-career-os.vercel.app/confidentialite" },
       ],
       heroShot: "/images/projects/career-os/home.webp",
+      callouts: [
+        { label: "Technical match: 82%", tone: "accent" },
+        { label: "Next follow-up in 5 days", tone: "amber" },
+        { label: "Interview booked, Tuesday 2 pm", tone: "green" },
+      ],
       video: {
         src: "/videos/career-os-trailer.mp4",
         poster: "/images/projects/career-os/trailer-poster.webp",
         captions: "/videos/career-os-trailer.en.vtt",
         title: "Career OS, the launch film (42 s)",
       },
+      why: {
+        title: ["A job search spreads everywhere.", "Career OS keeps it in one place."],
+        without: ["Offers saved in tabs and e-mails", "Follow-ups kept in your head", "Which CV went where?"],
+        with: [
+          { title: "Captured in seconds", body: "Paste a text, a link, a file or an e-mail: the role, the dates and the contacts are filled in for you." },
+          { title: "Follow-ups computed for you", body: "A Today page tells you what to follow up, what to prepare and which dates are coming." },
+          { title: "The exact version sent", body: "Each application keeps the CV and letter it received, filed in your Documents folder." },
+        ],
+      },
       steps: [
-        { title: "Capture", body: "Paste a text, a link, a file or an e-mail: the opportunity is in, in seconds." },
-        { title: "Let Claude read it", body: "The assistant fills in the role, the dates and the contacts, and never invents what isn't there." },
-        { title: "Check it", body: "You review and correct the record before it counts." },
-        { title: "Follow it through", body: "Stages, computed follow-ups, interviews, the exact documents sent, deadlines and statistics, up to the decision." },
+        {
+          title: "Capture",
+          body: "Paste a text, a link, a file or an e-mail: the opportunity is in, in seconds.",
+          visual: { kind: "shot", shot: { src: "/images/projects/career-os/home.webp", focus: "62% 28%", zoom: 1.5 } },
+        },
+        {
+          title: "Let Claude read it",
+          body: "The assistant fills in the role, the dates and the contacts, and reads the offer against your profile. It never invents what isn't there.",
+          visual: { kind: "shot", shot: { src: "/images/projects/career-os/analysis.webp", focus: "55% 25%", zoom: 1.45 } },
+        },
+        {
+          title: "Check it",
+          body: "You review and correct the record before it counts.",
+          visual: { kind: "shot", shot: { src: "/images/projects/career-os/application.webp", focus: "55% 20%", zoom: 1.4 } },
+        },
+        {
+          title: "Follow it through",
+          body: "Stages, computed follow-ups, interviews, the exact documents sent, deadlines and statistics, up to the decision.",
+          visual: { kind: "shot", shot: { src: "/images/projects/career-os/today.webp", focus: "40% 30%", zoom: 1.45 } },
+        },
       ],
       features: [
-        { title: "Track your applications", body: "A board by stage, with dates and follow-ups computed for you. Jobs, internships, VIE, master's programmes, training and PhDs, each with its own stages." },
-        { title: "Know what to do today", body: "A Today page that tells you what to follow up, what to prepare and which dates are coming." },
-        { title: "Keep everything in order", body: "CVs, letters and diplomas filed in your Documents folder, a CV editor for several versions exported to PDF, and the exact version sent with each application." },
-        { title: "Interviews, contacts, calendar", body: "Every interview and contact tied to its application, and a calendar that brings it all together." },
-        { title: "Prepare the move", body: "Compare places to live by rent, charges, lease and commute, see them on a map, and follow the steps to move abroad with the official links." },
-        { title: "An assistant that prepares", body: "Ask it to find offers or housing, read an offer against your profile, prepare an interview or draft a follow-up. Nothing is sent for you." },
+        {
+          title: "Track your applications",
+          body: "A board by stage, with dates and follow-ups computed for you. Jobs, internships, VIE, master's programmes, training and PhDs, each with its own stages.",
+          wide: true,
+          shot: { src: "/images/projects/career-os/board.webp", focus: "40% 30%", zoom: 1.5 },
+        },
+        {
+          title: "Know what to do today",
+          body: "What to follow up, what to prepare and which dates are coming, on one page.",
+          shot: { src: "/images/projects/career-os/today.webp", focus: "30% 35%", zoom: 1.9 },
+        },
+        {
+          title: "Keep everything in order",
+          body: "A CV editor for several versions exported to PDF, and the exact version sent with each application.",
+          shot: { src: "/images/projects/career-os/cv-editor.webp", focus: "55% 30%", zoom: 1.7 },
+        },
+        {
+          title: "Prepare the move",
+          body: "Compare places to live by rent, charges, lease and commute, see them on a map, and follow the steps to move abroad with the official links.",
+          wide: true,
+          shot: { src: "/images/projects/career-os/move-map.webp", focus: "60% 60%", zoom: 1.35 },
+        },
+        {
+          title: "An assistant that prepares",
+          body: "Ask it to find offers or housing, read an offer against your profile, prepare an interview or draft a follow-up. Nothing is sent for you.",
+          wide: true,
+          visual: "prompt",
+        },
+        {
+          title: "Interviews, contacts, calendar",
+          body: "Every interview and contact tied to its application, and a calendar that brings it all together.",
+        },
       ],
       screens: [
         { src: "/images/projects/career-os/home.webp", title: "Search", caption: "Ask for anything: offers, a place to live, an answer." },
@@ -256,12 +383,15 @@ export const projects: Project[] = [
       ],
       privacy: {
         title: "Your data stays with you",
+        tagline: "No account, no tracking.",
         points: [
           "No account to create, no ads, no analytics.",
           "Everything lives in your Documents folder, with a full backup every day. Uninstalling keeps it.",
           "The database is PostgreSQL on your disk, compiled to WebAssembly and served only to your own computer.",
-          "The assistant is optional: your Claude subscription through Claude Code, an API key, any OpenAI-compatible endpoint, or none at all.",
+          "The assistant is optional: your Claude subscription, an API key, any OpenAI-compatible endpoint, or none at all.",
         ],
+        local: ["Applications", "CVs and documents", "Contacts and interviews", "The database", "A backup every day"],
+        outside: ["The Claude assistant, if you want it", "Maps", "Offer and housing searches"],
       },
       build:
         "A Next.js 16 and React 19 app on the open source Sparkle design system, with PostgreSQL 17 through Drizzle, run locally as PGlite (PostgreSQL compiled to WebAssembly) or with Docker. Windows gets a one-line installer and an MSIX package for the Microsoft Store with a small C# launcher, all built by GitHub Actions on every merge.",
