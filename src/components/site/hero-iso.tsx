@@ -41,7 +41,7 @@ function StageTag({ stage, index }: { stage: Stage; index: number }) {
 // What Pierre ships right now (statuses as on the case studies), floating in the empty sky of the
 // scene (top right). Each badge bobs on its own phase, like clouds.
 const NOW = [
-  { name: "Taskforce", status: "Live", href: "/work/taskforce", left: 60, top: 3, delay: "0s", tag: "bg-tint-green text-ink-green", dot: "bg-shape-green" },
+  { name: "TaskForce", status: "Live", href: "/work/taskforce", left: 60, top: 3, delay: "0s", tag: "bg-tint-green text-ink-green", dot: "bg-shape-green" },
   { name: "Brain OS", status: "R&D", href: "/work/brain-os", left: 86, top: 13.5, delay: "-2.4s", tag: "bg-tint-blue text-ink-blue", dot: "bg-shape-blue" },
 ] as const;
 

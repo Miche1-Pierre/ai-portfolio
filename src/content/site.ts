@@ -18,7 +18,7 @@ export const site = {
     },
     taskforce: {
       href: "https://github.com/taskforce-project",
-      label: "Taskforce on GitHub",
+      label: "TaskForce on GitHub",
     },
   },
   /** Client names from the CV are hidden on the public site until explicitly allowed. */

@@ -499,3 +499,354 @@
 ::view-transition-new(root) {
   z-index: 2;
 }
+
+/* ---------- tool pages (/work/<tool>): a product page in the tool's own look ---------- */
+/*
+ * Each tool Pierre ships gets its page in its own design, from its own site's tokens: Career OS
+ * (the Sparkle system: Geist, cool greys, one blue, wide radii, a pastel halo) and TaskForce (warm
+ * paper, the same blue, tight radii, painted landscapes, a night band). The page reads only these
+ * variables, so a new tool is one more block here.
+ */
+.tool {
+  --t-radius: 14px;
+  --t-radius-sm: 8px;
+  background: var(--t-bg);
+  color: var(--t-fg);
+}
+.tool[data-tool="career-os"] {
+  --t-bg: #ffffff;
+  --t-soft: #f7f8fb;
+  --t-tint: #eef3ff;
+  --t-card: #ffffff;
+  --t-fg: #15161a;
+  --t-muted: #565b66;
+  --t-border: #e6e8ee;
+  --t-accent: #2f6bf6;
+  --t-accent-strong: #1d43c4;
+  --t-night: #0c1532;
+  --t-night-2: #131e45;
+  --t-night-fg: #eef1f8;
+  --t-night-muted: #a3aec8;
+  --t-night-accent: #9cb9ff;
+  --t-shadow: 0 1px 2px rgb(16 24 40 / 0.05), 0 24px 56px -24px rgb(16 24 40 / 0.25);
+  --t-radius: 20px;
+  --t-radius-sm: 12px;
+}
+.dark .tool[data-tool="career-os"] {
+  --t-bg: #0f1013;
+  --t-soft: #15171c;
+  --t-tint: #141c33;
+  --t-card: #17191f;
+  --t-fg: #f1f2f5;
+  --t-muted: #a9aebb;
+  --t-border: #272a33;
+  --t-accent: #5b8cff;
+  --t-accent-strong: #9cb9ff;
+  --t-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 24px 56px -24px rgb(0 0 0 / 0.8);
+}
+.tool[data-tool="taskforce"] {
+  --t-bg: #ffffff;
+  --t-soft: #faf9f7;
+  --t-tint: #eef3ff;
+  --t-card: #ffffff;
+  --t-fg: #191715;
+  --t-muted: #57534d;
+  --t-border: #e9e7e3;
+  --t-accent: #2f6bf6;
+  --t-accent-strong: #1e4fc4;
+  --t-night: #070a16;
+  --t-night-2: #0b0e19;
+  --t-night-fg: #f3f2f0;
+  --t-night-muted: #aeb2c0;
+  --t-night-accent: #a9c6ff;
+  --t-shadow: 0 0 0 1px #1917150d, 0 2px 4px -2px #1917150f, 0 24px 56px -28px #19171538;
+  --t-radius: 10px;
+  --t-radius-sm: 6px;
+}
+.dark .tool[data-tool="taskforce"] {
+  --t-bg: #070a16;
+  --t-soft: #0b0e19;
+  --t-tint: #121a33;
+  --t-card: #0b0e19;
+  --t-fg: #f3f2f0;
+  --t-muted: #aeb2c0;
+  --t-border: #242a40;
+  --t-accent: #5b8cff;
+  --t-accent-strong: #a9c6ff;
+  --t-shadow: 0 0 0 1px rgb(255 255 255 / 0.07), 0 24px 56px -28px rgb(0 0 0 / 0.8);
+}
+
+.tool-strip {
+  border-bottom: 1px solid var(--t-border);
+  background: var(--t-bg);
+}
+.tool-title {
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.tool-accent {
+  color: var(--t-accent);
+}
+.tool-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t-accent);
+}
+.tool-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--t-accent-strong);
+  background: var(--t-tint);
+  border-radius: var(--t-radius-sm);
+}
+.tool[data-tool="career-os"] .tool-pill {
+  border-radius: 9999px;
+}
+.tool-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--t-accent);
+}
+
+/* the hero's backdrop: a painted landscape (TaskForce) washed on the words' side, or a halo (Career OS) */
+.tool-backdrop {
+  opacity: 0.9;
+}
+.tool-hero:has(.tool-backdrop)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--t-bg) 92%, transparent) 0%, color-mix(in oklab, var(--t-bg) 70%, transparent) 42%, transparent 75%);
+  pointer-events: none;
+}
+.dark .tool-backdrop {
+  opacity: 0.35;
+}
+.tool-halo {
+  position: absolute;
+  left: 50%;
+  top: -18%;
+  width: min(1100px, 120vw);
+  height: 520px;
+  translate: -50% 0;
+  background: linear-gradient(100deg, #418b5c, #ffaa0d 24%, #e14322 46%, #f99bc3 66%, #2f6bf6 86%, #418b5c);
+  filter: blur(110px);
+  opacity: 0.22;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.dark .tool-halo {
+  opacity: 0.16;
+}
+
+/* buttons: the Store badge (black, like Microsoft's own), the site, the source */
+.tool-store {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 52px;
+  padding: 0.45rem 1.1rem 0.45rem 0.95rem;
+  color: #ffffff;
+  background: #000000;
+  border: 1px solid #000000;
+  border-radius: var(--t-radius-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.tool-store:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--t-shadow);
+}
+.dark .tool-store {
+  border-color: rgb(255 255 255 / 0.25);
+}
+.tool-store.is-pending {
+  color: var(--t-muted);
+  background: transparent;
+  border: 1px dashed var(--t-border);
+  cursor: default;
+}
+.tool-store.is-pending:hover {
+  transform: none;
+  box-shadow: none;
+}
+.tool-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0 1.25rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: var(--t-accent);
+  border-radius: var(--t-radius-sm);
+  transition: background 0.2s ease;
+}
+.tool-button:hover {
+  background: var(--t-accent-strong);
+}
+.dark .tool-button:hover {
+  color: var(--t-bg);
+}
+.tool-button.is-ghost {
+  color: var(--t-fg);
+  background: var(--t-card);
+  border: 1px solid var(--t-border);
+}
+.tool-button.is-ghost:hover {
+  border-color: var(--t-muted);
+}
+.tool-store:focus-visible,
+.tool-button:focus-visible,
+.tool-link:focus-visible {
+  outline: 2px solid var(--t-accent);
+  outline-offset: 3px;
+}
+
+/* the app as a window */
+.tool-window {
+  overflow: hidden;
+  background: var(--t-card);
+  border-radius: var(--t-radius);
+  box-shadow: var(--t-shadow);
+  border: 1px solid var(--t-border);
+}
+.tool-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 12px;
+  background: var(--t-soft);
+  border-bottom: 1px solid var(--t-border);
+}
+.tool-window-bar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--t-border);
+}
+
+/* sections */
+.tool-band {
+  background: var(--t-soft);
+  border-block: 1px solid var(--t-border);
+}
+.tool-film {
+  overflow: hidden;
+  background: #000000;
+  border-radius: var(--t-radius);
+  box-shadow: var(--t-shadow);
+}
+.tool-card {
+  padding: 1.5rem;
+  background: var(--t-card);
+  border: 1px solid var(--t-border);
+  border-radius: var(--t-radius);
+}
+.tool-step {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--t-accent-strong);
+  background: var(--t-tint);
+  border-radius: var(--t-radius-sm);
+}
+.tool[data-tool="career-os"] .tool-step {
+  border-radius: 9999px;
+}
+.tool-mark {
+  display: block;
+  width: 14px;
+  height: 14px;
+  background: var(--t-accent);
+  border-radius: 3px;
+}
+/* Career OS: its logo's colours, one per card */
+.tool[data-tool="career-os"] .tool-mark {
+  border-radius: 9999px;
+}
+.tool[data-tool="career-os"] li:nth-child(5n + 1) > .tool-mark {
+  background: #418b5c;
+}
+.tool[data-tool="career-os"] li:nth-child(5n + 2) > .tool-mark {
+  background: #ffaa0d;
+}
+.tool[data-tool="career-os"] li:nth-child(5n + 3) > .tool-mark {
+  background: #e14322;
+}
+.tool[data-tool="career-os"] li:nth-child(5n + 4) > .tool-mark {
+  background: #f99bc3;
+}
+
+/* the night band (privacy) */
+.tool-night {
+  color: var(--t-night-fg);
+  background: var(--t-night);
+}
+.tool-night .tool-eyebrow {
+  color: var(--t-night-accent);
+}
+.tool[data-tool="taskforce"] .tool-night {
+  background: var(--t-night) url("/images/projects/taskforce/v2/night-bg.webp") center / cover no-repeat;
+}
+.tool[data-tool="taskforce"] .tool-night::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(7 10 22 / 0.92) 0%, rgb(7 10 22 / 0.7) 60%, rgb(7 10 22 / 0.55) 100%);
+}
+.tool[data-tool="career-os"] .tool-night::before {
+  content: "";
+  position: absolute;
+  inset: -40% 20% auto;
+  height: 380px;
+  background: linear-gradient(100deg, #418b5c, #ffaa0d 24%, #e14322 46%, #f99bc3 66%, #2f6bf6 86%);
+  filter: blur(120px);
+  opacity: 0.18;
+}
+.tool-night-card {
+  padding: 1.25rem 1.4rem;
+  color: var(--t-night-fg);
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: var(--t-radius);
+  backdrop-filter: blur(6px);
+}
+
+/* references */
+.tool-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.1rem;
+  font-size: 15px;
+  font-weight: 500;
+  background: var(--t-card);
+  border: 1px solid var(--t-border);
+  border-radius: var(--t-radius-sm);
+  transition: border-color 0.2s ease;
+}
+.tool-link:hover {
+  border-color: var(--t-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-store,
+  .tool-store:hover {
+    transform: none;
+    transition: none;
+  }
+}

@@ -41,63 +41,231 @@ export type Project = {
   stack: string[];
   period: string;
   featured?: boolean;
+  /** A tool Pierre ships to the public: its page takes the tool's own look (see `Tool`). */
+  tool?: Tool;
+};
+
+/**
+ * A tool Pierre builds and ships (on the Microsoft Store, with its own site): its page on the
+ * portfolio is a product page in the tool's own design, not a case study. The theme's tokens live
+ * in globals.css under `.tool[data-tool="..."]`, taken from the tool's site.
+ */
+export type Tool = {
+  theme: "career-os" | "taskforce";
+  /** for schema.org: the application category and the systems it runs on */
+  category: string;
+  os: string;
+  /** the mark beside the name (an image; `invertOnDark` for a black logo) */
+  logo: { src: string; width: number; height: number; invertOnDark?: boolean };
+  /** the hero's line: plain words, then the words in the tool's accent */
+  headline: [string, string];
+  intro: string;
+  /** short facts under the buttons: price, licence, platforms */
+  facts: string[];
+  /** the Microsoft Store listing; `live` false while the listing is in certification */
+  store: { id: string; live: boolean };
+  /** every other way in, in order (site, download, docs, source, privacy) */
+  links: ProjectLink[];
+  /** the screenshot in the hero, and an optional painted backdrop behind it */
+  heroShot: string;
+  heroBackdrop?: string;
+  video?: { src: string; poster: string; captions: string; title: string };
+  steps: { title: string; body: string }[];
+  features: { title: string; body: string }[];
+  screens: { src: string; title: string; caption: string }[];
+  privacy: { title: string; points: string[] };
+  /** how it is built, in a few sentences */
+  build: string;
 };
 
 export const projects: Project[] = [
   {
     slug: "taskforce",
-    name: "Taskforce",
+    name: "TaskForce",
     kind: "flagship",
     tone: "blue",
-    tagline: "Describe the outcome. Taskforce runs the delivery.",
+    tagline: "Delegate to AI agents. Keep the final say.",
     description:
-      "An AI delivery operating system that turns an outcome into specs, plans and prompts coding agents execute - with human approval and a full audit trail at every checkpoint. Solo project and RNCP final thesis, built in the open.",
+      "A free, open source desktop app to plan your work and hand it to Claude Code or GitHub Copilot. Agents work on their own branch, ask before anything risky and never merge without you. On the Microsoft Store, Windows and Linux.",
     overview:
-      "Teams don't lose time building - they lose it transferring context. Taskforce replaces the handoffs of a normal delivery (vision → spec → architecture → API → breakdown → implementation → QA) with one governed run where every decision, constraint and model call is attributed and preserved. Its intelligence core, Brain OS, is built to remember the why - “Git remembers what changed. Taskforce remembers why.”",
-    problem:
-      "Context leaks across every handoff between people and tools. Nothing understands the work across your tracker, repo and docs - and the AI that acts on them - so intent gets re-explained at each step instead of delivered.",
-    approach: [
-      "A seven-checkpoint delivery run - Vision → Product Spec → Architecture → API Contract → Breakdown → Implementation → QA & Deploy - with human approval at every gate.",
-      "Multi-tenant backend in Java 21 / Spring Boot 4 as a layered modular monolith; Next.js 16 / React 19 front end; PostgreSQL 18 with pgvector, and Keycloak for OIDC auth and SSO.",
-      "An AI gateway routing to local Ollama (Qwen3) and hosted Groq, BGE-M3 embeddings over a pgvector 'Brain OS' for retrieval, and a custom Java tool-calling agent (Cortex).",
-      "Bidirectional MCP - Taskforce is both an MCP server and an OAuth MCP client - with native GitHub and Slack integrations and a connector catalogue for the rest.",
-      "Deployed across two VMs on a private Tailscale mesh behind a Cloudflare Tunnel edge; ~11 containerised services on Nginx via Docker Compose, GHCR and GitHub Actions CI/CD (CodeQL, OWASP ZAP, Trivy, Semgrep).",
-      "Full observability: Prometheus scraping with Grafana dashboards and Alertmanager, host and per-container exporters, and OpenTelemetry traces into SigNoz.",
-      "Security by default: RS256 JWT via Keycloak, RBAC, TOTP 2FA, strict CSP/HSTS, Bucket4j rate limiting, encrypted connector secrets, Turnstile and an SSRF guard.",
-      "A public, versioned documentation vault: architecture, ADRs, API contracts, data model, security and runbooks.",
-    ],
+      "Coding agents are fast, but working with them is still messy: context gets lost between tools, you can't see what an agent is doing, and its results land unchecked. TaskForce puts the plan, the project's memory and the agents in one app, on your computer, with you in charge.",
     results: [
-      "Core features live (spec drafting, breakdown, Smart Assign); QA & deploy in beta.",
-      "Full engineering knowledge base published openly as a navigable, versioned vault.",
+      "Published on the Microsoft Store (rated Everyone by the IARC), with Windows and Linux installers.",
+      "Installed apps update themselves in the background, and the data is copied before each update changes it.",
+      "Open source under the AGPL-3.0; the same app self-hosts as a web app with Docker.",
       "Foundation of my RNCP Level 6 final thesis.",
     ],
-    role: "Solo - architecture, product and implementation.",
+    role: "Solo - product, design and engineering.",
     stackGroups: [
-      { label: "Backend", items: ["Java 21", "Spring Boot 4", "PostgreSQL 18 + pgvector", "Flyway", "Keycloak (OIDC)", "RabbitMQ", "Redis", "MinIO (S3)", "Stripe"] },
-      { label: "Frontend", items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "shadcn/ui", "TanStack Query", "Zustand", "tiptap"] },
-      { label: "Applied AI", items: ["Ollama (Qwen3)", "Groq", "BGE-M3 embeddings", "pgvector RAG", "Tool-calling agent", "MCP (server + client)"] },
-      { label: "Infra & DevOps", items: ["Docker Compose", "Nginx", "Cloudflare Tunnel", "Tailscale", "GHCR", "GitHub Actions"] },
-      { label: "Observability", items: ["Prometheus", "Grafana", "Alertmanager", "OpenTelemetry", "SigNoz", "Micrometer"] },
-      { label: "Security", items: ["OAuth2 / RS256 JWT", "RBAC", "TOTP 2FA", "CSP / HSTS", "Rate limiting (Bucket4j)", "Encrypted secrets", "Turnstile", "SSRF guard", "CodeQL", "OWASP ZAP", "Trivy", "Semgrep"] },
+      { label: "Desktop", items: ["Electron 44", "Auto-update", "OS keychain", "Microsoft Store", ".deb / AppImage"] },
+      { label: "Interface", items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4"] },
+      { label: "API & data", items: ["Java 21", "Spring Boot 4", "PostgreSQL 18 + pgvector"] },
+      { label: "Agents & AI", items: ["Claude Code runner", "GitHub Copilot coding agent", "MCP client", "Ollama", "OpenAI-compatible APIs"] },
+      { label: "Integrations", items: ["GitHub", "Slack", "Plane", "MCP servers", "Signed webhooks (HMAC-SHA256)"] },
     ],
     links: {
-      site: "https://www.taskforce-project.fr",
-      github: "https://github.com/taskforce-project",
-      docs: "https://docs.taskforce-project.fr/guides/bienvenue",
+      site: "https://taskforce-project.fr",
+      github: "https://github.com/taskforce-project/taskforce-fullstack",
+      docs: "https://docs.taskforce-project.fr",
     },
-    cover: "/images/projects/taskforce/taskforce_1.png",
-    // Gallery = the RNCP defense deck (clean, high-res, no glyph issue) + one live app view.
+    cover: "/images/projects/taskforce/v2/dashboard.webp",
     images: [
-      "/images/projects/taskforce/taskforce_g1.png", // defense - value proposition
-      "/images/projects/taskforce/taskforce_g2.png", // defense - backend stack
-      "/images/projects/taskforce/taskforce_g3.png", // defense - applied AI
-      "/images/projects/taskforce/taskforce_g4.png", // defense - Prometheus & Grafana
-      "/images/projects/taskforce/taskforce_g5.png", // defense - test coverage
-      "/images/projects/taskforce/taskforce_2.png", // Brain OS knowledge graph (live app)
+      "/images/projects/taskforce/v2/dashboard.webp",
+      "/images/projects/taskforce/v2/board.webp",
+      "/images/projects/taskforce/v2/delegate.webp",
+      "/images/projects/taskforce/v2/brain-os.webp",
+      "/images/projects/taskforce/v2/integrations.webp",
     ],
-    stack: ["Java 21", "Spring Boot 4", "Next.js 16", "PostgreSQL", "pgvector", "Keycloak", "MCP", "Docker", "GitHub Actions"],
+    stack: ["Electron", "Next.js 16", "Spring Boot 4", "PostgreSQL", "pgvector", "Claude Code", "MCP"],
     period: "2025 - present",
     featured: true,
+    tool: {
+      theme: "taskforce",
+      category: "DeveloperApplication",
+      os: "Windows 10, Windows 11, Linux",
+      logo: { src: "/images/projects/taskforce/v2/logo.svg", width: 210, height: 160, invertOnDark: true },
+      headline: ["Delegate to AI agents. Keep the", "final say."],
+      intro:
+        "TaskForce is a free, open source desktop app to plan your work and hand it to Claude Code or GitHub Copilot. Agents work on their own branch, ask before anything risky, and never merge without you.",
+      facts: ["Free and open source (AGPL-3.0)", "Windows 10 and 11, Linux", "macOS soon"],
+      store: { id: "9PFC2ML6X5SF", live: true },
+      links: [
+        { label: "Website", href: "https://taskforce-project.fr" },
+        { label: "All downloads", href: "https://taskforce-project.fr/download" },
+        { label: "Documentation", href: "https://docs.taskforce-project.fr" },
+        { label: "Source on GitHub", href: "https://github.com/taskforce-project/taskforce-fullstack" },
+        { label: "Security, connection by connection", href: "https://taskforce-project.fr/security" },
+      ],
+      heroShot: "/images/projects/taskforce/v2/dashboard.webp",
+      heroBackdrop: "/images/projects/taskforce/v2/hero-bg.webp",
+      steps: [
+        { title: "Write the issue", body: "Plan it on the board or in a cycle. The decisions you keep in Brain OS travel with it." },
+        { title: "Assign it to an agent", body: "Pick Claude Code or GitHub Copilot in the assignee menu, the way you assign a teammate." },
+        { title: "Answer when it asks", body: "The run shows up live on the issue. Anything outside the agent's limits waits for you to allow or deny it." },
+        { title: "Review the pull request", body: "TaskForce pushes the agent's branch and opens the pull request. Nothing is merged without you." },
+      ],
+      features: [
+        { title: "Plan the work", body: "Board, list, backlog, cycles and roadmap over one set of issues, with subtasks, relations, checklists, story points and time tracking. A command palette gets you anywhere." },
+        { title: "Keep the project's memory", body: "Brain OS holds specs, decisions and notes as linked Markdown pages with wikilinks and tags. Agents read it before they start, so they never begin from a blank page." },
+        { title: "Delegate to coding agents", body: "Claude Code runs on your computer with your own installation and account; the GitHub Copilot coding agent works in GitHub's cloud. TaskForce never sees your Claude credentials." },
+        { title: "Every step in plain sight", body: "Follow each file an agent reads, each edit and each command, live, on the issue it is working on." },
+        { title: "Connect your tools", body: "GitHub, Slack and Plane built in, any other tool through its MCP server: 25 official servers listed, with one-click OAuth or a token." },
+        { title: "Use the AI you choose", body: "A local model through Ollama, or any OpenAI-compatible API with your own key. Without AI, the board, Brain OS and analytics keep working." },
+      ],
+      screens: [
+        { src: "/images/projects/taskforce/v2/dashboard.webp", title: "Dashboard", caption: "Your operations, what needs you next and how the work moves, on one screen." },
+        { src: "/images/projects/taskforce/v2/board.webp", title: "Board", caption: "One set of issues, seen as a board, a list, a backlog or a roadmap." },
+        { src: "/images/projects/taskforce/v2/delegate.webp", title: "Delegate", caption: "Hand an issue to Claude Code from the assignee menu." },
+        { src: "/images/projects/taskforce/v2/brain-os.webp", title: "Brain OS", caption: "Specs, decisions and notes in linked Markdown pages, read by people and agents alike." },
+      ],
+      privacy: {
+        title: "Private by design",
+        points: [
+          "Your projects, Brain OS pages, attachments and settings live in the app's folder on your computer. The server only keeps your free account.",
+          "Nothing leaves unless you connect it, and the app sends no usage data.",
+          "API keys and tokens stay in your system's keychain, never in plain text.",
+          "Each agent run works on its own branch: anything risky waits for your approval, and pushing is always refused.",
+        ],
+      },
+      build:
+        "The desktop app is the whole product, packed for one person. Its Electron shell starts a complete local stack at each launch: a Next.js 16 and React 19 interface, a Spring Boot 4 API on Java 21 and PostgreSQL 18 with pgvector. A runner drives Claude Code with your own installation and login, and an AI relay talks to Ollama or any OpenAI-compatible API. The same app runs as a self-hosted web app with Docker.",
+    },
+  },
+  {
+    slug: "career-os",
+    name: "Career OS",
+    kind: "product",
+    tone: "red",
+    tagline: "Your whole job search, in one place, on your computer.",
+    description:
+      "A free, open source tool that runs a job search end to end: offers, applications, follow-ups, interviews, CVs and the move to a new city, with an optional Claude assistant that prepares and never invents. Your data stays on your computer.",
+    overview:
+      "Career OS gathers a whole search on your computer, from the first offer to the move: applications by stage, computed follow-ups, interviews, CVs and the exact documents sent, contacts, deadlines and statistics.",
+    results: [
+      "Version 0.1.0 released on GitHub in November 2026; the Microsoft Store listing is in certification.",
+      "Free and open source under the MIT licence.",
+      "From the first commit to the store package in seven weeks.",
+    ],
+    role: "Solo - product, design and engineering.",
+    stackGroups: [
+      { label: "App", items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "shadcn/ui"] },
+      { label: "Data", items: ["PostgreSQL 17", "Drizzle ORM", "PGlite (PostgreSQL in WebAssembly)", "Docker Compose"] },
+      { label: "AI", items: ["Claude through Claude Code", "Anthropic API", "OpenAI-compatible endpoints"] },
+      { label: "Delivery", items: ["MSIX for the Microsoft Store", "C# launcher", "One-line PowerShell installer", "GitHub Actions"] },
+    ],
+    links: {
+      site: "https://get-career-os.vercel.app",
+      github: "https://github.com/Miche1-Pierre/career-os",
+    },
+    cover: "/images/projects/career-os/home.webp",
+    images: [
+      "/images/projects/career-os/home.webp",
+      "/images/projects/career-os/today.webp",
+      "/images/projects/career-os/board.webp",
+      "/images/projects/career-os/analysis.webp",
+    ],
+    stack: ["Next.js 16", "React 19", "PostgreSQL", "PGlite", "Claude", "MSIX"],
+    period: "2026",
+    featured: true,
+    tool: {
+      theme: "career-os",
+      category: "BusinessApplication",
+      os: "Windows 10, Windows 11",
+      logo: { src: "/images/projects/career-os/logo.svg", width: 28, height: 28 },
+      headline: ["Your whole search,", "in one place."],
+      intro:
+        "Career OS gathers your job search on your computer: offers, applications, follow-ups, interviews, CVs and documents, and even settling into a new city. Paste an offer, a link, a file or an e-mail, and the optional Claude assistant fills it in without ever inventing anything. It prepares, you decide.",
+      facts: ["Free and open source (MIT)", "Windows 10 and 11", "No account, no ads, no tracking"],
+      store: { id: "9NCQ7PFQVM2Q", live: false },
+      links: [
+        { label: "Website", href: "https://get-career-os.vercel.app" },
+        { label: "Latest release", href: "https://github.com/Miche1-Pierre/career-os/releases/latest" },
+        { label: "Source on GitHub", href: "https://github.com/Miche1-Pierre/career-os" },
+        { label: "Privacy policy (French)", href: "https://get-career-os.vercel.app/confidentialite" },
+      ],
+      heroShot: "/images/projects/career-os/home.webp",
+      video: {
+        src: "/videos/career-os-trailer.mp4",
+        poster: "/images/projects/career-os/trailer-poster.webp",
+        captions: "/videos/career-os-trailer.en.vtt",
+        title: "Career OS, the launch film (42 s)",
+      },
+      steps: [
+        { title: "Capture", body: "Paste a text, a link, a file or an e-mail: the opportunity is in, in seconds." },
+        { title: "Let Claude read it", body: "The assistant fills in the role, the dates and the contacts, and never invents what isn't there." },
+        { title: "Check it", body: "You review and correct the record before it counts." },
+        { title: "Follow it through", body: "Stages, computed follow-ups, interviews, the exact documents sent, deadlines and statistics, up to the decision." },
+      ],
+      features: [
+        { title: "Track your applications", body: "A board by stage, with dates and follow-ups computed for you. Jobs, internships, VIE, master's programmes, training and PhDs, each with its own stages." },
+        { title: "Know what to do today", body: "A Today page that tells you what to follow up, what to prepare and which dates are coming." },
+        { title: "Keep everything in order", body: "CVs, letters and diplomas filed in your Documents folder, a CV editor for several versions exported to PDF, and the exact version sent with each application." },
+        { title: "Interviews, contacts, calendar", body: "Every interview and contact tied to its application, and a calendar that brings it all together." },
+        { title: "Prepare the move", body: "Compare places to live by rent, charges, lease and commute, see them on a map, and follow the steps to move abroad with the official links." },
+        { title: "An assistant that prepares", body: "Ask it to find offers or housing, read an offer against your profile, prepare an interview or draft a follow-up. Nothing is sent for you." },
+      ],
+      screens: [
+        { src: "/images/projects/career-os/home.webp", title: "Search", caption: "Ask for anything: offers, a place to live, an answer." },
+        { src: "/images/projects/career-os/today.webp", title: "Today", caption: "What to follow up, what to prepare and which dates are coming." },
+        { src: "/images/projects/career-os/board.webp", title: "Applications", caption: "Every application on a board, one column per stage." },
+        { src: "/images/projects/career-os/application.webp", title: "An application", caption: "Dates, contacts, interviews and the documents sent, on one page." },
+        { src: "/images/projects/career-os/analysis.webp", title: "Offer analysis", caption: "An offer read against your profile: the match, the gaps and the questions to ask." },
+        { src: "/images/projects/career-os/cv-editor.webp", title: "CV editor", caption: "Several versions of your CV, edited on the page and exported to PDF." },
+        { src: "/images/projects/career-os/move-map.webp", title: "Map", caption: "Your workplace and the places you compare, on one map." },
+        { src: "/images/projects/career-os/analytics.webp", title: "Statistics", caption: "Only objective numbers: Career OS never draws conclusions for you." },
+      ],
+      privacy: {
+        title: "Your data stays with you",
+        points: [
+          "No account to create, no ads, no analytics.",
+          "Everything lives in your Documents folder, with a full backup every day. Uninstalling keeps it.",
+          "The database is PostgreSQL on your disk, compiled to WebAssembly and served only to your own computer.",
+          "The assistant is optional: your Claude subscription through Claude Code, an API key, any OpenAI-compatible endpoint, or none at all.",
+        ],
+      },
+      build:
+        "A Next.js 16 and React 19 app on the open source Sparkle design system, with PostgreSQL 17 through Drizzle, run locally as PGlite (PostgreSQL compiled to WebAssembly) or with Docker. Windows gets a one-line installer and an MSIX package for the Microsoft Store with a small C# launcher, all built by GitHub Actions on every merge.",
+    },
   },
   {
     slug: "brain-os",
@@ -199,7 +367,6 @@ export const projects: Project[] = [
     links: { site: "https://safextransport.ca" },
     stack: ["LLM agents", "RAG", "TypeScript", "Next.js"],
     period: "2026",
-    featured: true,
   },
   {
     slug: "incident-triage",

@@ -92,7 +92,7 @@ export function buildStations(pathStations: readonly PathStation[], length: numb
       t: at("borne-dec-2025"),
       eyebrow: `The road worker's cabin · ${peel?.start ?? "Dec 2025"}`,
       title: "Where my own tools start.",
-      body: `${peel?.role ?? "Student Entrepreneur"}, ${peel?.company ?? ""}. ${peel?.summary ?? ""} Taskforce and Brain OS are drawn here first.`,
+      body: `${peel?.role ?? "Student Entrepreneur"}, ${peel?.company ?? ""}. ${peel?.summary ?? ""} TaskForce and Brain OS are drawn here first.`,
     },
     {
       id: "atelier",
@@ -138,8 +138,8 @@ export function buildStations(pathStations: readonly PathStation[], length: numb
       t: at("observatoire"),
       eyebrow: "The observatory",
       title: "What I am building today.",
-      body: `Taskforce: ${tagline("taskforce")} Brain OS: ${tagline("brain-os")}`,
-      cta: { label: "Taskforce, the case study", href: "/work/taskforce" },
+      body: `TaskForce: ${tagline("taskforce")} Brain OS: ${tagline("brain-os")}`,
+      cta: { label: "TaskForce, the product page", href: "/work/taskforce" },
     },
     {
       id: "bout",

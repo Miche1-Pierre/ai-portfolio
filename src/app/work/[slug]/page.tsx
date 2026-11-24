@@ -5,10 +5,11 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookText, Check, Github, Globe, Lock } from "lucide-react";
 import { Navbar } from "@/components/site/navbar";
 import { ProjectHero } from "@/components/site/project-hero";
+import { ToolPage } from "@/components/site/tool-page";
 import { kindLabel } from "@/components/site/project-card";
 import { Footer } from "@/components/site/footer";
 import { bulletKinds, ShapeBullet, toneFill, toneInk, toneStrong, toneTint } from "@/components/site/shapes";
-import { projectBySlug, projects } from "@/content/projects";
+import { projectBySlug, projects, type Project } from "@/content/projects";
 import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -24,11 +25,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!project) return {};
   const description = project.description;
   const url = `${site.url}/work/${project.slug}`;
+  const images = project.tool ? [{ url: project.tool.heroShot, alt: `${project.name}: ${project.tool.screens[0]?.caption ?? project.tagline}` }] : undefined;
   return {
     title: project.name,
     description,
-    openGraph: { title: `${project.name} - ${site.name}`, description, url, type: "article" },
-    twitter: { card: "summary_large_image", title: `${project.name} - ${site.name}`, description },
+    openGraph: { title: `${project.name} - ${site.name}`, description, url, type: "article", ...(images ? { images } : {}) },
+    twitter: { card: "summary_large_image", title: `${project.name} - ${site.name}`, description, ...(images ? { images } : {}) },
     alternates: { canonical: url },
   };
 }
@@ -42,6 +44,42 @@ function Block({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
+/** Previous and next project, at the foot of every project page. */
+function MoreWork({ prev, next }: { prev: Project | null; next: Project | null }) {
+  return (
+  <nav aria-label="More case studies" className="container-x grid gap-4 border-t py-12 sm:grid-cols-2">
+    {prev ? (
+      <Link href={`/work/${prev.slug}`} className="group flex min-w-0 items-center gap-4 border p-6 transition-colors hover:bg-paper-soft">
+        <ArrowLeft className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-x-0.5" />
+        <span className="min-w-0">
+          <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+            <span className={cn("size-2 rounded-full", toneFill[toneStrong(prev.tone)])} />
+            Previous
+          </span>
+          <span className="mt-1 block truncate text-lg font-medium tracking-[-0.015em]">{prev.name}</span>
+        </span>
+      </Link>
+    ) : (
+      <span />
+    )}
+    {next ? (
+      <Link href={`/work/${next.slug}`} className="group flex min-w-0 items-center justify-end gap-4 border p-6 text-right transition-colors hover:bg-paper-soft">
+        <span className="min-w-0">
+          <span className="flex items-center justify-end gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+            Next
+            <span className={cn("size-2 rounded-full", toneFill[toneStrong(next.tone)])} />
+          </span>
+          <span className="mt-1 block truncate text-lg font-medium tracking-[-0.015em]">{next.name}</span>
+        </span>
+        <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+      </Link>
+    ) : (
+      <span />
+    )}
+  </nav>
+  );
+}
+
 export default async function ProjectPage({ params }: Params) {
   const { slug } = await params;
   const project = projectBySlug(slug);
@@ -50,6 +88,35 @@ export default async function ProjectPage({ params }: Params) {
   const idx = projects.findIndex((p) => p.slug === slug);
   const prev = idx > 0 ? projects[idx - 1] : null;
   const next = idx < projects.length - 1 ? projects[idx + 1] : null;
+  // a tool Pierre ships: a product page in the tool's own look
+  if (project.tool) {
+    const tool = project.tool;
+    const appLd = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: project.name,
+      description: project.description,
+      applicationCategory: tool.category,
+      operatingSystem: tool.os,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+      author: { "@type": "Person", name: site.name, url: site.url },
+      url: project.links?.site ?? `${site.url}/work/${project.slug}`,
+      screenshot: tool.screens.map((sc) => `${site.url}${sc.src}`),
+      ...(tool.store.live ? { downloadUrl: `https://apps.microsoft.com/detail/${tool.store.id}` } : {}),
+    };
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appLd) }} />
+        <Navbar base="/" />
+        <main>
+          <ToolPage project={{ ...project, tool }} />
+          <MoreWork prev={prev} next={next} />
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
   const gallery = project.images?.length ? project.images : [];
   const tone = project.tone;
 
@@ -215,37 +282,7 @@ export default async function ProjectPage({ params }: Params) {
           </aside>
         </div>
 
-        {/* prev / next */}
-        <nav aria-label="More case studies" className="container-x grid gap-4 border-t py-12 sm:grid-cols-2">
-          {prev ? (
-            <Link href={`/work/${prev.slug}`} className="group flex min-w-0 items-center gap-4 border p-6 transition-colors hover:bg-paper-soft">
-              <ArrowLeft className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-x-0.5" />
-              <span className="min-w-0">
-                <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-                  <span className={cn("size-2 rounded-full", toneFill[toneStrong(prev.tone)])} />
-                  Previous
-                </span>
-                <span className="mt-1 block truncate text-lg font-medium tracking-[-0.015em]">{prev.name}</span>
-              </span>
-            </Link>
-          ) : (
-            <span />
-          )}
-          {next ? (
-            <Link href={`/work/${next.slug}`} className="group flex min-w-0 items-center justify-end gap-4 border p-6 text-right transition-colors hover:bg-paper-soft">
-              <span className="min-w-0">
-                <span className="flex items-center justify-end gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-                  Next
-                  <span className={cn("size-2 rounded-full", toneFill[toneStrong(next.tone)])} />
-                </span>
-                <span className="mt-1 block truncate text-lg font-medium tracking-[-0.015em]">{next.name}</span>
-              </span>
-              <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          ) : (
-            <span />
-          )}
-        </nav>
+        <MoreWork prev={prev} next={next} />
       </main>
       <Footer />
     </>
