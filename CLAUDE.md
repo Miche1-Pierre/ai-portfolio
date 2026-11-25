@@ -83,8 +83,8 @@ datelines, the terminal card), both self-hosted via `next/font/google`.
   tool's own site (light and dark). A new tool = one `tool` entry + one token block. Assets in
   `public/images/projects/<tool>/`, films in `public/videos/` (re-encoded with ffmpeg, CRF 27,
   faststart, captions `.vtt`). `store.live: false` shows "Coming soon to the Microsoft Store"
-  while the listing is in certification (Career OS, Store ID 9NCQ7PFQVM2Q): flip it once the
-  listing is public. JSON-LD is a `SoftwareApplication`.
+  while a listing is in certification; flip it once the listing is public (TaskForce
+  9PFC2ML6X5SF and Career OS 9NCQ7PFQVM2Q are both live). JSON-LD is a `SoftwareApplication`.
 - `src/components/ui/*` — shadcn primitives. `Button` sets `nativeButton={false}` automatically when
   rendered as a link.
 - `src/app/globals.css` — **single source of truth for the theme** (his rule): DA v3.1 tokens for
