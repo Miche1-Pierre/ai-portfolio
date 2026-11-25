@@ -253,7 +253,7 @@ export const projects: Project[] = [
     overview:
       "Career OS gathers a whole search on your computer, from the first offer to the move: applications by stage, computed follow-ups, interviews, CVs and the exact documents sent, contacts, deadlines and statistics.",
     results: [
-      "Version 0.1.0 released on GitHub in November 2026; the Microsoft Store listing is in certification.",
+      "Published on the Microsoft Store in November 2026, with version 0.1.0 also on GitHub.",
       "Free and open source under the MIT licence.",
       "From the first commit to the store package in seven weeks.",
     ],
@@ -287,7 +287,7 @@ export const projects: Project[] = [
       intro:
         "Career OS gathers your job search on your computer: offers, applications, follow-ups, interviews, CVs and documents, and even settling into a new city. Paste an offer, a link, a file or an e-mail, and the optional Claude assistant fills it in without ever inventing anything. It prepares, you decide.",
       facts: ["Free and open source (MIT)", "Windows 10 and 11", "No account, no ads, no tracking"],
-      store: { id: "9NCQ7PFQVM2Q", live: false },
+      store: { id: "9NCQ7PFQVM2Q", live: true },
       links: [
         { label: "Website", href: "https://get-career-os.vercel.app" },
         { label: "Latest release", href: "https://github.com/Miche1-Pierre/career-os/releases/latest" },
